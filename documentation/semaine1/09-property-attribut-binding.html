@@ -1,0 +1,140 @@
+via l'invite de commande créer le composant 
+ng g c cinquieme
+
+dans le fichier app.component.html ajouter cette 
+<app-cinquieme></app-cinquieme> au début du fichier 
+
+afin d'éviter d'avoir à manipuler un fichier html et le fichier ts
+
+modifier le décorateur du composant 
+
+@Component({
+    selector: 'app-cinquieme',
+    templateUrl: './cinquieme.component.html',
+    styleUrls: ['./cinquieme.component.scss']
+  })
+
+  @Component({
+    selector: 'app-cinquieme',
+    template: `
+                <div>
+                    <h2>Découverte du Binding</h2>
+                </div>
+              `,
+    styleUrls: ['./cinquieme.component.scss']
+  })
+
+  // lorsque l'on veut remplir une balise html avec une variable stockée dans 
+  // la class => interpolation {{ }} interpolation
+
+  @Component({
+    selector: 'app-cinquieme',
+    template: `
+            <div>
+                <h2>{{ titre }}</h2>
+            </div>  
+    `,
+    styleUrls: ['./cinquieme.component.scss']
+  })
+
+-------------------------------------
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-cinquieme',
+  template: `
+          <div>
+              <h2>{{ titre }}</h2>
+              <img src="{{ img }}" alt="">
+              <img [src]="img2" alt="" [title]="titreImage">
+              <p>{{ p1 }}</p>
+              <p [innerHTML]="p2"></p>
+              <p [innerHTML]="p3" [ngStyle]="p3Style" ></p>
+              <h2 [style]="p3Style">conclusion</h2>  
+          </div>  
+  `,
+  styleUrls: ['./cinquieme.component.scss']
+})
+export class CinquiemeComponent implements OnInit {
+  titre : string = "Découverte du Binding";
+  // site internet unsplash source
+  // appeler une adresse web => retourner une image
+  // https://source.unsplash.com/random/200x150
+  img : string = "https://source.unsplash.com/random/200x150";
+  img2 : string = "https://source.unsplash.com/random/300x200"
+  titreImage :string = "image random"
+  p1 :string = "lorem ipsum pour p1";
+  p2 : string = "lorem ipsum pour p2";
+  // dom : document.getElementById("p").innerHTML = p2 
+  p3 : string = "lorem ipsum pour le p3";
+  p3Style : Object = {
+    color : "red",
+    fontSize : "30px",
+    fontWeight : "bold"
+  }
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+// créer un composant qui s'appelle boutons 
+ng g c boutons
+
+// afficher dans app.component.html 
+<app-boutons></app-boutons>
+
+// ce composant contient deux boutons 
+// src/app/boutons/boutons.component.ts
+
+
+// valider et reset 
+// essayer d'utiliser les property binding pour mettre en forme ces boutons
+
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-boutons',
+  template: `
+    <div>
+      <button [innerHTML]="btn1.texte" [style]="btn1.style"></button>
+      <button [style]="btn2.style">{{ btn2.texte }}</button>
+    </div>
+  `,
+  styleUrls: ['./boutons.component.scss']
+})
+export class BoutonsComponent implements OnInit {
+  btn1 : {texte : string , style: {}} = {
+    texte : "valider",
+    style : {
+      background : "blue",
+      borderRadius : "5px",
+      padding : "3px 15px",
+      border: "none",
+      color : "white",
+      marginRight : "5px"
+    }
+  };
+
+  btn2 : {texte : string , style: {}} = {
+    texte : "reset",
+    style : {
+      background : "orange",
+      borderRadius : "5px",
+      padding : "10px 25px",
+      border: "none",
+      color : "white"
+    }
+  };
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+

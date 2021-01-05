@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand bg-light navbar-light">
+    <span class="navbar-brand">Menu</span>
+    <ul class="navbar-nav">
+       <!--  li*3>a[href="#"] -->
+        <li class="nav-item">
+            <a 
+                routerLink="/" 
+                class="nav-link" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >
+                Accueil
+            </a>
+        </li>
+        <li class="nav-item">
+            <a 
+                routerLink="/articles" 
+                class="nav-link"
+                routerLinkActive="active">
+                Articles 
+            </a>
+        </li>
+        <li class="nav-item">
+            <a 
+                routerLink="/contact" 
+                class="nav-link" 
+                routerLinkActive="active">
+                Contact
+            </a>
+        </li>
+    </ul>
+</nav>

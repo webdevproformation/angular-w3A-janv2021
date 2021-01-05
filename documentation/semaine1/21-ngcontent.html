@@ -1,0 +1,29 @@
+
+envoyer des informations du parent vers l'enfant => balise html 
+
+ng g c parent && ng g c enfant 
+
+src/app/app.component.html 
+
+<app-parent></app-parent>
+
+=> parent.html
+
+<app-enfant>
+    <!-- ajouter du html dans la balise -->
+    <div class="head">
+        <h1>{{titrePanneau}}</h1>
+      </div>
+    <div class="body">
+         <h2>titre</h2>
+         <p>Présentation : lorem ipsum</p>
+    </div>
+</app-enfant>
+
+=> vue de l'enfant enfant.html 
+
+<ng-content select=".head"></ng-content>
+<ng-content select=".body"></ng-content>
+
+
+

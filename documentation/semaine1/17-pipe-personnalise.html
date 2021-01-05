@@ -1,0 +1,88 @@
+// on vient de voir les pipes intégrés dans Angular 
+
+// il est possible de créer ses propres transformeurs 
+
+// comme pour les composants et comme pour les services 
+// manuellement
+// via le terminal 
+// ng g p nl2br
+
+// si j'ai une chaine de caractère transformer les sauts de lignes dans la chaine de caractères en la balise <br> 
+
+
+let a = `hello
+les amis`;
+
+"hello<br>les amis";
+
+// ng g p nl2br
+
+CREATE src/app/nl2br.pipe.ts (215 bytes)
+UPDATE src/app/app.module.ts (1125 bytes)
+
+
+dans le pipe personnalisé :
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'nl2br'
+})
+export class Nl2brPipe implements PipeTransform {
+
+  transform(texte : string ): string {
+    return texte.replace(/\n/g, '<br>');
+  }
+
+}
+// https://www.itsolutionstuff.com/post/angular-nl2br-pipe-exampleexample.html
+
+
+dans la partie vue 
+
+<div [innerHTML]="resume | nl2br">
+</div>
+
+
+// ajouter une image dans la balise img au niveau de l'attribut src 
+
+src="assets/nomfichier.jpg"
+
+=> pipe img 
+
+[src]="affiche | img"
+
+créer un nouveau pipe img => pas de paramètre 
+permettre de préfixer les images par le mot "assets/"+ nom du fichier.jpg 
+
+ng g p img 
+
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'img'
+})
+export class ImgPipe implements PipeTransform {
+
+  transform(image: string): string {
+    return `assets/${image}`;
+  }
+
+}
+
+// dans la vue du composant Film 
+
+<img [src]="affiche | img " alt="" class="img-thumbnail img-fluid">
+
+// pause de 15 min => 16h03 pour la suite !! 
+// excellent café à tout le monde  
+
+// relation entre les composants 
+// relation de hérarchies Composant parent  => Composant ENfant 
+// Composant parent  <= Composant ENfant 
+
+// mon support :
+// https://formation.webdevpro.net/angular/
+// login : angular
+// mdp : angular

@@ -1,0 +1,13 @@
+<div class="border border-primary p-2 rounded">
+    <h3 class="h6">block méta </h3>
+    <ul>
+        <li>auteur : {{ dataFromParent.auteur }}</li>
+        <li>date : {{ dataFromParent.date| date:"dd/MM/yyyy"}}</li>
+        <li>
+            like <span class="badge badge-danger">{{dataFromParent.like}}</span> 
+            <button class="btn btn-primary btn-sm ml-4" (click)="onClickAugmentLike()">+</button>
+            <button class="btn btn-warning btn-sm ml-4" (click)="onClickDiminueLike()">-</button>
+        </li>
+    </ul>
+</div>
+

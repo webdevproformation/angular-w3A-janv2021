@@ -1,0 +1,52 @@
+// pour pouvoir installer bootstrap 
+// il existe plusieurs méthodes 
+
+// manière via npm 
+
+// arrêter le serveur 
+// 
+// npm i bootstrap 
+// npm audit fix 
+
+// modifier le fichier angular.json (racine du projet)
+attention dans la propriété "build"
+
+"styles": [
+    "src/styles.scss",
+    "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+
+// redémarrer le serveur 
+// ng serve -o --port 4200
+
+// modifier le fichier app.component.html 
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <app-boutons></app-boutons>
+        </div>
+        <div class="col-4">
+            <app-cinquieme></app-cinquieme>
+        </div>
+        <div class="col-4">
+            <h1>{{ title }}</h1>
+            <h2>{{ sousTitre }}</h2>
+            <p>{{ presentation }}</p>
+            <ul>
+                <li>{{ liste[0] }}</li>
+                <li>{{ liste[1] }}</li>
+            </ul>
+        </div>
+        <div class="col-4">
+            <deuxieme></deuxieme>
+        </div>
+        <div class="col-4">
+            <troisieme></troisieme>
+        </div>
+        <div class="col-4">
+            <app-directive></app-directive>
+        </div>
+    </div>
+</div>

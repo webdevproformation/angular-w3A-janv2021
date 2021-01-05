@@ -1,0 +1,14 @@
+création d'un nouveau service auth
+
+ng g s services/auth
+
+3 méthodes 
+	- login
+
+	- logout 
+
+	- isLogged
+
+
+1 propriété 
+	- user 

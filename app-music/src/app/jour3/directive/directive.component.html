@@ -1,0 +1,77 @@
+
+<!-- 
+    Est ce que le tableau liste contient des valeurs ?
+    si c'est vrai => afficher chaque item 
+    si c'est faux => texte par défaut : la liste est vide
+-->
+<!--  dans la partie droite de l'égalite expression qui retourne un boolean -->
+<div class="row">
+    <div class="col-6">
+        <h2>Utilisation de la directive *ngIf</h2>
+        <div *ngIf="liste.length == 0 ; else afficherListe" >
+            <p>La liste est vide</p>
+        </div>
+        <ng-template #afficherListe>
+            <ul>
+                <li *ngFor="let l of liste">{{ l }}</li>
+            </ul>
+        </ng-template>
+    </div>
+    <div class="col-6">
+        <h2>Utilisation de la directive ngSwitch</h2>
+        <div [ngSwitch]="liste.length">
+            <div *ngSwitchCase="0"> 
+                <p>Aucun élément</p>
+            </div>
+            <div *ngSwitchCase="2">
+                <p>J'ai deux items dans la liste</p>
+            </div>
+            <!-- ngSwitchCase  == pas possible d'utiliser switch case 
+            pour >= <= pour ce type de comparaison -->
+            <div *ngSwitchCase="3"> 
+                <p>j'ai une liste plus grande que 2</p>
+            </div>
+            <div *ngSwitchDefault>
+                <p>Aucune condition n'est respectée</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <h2>directive ngFor Avancée</h2>
+        <!-- 
+            récupérer l'index ; est ce que c'est pair ou est que c'est impaire
+        -->
+        <ul>
+            <li *ngFor="let l of liste; index as i; even as isEven ; odd as isOdd ">
+                {{ l }} - {{ i }} - {{ isEven }} - {{ isOdd }}
+            </li>
+        </ul>
+    </div>
+    <!-- https://angular.io/api/common/NgForOf  => autres valeurs possibles last / first => boolean-->
+
+    <div class="col-6">
+        <h2>directive ngFor Avancée suite </h2>
+        <button (click)="addData()" class="btn btn-warning">Charger des items dans le tableau </button>
+        <ul>
+            <li  *ngFor="let l of liste; trackBy : postCheck ">
+                {{ l }} 
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-6">
+        <h2>Directive ngClass </h2>
+        <!-- permet d'ajouter une ou plusieurs class à une balise -->
+        <button class="btn" [ngClass]="{
+            'btn-primary': isBase ,
+            'btn-danger' : isError ,
+            'btn-success' : isReussi ,
+            'btn-sm' : isSmall
+        }">
+         Action
+        </button>
+    </div>
+
+</div>
+
+

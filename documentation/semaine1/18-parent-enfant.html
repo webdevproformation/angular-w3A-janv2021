@@ -1,0 +1,147 @@
+// jusqu'à maintenant 
+
+// ng g c nom-composant 
+
+// balise ajouter dans le composant racine 
+// app.component.html
+
+// dans ce composant que l'on que tous les composants au final vont être ajouté 
+
+// composant parent 
+ng g c parent  && ng g c enfant
+
+// composant enfant 
+
+// au lieu de mettre le composant enfant dans  app.component.html
+on va plutôt le mettre dans parent.component.html 
+ 
+app.component.html => <app-parent></app-parent>
+parent.component.html => <app-enfant></app-enfant>
+
+-------------------- 
+
+app.component => <app-parent></app-parent> 
+parent.component => <app-enfant></app-enfant>
+
+-------------------- 
+
+dans le ts du parent => ajouter des valeurs / attributs 
+
+
+// parent .ts 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-parent',
+  templateUrl: './parent.component.html',
+  styleUrls: ['./parent.component.scss']
+})
+export class ParentComponent implements OnInit {
+
+  titre : string = "Article 1";
+  description : string = `
+  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque dolorum corporis est at explicabo, recusandae voluptatem, odio laborum officia nisi consectetur pariatur totam nam error, voluptatum labore repellat! Aspernatur, recusandae?
+
+  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque dolorum corporis est at explicabo, recusandae voluptatem, odio laborum officia nisi consectetur pariatur totam nam error, voluptatum labore repellat! Aspernatur, recusandae?
+  `;
+
+  meta : { auteur:string , date: Date , like:number } = {
+    auteur : "Alain Dufour",
+    date : new Date(),
+    like : 5
+  };
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+
+----------------------------- 
+
+parent .html 
+
+<article>
+    <h2>{{ titre | uppercase }}</h2>
+    <div [innerHTML]="description | nl2br"></div>
+
+    <!-- 
+        pour envoyer des datas de parent vers l'enfant
+        j'ajoute un attribut dans la balise enfant 
+        [ attribut dans la class enfant ] = "donnée que l'on veut envoyer à l'enfant "
+    -->
+    <app-enfant [dataFromParent]="meta" ></app-enfant>
+    
+</article>
+
+---------------------------------------
+
+enfant .ts 
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-enfant',
+  templateUrl: './enfant.component.html',
+  styleUrls: ['./enfant.component.scss']
+})
+export class EnfantComponent implements OnInit {
+
+  @Input() dataFromParent : any ;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+---------------------------------------
+
+enfant . html 
+
+<ul>
+    <li>auteur : {{ dataFromParent.auteur }}</li>
+    <li>date : {{ dataFromParent.date| date:"dd/MM/yyyy"}}</li>
+    <li>
+        like <span class="badge badge-danger">{{dataFromParent.like}}</span> 
+        <button class="btn btn-primary btn-sm ml-4">+</button>
+    </li>
+</ul>
+
+// cas pratique 
+pouvez vous modifier le composant film et lui ajouter un nouvel attribut 
+
+meta : { auteur:string , date: Date , like:number } = {
+    auteur : "Charles Dickens",
+    date : new Date(),
+    like : 20
+};
+
+pouvez vous modifier le composant recette et lui ajouter un nouvel attribut 
+
+meta : { auteur:string , date: Date , like:number } = {
+    auteur : "Victor hugo",
+    date : new Date(),
+    like : 0
+};
+
+utiliser le composant enfant dans les vues des composants film et recette pour leur ajouter un block enfant 
+
+
+le html de enfant 
+
+<div class="border border-primary p-2 rounded">
+    <h3 class="h6">block méta </h3>
+    <ul>
+        <li>auteur : {{ dataFromParent.auteur }}</li>
+        <li>date : {{ dataFromParent.date| date:"dd/MM/yyyy"}}</li>
+        <li>
+            like <span class="badge badge-danger">{{dataFromParent.like}}</span> 
+            <button class="btn btn-primary btn-sm ml-4">+</button>
+        </li>
+    </ul>
+</div>

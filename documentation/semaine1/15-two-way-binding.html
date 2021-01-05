@@ -1,0 +1,151 @@
+// composant 
+
+// one way binding (association dans un seul sens )
+
+class .ts => html 
+attribut   => {{ attribut }} interpolation 
+attribut   =>   <img [src]="attribut" alt=""> property binding 
+
+html    =>  class .ts
+<p (click)="onClick()"> </p>    => méthode dans la class onClick(){}
+<p (click)="onClick($event)"> </p>    => méthode dans la class onClick($event){}
+
+<h1 #h1></h1>
+<p (click)="onClick($event , h1)"> </p>  => méthode dans la class onClick($event , h1){}
+
+two way binding 
+variable dans la vue html <=> synchronisée avec un attribut dans le typescript 
+dans la vue (html) => [()] => banane dans une boite 
+
+=> contact 
+
+
+// dans le fichier app.module.ts
+import { FormsModule } from '@angular/forms';
+
+imports: [
+  BrowserModule , 
+  FormsModule
+]
+
+// vue du composant 
+
+<h2>Nous contacter</h2>
+
+<form>
+    <div class="form-group">
+        <label for="email"> votre email</label>
+        <input type="text" [(ngModel)]="email" name="email" id="email"  class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="commentaire"> votre commentaire</label> <br>
+        <textarea name="commentaire" id="commentaire" [(ngModel)]="commentaire" class="form-control"></textarea>
+    </div>
+</form>
+
+<button (click)="onClickShowEmail()">voir email</button>
+
+// dans le typescript 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
+})
+export class ContactComponent implements OnInit {
+
+  email : string = "toto@yahoo.fr";
+  commentaire: string = "";
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onClickShowEmail():void{
+    console.log(this.email , this.commentaire)
+  }
+}
+
+
+// créer le composant questionnaire 
+// formulaire 
+    trois champs 
+        input de type email  => synchronisé avec un attribut email
+        textarea  => synchronisé avec un attribut qui s'appelle detail
+        select  => synchronisé avec une attibut de la class qui s'appelle pays 
+            option 
+            option France
+            option Belgique
+            option Allemagne 
+    bouton pour soumettre 
+
+    lorsque vous cliquez sur le bouton soumettre :
+    si les 3 valeurs sont remplis alors alert(merci pour votre commentaire )
+    et vider les champs email vide / commentaire vide select vider aussi
+
+dans la vue du composant
+
+<h2>Répondre à notre questionnaire</h2>
+<form>
+    <div class="form-group">
+        <label for="email">votre email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="detail">Plus de détails </label>
+        <textarea type="email" id="detail" name="details" [(ngModel)]="details" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="pays">Votre pays</label>
+        <select name="pays" id="pays" [(ngModel)]="pays" class="form-control">
+            <option value=""></option>
+            <option value="France">France</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Allemagne">Allemagne</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-outline-dark" (click)="onClickQuestionnaire($event)">
+    </div>
+</form>
+
+-----------------------
+
+dans le typescript du composant
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-questionnaire',
+  templateUrl: './questionnaire.component.html',
+  styleUrls: ['./questionnaire.component.scss']
+})
+export class QuestionnaireComponent implements OnInit {
+
+  email:string= "";
+  details: string = ""
+  pays : string = "";
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onClickQuestionnaire($event){
+    $event.preventDefault();
+    if(
+      this.email.length > 0 &&
+      this.details.length > 0 && 
+      this.pays.length > 0
+    ){
+      alert("merci pour votre commentaire");
+      this.email = "";
+      this.details = "";
+      this.pays = "";
+    }
+  }
+}
+
+

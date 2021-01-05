@@ -1,0 +1,11 @@
+<nav>
+    <button (click)="onClickMenu($event)">Masquer le menu</button>
+    <!-- ul>li*5>a[href="#"]>lorem1 -->
+    <ul [class.hide]="show" >
+        <li><a href="#">Lorem.</a></li>
+        <li><a href="#">Aliquam.</a></li>
+        <li><a href="#">Animi!</a></li>
+        <li><a href="#">Possimus!</a></li>
+        <li><a href="#">Saepe!</a></li>
+    </ul>
+</nav>

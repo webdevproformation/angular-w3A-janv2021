@@ -1,0 +1,9 @@
+<h2>Vous inscrire à notre newsletter !</h2>
+<!-- <form (submit)="onSubmitForm($event)"> -->
+<form>
+    <input type="email" #email placeholder="votre@email.fr">
+    <input type="submit" (click)="onClickForm($event , email , message)">
+</form>
+<div #message>
+    <p class="alert alert-danger" *ngIf="show"></p>
+</div>

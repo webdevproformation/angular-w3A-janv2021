@@ -1,0 +1,56 @@
+// première chose que nous allons réaliser
+
+// modifier la page d'accueil de notre site 
+
+// src/app/app.component.html 
+
+// supprimer l'intégralité du contenu du fichier 
+// écrire à la page la balise suivante : <h1>Découverte de Angular</h1>
+
+// Ctrl + S => retourner sur votre navigateur
+
+// ce fichier app.component.html  est en charge d'afficher le contenu de votre application dans le navigateur 
+
+----------- 
+// src/app/app.component.html est dépendant du fichier 
+
+// src/app/app.component.ts 
+
+import { Component } from '@angular/core'; // décorateur qui est importé depuis dans le dossier node_modules
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html', // dans le décorateur que l'on appelle le fichier src/app/app.component.html
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent { // class en type script 
+  title = 'app-music'; // dans la class dispose d'un attribut title qui contient la valeur "app-music"
+  sousTitre :string = "Decouverte" ;
+}
+
+// utiliser une propriété de la class AppComponent pour l'afficher dans le fichier html (la vue)
+
+// dans le fichier src/app/app.component.html 
+
+<h1>{{ title }}</h1>
+<h2>{{ sousTitre }}</h2>
+
+// Enregistrer => rafraichir votre écran 
+
+// cas pratique :
+// modifier que fichier // src/app/app.component.ts 
+
+// ajouter deux attributs à la class AppComponent
+
+presentation = "je suis en train de découvrir Angular "
+liste = [ "intaller ng", "démarrer le serveur" ]
+
+// afficher dans le vue src/app/app.component.html  
+
+<h1>{{ title }}</h1>
+<h2>{{ sousTitre }}</h2>
+<p>{{ presentation }}</p>
+<ul>
+    <li>{{ liste[0] }}</li>
+    <li>{{ liste[1] }}</li>
+</ul>

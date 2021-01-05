@@ -1,0 +1,27 @@
+<h3>Laisser une commentaire : </h3>
+<form>
+    <div class="form-group">
+        <label for="nom">nom</label>
+        <input type="text" id="nom" class="form-control" name="nom" #nom>
+    </div>
+    <div class="form-group">
+        <label for="commentaire">commentaire</label>
+        <textarea name="commentaire" id="commentaire"class="form-control" #commentaire></textarea>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+        <input type="submit" class="btn btn-outline-primary" (click)="onSubmitCommentaire( $event , nom , commentaire )">
+        <a routerLink="/articles" class="btn btn-primary">retour à la page des articles</a>
+    </div>
+</form>
+<hr>
+<div *ngIf="commentaires.length == 0 ; else showCommentaires">
+    <p>Aucun commentaire pour l'instant</p>
+</div>
+<ng-template #showCommentaires>
+    <div *ngFor="let commentaire of commentaires" class="card">
+        <ul class="pt-4 mb-4">
+            <li>{{commentaire.nom}}</li>
+            <li>{{commentaire.commentaire}}</li>
+        </ul>
+    </div>
+</ng-template>

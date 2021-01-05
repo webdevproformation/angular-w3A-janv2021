@@ -1,0 +1,69 @@
+hier vu ensemble :
+
+- Composant
+- Services
+- DI : Dépendance Injection 
+- dans le composant 
+    - Property Binding => <img [src]="js" alt="">
+    - EventBinding   => <button (click)="methodeComposant()"> Action </button>
+    - interpolation  =>    <p>{{ attribut_class }}</p>
+
+installé bootstrap (css) npm i bootstrap 
+    - modifié le fichier angular.json à la racine de notre projet app-music 
+
+Des questions ??? 
+
+----------------------------  
+
+réinitialiser notre projet 
+
+/src/app/app.component.html => vider 
+// juste laisser la balise container 
+
+<div class="container">
+    <h1>Jour2</h1>
+ </div>
+
+// modifier le fichier src/app/app.module.ts
+// supprimer tous les composants et les services 
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent 
+  ],
+  imports: [
+  
+  BrowserModule
+  ],
+  providers: 
+  [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+// dans le dossier app => créer dossier jour1
+
+et glisser dans ce dossier (jour1) tous les composants / les services que nous avons créés hier ensemble
+
+----------
+
+rappel des poins à voir sur les composants 
+
+4 modifier de manière dynamique des class => Class Binding
+
+5 modifier le style d'une balise via Style Binding
+
+6 Evenement : Event Binding
+
+7 Template variable
+
+8 Two Way Binding
+
+9 Pipe manière de mettre en forme une valeur retournée
+
+13-class-dynamique.html

@@ -1,0 +1,9 @@
+<!-- article>h2+div+app-meta+app-commentaire -->
+<article>
+    <h2>{{data.titre}}</h2>
+    <p>{{ url }}</p>
+    <div [innerHTML]="data.contenu | nl2br"></div>
+    <app-meta [auteur]="data.auteur" [dt]="data.dtPublication"></app-meta>
+    <hr>
+    <app-commentaire (addComment)="addCommentaire($event)" [commentaires]="data.commentaire"></app-commentaire>
+</article>

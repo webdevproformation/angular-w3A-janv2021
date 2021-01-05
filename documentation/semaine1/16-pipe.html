@@ -1,0 +1,215 @@
+// lorsque vous réalisez un interpolation dans la vue
+// utilisez la syntaxe suivante 
+// interpolation et transformer la variable à afficher 
+// pour les chaines de caractères 
+// uppercase / lowercase / titlecase (majuscule les première lettres)
+
+// les chiffres number
+// number / currency:"EUR" (ajouter à la fin de la variable à afficher une devise)
+// currency:"EUR":'symbol':'5.0-4'
+
+// date 
+// | date:"dd/MM/yyyy"
+
+// Build In Pipe => https://angular.io/guide/pipes
+
+{{ nom | uppercase }}
+
+// il est possible de créer ses propres pipe 
+
+// ng g pipe transformateur 
+
+créer un nouveau composant : recette 
+ng g c recette
+
+dans la partie typescript => 
+
+
+import { Component, OnInit } from '@angular/core';
+/*ne pas oublier pour ajouter la locale fr */
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+/*ne pas oublier pour ajouter la locale fr */
+
+@Component({
+  selector: 'app-recette',
+  templateUrl: './recette.component.html',
+  styleUrls: ['./recette.component.scss']
+})
+export class RecetteComponent implements OnInit {
+
+  dtPublication : Date = new Date();
+  titre : string = "Fondant au chocolat";
+  description : string = `lorem ipsum   
+                          saut de ligne 
+                          encore unsaut de ligne `;
+  prix : number = 1423.542;
+  // google unsplash random
+  img : string = "https://source.unsplash.com/random/500x400";
+  auteur : string = "alain dupont"
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+// dans la vue 
+
+<article class="row">
+    <div class="col-6">
+        <h2>{{ titre | uppercase }}</h2>
+        <img [src]="img" alt="" class="img-thumbnail">
+    </div>
+    <div class="col-6">
+        <p class="mt-5">
+            par {{ auteur | titlecase }}
+        </p>
+        <p>{{ description }}</p>
+
+        <ul>
+            <li>date de publication : {{ dtPublication | date:"dd/MM/yyyy" }}</li>
+            <li>prix de la recette (format dollars) : 
+                {{ prix |currency:"€" }} </li>
+            <!--  prend le format dollar -->
+            <!-- 10,30 € 
+                https://angular.io/api/common/CurrencyPipe
+            -->
+            <li>prix de la recette (format fr sans devise) : 
+                {{ prix | number:'4.2-2':'fr' }}
+            </li>
+
+            <li>prix de la recette (format fr avec devise) : 
+                {{ prix | currency:"EUR":'symbol':'4.2-2':'fr' }}
+            </li>
+            <!-- 
+                4 le nombre du dessus la virgule
+                .
+                2 minimum de chiffres en dessous de la virgule
+                -
+                2 maximum de chiffres en dessous de la virgule
+
+                'fr' => , séparateur de milliers
+                replacer la . par le symbole , 
+            -->
+        </ul>
+    </div>
+</article>
+
+// cas pratique 
+// créer le composant Film 
+// ce composant dispose des attributs suivants :
+
+un titre : "Un jour sans fin"
+un résumé avec du texte  : https://fr.wikipedia.org/wiki/Un_jour_sans_fin
+une vidéo Youtube : Youtube => iframe 
+l'affiche : mettre un lien vers un image unsplash
+https://source.unsplash.com/random/500x400
+une ou plusieurs catégories : comédie | Science Fiction
+prix : 50.357
+
+--------------------------- 
+
+pour la partie vue 
+
+titre en majuscule 
+afficher la video Youtube
+afficher l'image 
+les catégories dans une liste => titlecase 
+prix au format suivant : 50,36 €
+
+
+dans la partie ts 
+
+import { Component, OnInit } from '@angular/core';
+
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr, 'fr');
+
+import { DomSanitizer } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-film',
+  templateUrl: './film.component.html',
+  styleUrls: ['./film.component.scss']
+})
+export class FilmComponent implements OnInit {
+
+  titre : string = "Un jour sans fin";
+  resume  : string =  `Un jour sans fin (en anglais : Groundhog Day), ou Le Jour de la marmotte au Québec et au Nouveau-Brunswick, est une comédie fantastique américaine réalisée par Harold Ramis, écrite par Ramis et Danny Rubin et sortie en 1993.
+
+  Bill Murray y interprète Phil Connors, un cynique et misanthrope présentateur météo chargé de couvrir le traditionnel jour de la marmotte à Punxsutawney, petite ville de Pennsylvanie, et qui se retrouve bloqué dans une boucle temporelle le forçant à revivre indéfiniment ce qu'il estime être la journée la plus ennuyeuse. Andie MacDowell, Chris Elliott, Stephen Tobolowsky et Brian Doyle-Murray interprètent les autres personnages importants. `;
+
+  safeURL :any;
+  affiche : string = "https://source.unsplash.com/random/500x400"
+
+  categories : Array<string> = ["comédie" , "science fiction"];
+  prix : number = 50.357;
+
+  constructor(private _sanitizer: DomSanitizer) {
+
+    this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl("https://www.youtube.com/embed/vjbAdxpFPXU");
+   }
+
+  ngOnInit(): void {
+  }
+
+}
+
+----------------------------------
+
+dans la partie vue : 
+
+<article class="row">
+    <div class="col-4">
+        <img [src]="affiche" alt="" class="img-thumbnail img-fluid">
+    </div>
+    <div class="col-4">
+        <iframe height="315" [src]="safeURL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="embed-responsive-item" ></iframe>
+    </div>
+    <div class="col-4">
+        <h2>{{titre | uppercase }}</h2>
+        <div>
+            {{resume}}
+        </div>
+        <ul>
+            <li *ngFor="let categorie of categories">{{ categorie | titlecase }}</li>
+        </ul>
+        <div>
+            prix : {{ prix | currency:"Eur":"symbol":"2.2-2":"fr" }}
+        </div>
+    </div>
+</article>
+
+------------------------- 
+
+dans la partie css 
+
+iframe{
+    max-width:100%;
+}
+
+------------------------- 
+Utiliser des images dans vos composants :
+
+dans la structure de notre projet assets
+
+pour les images => télécharger des images et les stocker dans le dossier 
+
+src/app/assets/nom-fichier.png
+
+pour utiliser les images dans vos composants
+<img src="assets/nom-fichier.png" alt="">
+
+si vous avez bootstrap disponible class => img-fluid 
+si vous n'avez pas bootstrap un peu de css 
+img{
+    max-width:100% ;
+}
+
+------------------------- 
+
+17-pipe-personnalise.html

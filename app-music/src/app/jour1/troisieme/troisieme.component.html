@@ -1,0 +1,8 @@
+<section>
+    <article *ngFor="let film of films">
+        <h2>{{ film.nom }}</h2>
+        <p>{{ film.description }}</p>
+        <a href="{{film.id}}">voir le film</a>
+    </article>
+</section>
+

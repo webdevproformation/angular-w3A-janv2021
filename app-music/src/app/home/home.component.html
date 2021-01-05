@@ -1,0 +1,14 @@
+<div class="row content">
+    <div class="col-sm-4 video">
+       <app-sidebar [albumAAfficher]="albumEncours"></app-sidebar>
+    </div><!-- .video -->
+    <div class="col-sm-8 music">
+         <app-pagination></app-pagination>
+
+         <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
+
+         <app-albums (change)="updateAlbumEncours($event)" ></app-albums>
+        
+        <app-pagination></app-pagination>
+    </div><!-- .music -->
+</div>

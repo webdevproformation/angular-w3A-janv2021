@@ -1,0 +1,196 @@
+// créer un service Music 
+
+le placer dans le dossier services 
+
+importer les fichiers services/album et services/mock-albums
+
+ce service va avoir plusieurs méthodes 
+
+getAll() retourner tous les albums disponibles
+find(id) retourner l'album qui a l'id sélectionné 
+
+// ------------------
+
+ng g s services/music
+
+import { Injectable } from '@angular/core';
+
+import { ALBUMS } from './mock-albums';
+import { Album } from "./album";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MusicService {
+
+  constructor() { }
+
+  getAll<T>() : Array<Album>{
+    return ALBUMS;
+  }
+
+  find<T>( id:string ){
+    return this.getAll().find( (item) => {
+      return item.id === id ;
+    } );
+  }
+}
+
+// update => de notre composant Albums .ts 
+
+import { Component, OnInit, Output , EventEmitter } from '@angular/core';
+
+import { Album } from "../services/album";
+
+import { MusicService } from './../services/music.service';
+
+@Component({
+  selector: 'app-albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.scss']
+})
+export class AlbumsComponent implements OnInit {
+  @Output() change = new EventEmitter();
+  albums :Array<Album>|null ; 
+  constructor( private musicService : MusicService) { }
+  ngOnInit(): void {
+    this.albums = this.musicService.getAll() ;
+  }
+  onClickShowAlbum( $event, id ){
+    $event.preventDefault();
+    //alert(id);
+    this.change.emit(id)
+  }
+}
+
+// mis à jour du composant sidebar .ts 
+
+// import 
+
+import { Album } from "../services/album";
+import { MusicService } from './../services/music.service';
+
+
+// app.component.ts 
+
+import { Component  } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title :string = 'app-music';
+  
+  albumEncours : string = "1";
+
+  updateAlbumEncours ($event){
+      this.albumEncours = $event;
+  }
+
+}
+
+// sidebar.ts  
+
+
+import { Component, Input, OnInit , OnChanges } from '@angular/core';
+
+import { Album } from "../services/album";
+import { MusicService } from './../services/music.service';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent implements OnInit , OnChanges {
+  @Input() albumAAfficher : string;
+  albumEncours : Album ;
+  constructor(private musicService : MusicService) { }
+
+  ngOnChanges(): void{
+    this.albumEncours = this.musicService.find(this.albumAAfficher);
+  }
+
+  ngOnInit(): void {
+    this.albumEncours = this.musicService.find(this.albumAAfficher);
+  }
+
+}
+
+// vue 
+
+{{ albumEncours | json }}
+
+// modifier le service Music 
+
+créer un nouvelle méthode 
+
+findAlbumComplet(id){
+    retourner {
+        Album 
+        list : [ ]
+    }
+}
+
+// service 
+
+findAlbumComplet<T>(id: string){
+    let album = this.find( id); 
+    let albumComplet = {
+      album : album,
+      titres : []
+    };
+    let resultat = ALBUM_LISTS.find( (item) => {
+      return item.id === id 
+    } )
+
+    if(resultat != undefined){
+      albumComplet.titres = resultat.list ;
+    }
+    return albumComplet ; 
+}
+
+// sidebar.ts 
+
+import { Component, Input, OnInit , OnChanges } from '@angular/core';
+
+import { Album } from "../services/album";
+import { MusicService } from './../services/music.service';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent implements OnInit , OnChanges {
+  @Input() albumAAfficher : string;
+  albumEncours : any ;
+  constructor(private musicService : MusicService) { }
+
+  ngOnChanges(): void{
+    this.albumEncours = this.musicService.findAlbumComplet(this.albumAAfficher);
+  }
+
+  ngOnInit(): void {
+    this.albumEncours = this.musicService.findAlbumComplet(this.albumAAfficher);
+  }
+
+}
+
+// vue dans la sidebar .html 
+
+<div class="card">
+    <img class="card-img-top" [src]="albumEncours.album.url" [alt]="albumEncours.album.title">
+    <div class="card-body">
+        <h5 class="card-title"> {{ albumEncours.album.title }}</h5>
+        <p class="card-text">{{ albumEncours.album.ref }}</p>
+        <a href="#" class="btn btn-primary"> Play >> </a>
+    </div>
+    <ul class="list-group" *ngIf="albumEncours.titres.length > 0">
+        <li class="list-group-item" *ngFor="let titre of albumEncours.titres">{{titre}}</li>
+    </ul>
+    <!-- mock -->
+</div>
+

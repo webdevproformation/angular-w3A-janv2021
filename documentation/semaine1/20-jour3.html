@@ -1,0 +1,240 @@
+vider le fichier app.component.html 
+
+<div class="container">
+    <h1>Jour3</h1>
+</div>
+
+--------------------------------
+
+app.module.ts 
+
+réinitialiser aussi 
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+   BrowserModule
+  ],
+  providers: 
+  [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+--------------------------------
+
+dans le dossier src/app créer un dossier => jour2
+ 
+glisser tous les composants / les pipes créés hier 
+
+-------------------------------- 
+
+est ce que vous avez des questions sur la relation entre deux composants 
+=> enfant parent ?? 
+=> parent enfant ??
+
+-------------------------------- 
+
+// cas pratique 
+
+Composant article 
+
+attribut data {
+    titre :
+    contenu :
+    auteur :
+    dtPublication :
+    commentaire : [ ]
+}
+=> vue de l'article 
+<article>
+    <h2>titre</h2>
+    <div>contenu</div>
+    <app-meta ></app-meta> => auteur + dtPublication 
+    <app-commentaire></app-commentaire> => 
+</article>
+
+<app-commentaire></app-commentaire>
+formulaire 
+    nom 
+    commentaire 
+    bouton submit => quand on appuie sur le bouton submit => ajouter au composant article { 
+        nom : "donné"
+        commentaire : "donné"
+    }
+formulaire
+
+// créer les composants 
+// ng g c article && ng g c meta && ng g c commentaire
+
+// plan d'attaque :
+article.ts => donner son attribut 
+article.html => vue 
+                    <app-meta></app-meta>
+                    <app-commentaire></app-commentaire>
+
+meta
+
+//--------------------------------
+article.ts 
+
+import { Component, OnInit } from '@angular/core';
+
+export interface ArticleInterface{
+  titre : string, 
+  contenu : string ,
+  auteur : string , 
+  dtPublication : Date , 
+  commentaire :Array<string|null>
+}
+
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.scss']
+})
+export class ArticleComponent implements OnInit {
+
+  data : ArticleInterface  = {
+      titre : "Article 1" ,
+      contenu : `
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio inventore voluptatum placeat eius repudiandae quas est deserunt impedit veniam, laboriosam omnis culpa veritatis enim qui libero, minus repellendus nesciunt. Nemo?
+
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio inventore voluptatum placeat eius repudiandae quas est deserunt impedit veniam, laboriosam omnis culpa veritatis enim qui libero, minus repellendus nesciunt. Nemo?
+      ` ,
+      auteur : "Alain" , 
+      dtPublication : new Date() ,
+      commentaire : [ ]
+  }
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  addCommentaire($event){
+    // console.log("je suis dans le composant article")
+    //console.log($event)
+    this.data.commentaire.push($event);
+    //console.log(this.data);
+  }
+
+}
+
+// article.html 
+
+<article>
+    <h2>{{data.titre}}</h2>
+    <div [innerHTML]="data.contenu | nl2br"></div>
+    <app-meta [auteur]="data.auteur" [dt]="data.dtPublication"></app-meta>
+    <hr>
+    <app-commentaire (addComment)="addCommentaire($event)" [commentaires]="data.commentaire"></app-commentaire>
+</article>
+
+
+// meta.ts 
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-meta',
+  templateUrl: './meta.component.html',
+  styleUrls: ['./meta.component.scss']
+})
+export class MetaComponent implements OnInit {
+  @Input() auteur: string;
+  @Input() dt : Date;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+// meta.html 
+
+<ul class="d-flex justify-content-end" style="list-style: none;">
+    <li class="badge badge-success ml-3">{{auteur}}</li>
+    <li class="badge badge-success ml-3">{{dt | date:"dd/MM/yyy"}}</li>
+</ul>
+
+// commentaire.ts 
+
+import { Component, OnInit , EventEmitter , Output, Input, OnChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-commentaire',
+  templateUrl: './commentaire.component.html',
+  styleUrls: ['./commentaire.component.scss']
+})
+export class CommentaireComponent implements OnInit {
+
+  @Output() addComment = new EventEmitter()
+  @Input() commentaires : Array<{nom :string , commentaire:string}> 
+  constructor() { }
+
+  ngOnInit(): void {
+    //this.commentaires = [] ;
+  }
+  ngOnChanges(): void { 
+    // méthode permet de lancer la mise à jour de l'input 
+    // pause dans 15 min 11h07 
+  }
+
+  onSubmitCommentaire( $event , nom , commentaire ){
+    $event.preventDefault(); // éviter le rechargemement de page 
+
+    if(nom.value.length > 0 && commentaire.value.length >0){
+      
+      this.addComment.emit({
+        nom : nom.value ,
+        commentaire : commentaire.value
+      })
+      nom.value = "";
+      commentaire.value= "";
+    }
+  }
+}
+
+// commentaire.html 
+
+<h3>Laisser une commentaire : </h3>
+<form>
+    <div class="form-group">
+        <label for="nom">nom</label>
+        <input type="text" id="nom" class="form-control" name="nom" #nom>
+    </div>
+    <div class="form-group">
+        <label for="commentaire">commentaire</label>
+        <textarea name="commentaire" id="commentaire"class="form-control" #commentaire></textarea>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-outline-primary" (click)="onSubmitCommentaire( $event , nom , commentaire )">
+    </div>
+</form>
+<hr>
+<div *ngIf="commentaires.length == 0 ; else showCommentaires">
+    <p>Aucun commentaire pour l'instant</p>
+</div>
+<ng-template #showCommentaires>
+    <div *ngFor="let commentaire of commentaires" class="card">
+        <ul class="pt-4 mb-4">
+            <li>{{commentaire.nom}}</li>
+            <li>{{commentaire.commentaire}}</li>
+        </ul>
+    </div>
+</ng-template>
+
+
+
+
+
+

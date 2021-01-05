@@ -1,0 +1,249 @@
+// dans la composant contact 
+
+créer un formulaire de contact : 4 champs 
+
+a/ input => email : votre email 
+b/ select => l'internaute va choisir le destinataire du mail 
+     webmaster
+     service commercial
+     support après vente 
+c/ commentaire  
+    textarea 
+d/ bouton de soumission 
+
+récupérer les données qui sont saisies et les affichés dans la console pour l'instant 
+
+two way binding // variables de template 
+
+------------------------------ 
+
+design en html 
+
+<h1>Nous contacter</h1>
+<p>Vous avez un problème merci de remplir le formulaire ci dessous et nous revenons vers vous au plus vite !</p>
+<form>
+    <div class="form-group">
+        <label for="email">votre email</label>
+        <input type="email" id="email" name="email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="service">vous voulez contacter :</label>
+        <select name="service" id="service" class="form-control">
+            <option value=""></option>
+            <option value="webmaster">webmaster</option>
+            <option value="service commercial">service commercial</option>
+            <option value="sav">sav</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="commentaire">Votre commentaire</label>
+        <textarea name="commentaire" id="commentaire" cols="30" class="form-control"></textarea>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+        <input type="submit" class="btn btn-outline-warning">
+        <a routerLink="/"  class="btn btn-primary">retour à l'accueil</a>
+    </div>
+</form>
+
+
+2 manières de faire 
+
+variables de template => #sur input / select / textarea 
+
+two way binding  
+=> app.module.ts 
+Activer le FormModules 
+
+import { FormsModule } from "@angular/forms" ;
+
+ajouter dans imports: [ 
+ //...
+ FormsModule 
+]
+
+sur chaque champ du formulaire 
+[(ngModel)]="variable" 
+
+re créer dans le fichier .ts 
+variable 
+
+----------------------------- 
+
+le fichier .ts 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
+})
+export class ContactComponent implements OnInit {
+  email:string;
+  service : string;
+  commentaire : string
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  onSubmitContact($event) :void{
+    $event.preventDefault();
+    console.log( 
+      this.email,
+      this.service,
+      this.commentaire
+    )
+  }
+}
+
+-------------------- 
+
+le ficheir .html 
+
+<h1>Nous contacter</h1>
+<p>Vous avez un problème merci de remplir le formulaire ci dessous et nous revenons vers vous au plus vite !</p>
+<form>
+    <div class="form-group">
+        <label for="email">votre email</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-control"
+            [(ngModel)]="email">
+    </div>
+    <div class="form-group">
+        <label for="service">vous voulez contacter :</label>
+        <select 
+            name="service" 
+            id="service" 
+            class="form-control"
+            [(ngModel)]="service">
+            <option value=""></option>
+            <option value="webmaster">webmaster</option>
+            <option value="service commercial">service commercial</option>
+            <option value="sav">sav</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="commentaire">Votre commentaire</label>
+        <textarea 
+            name="commentaire" 
+            id="commentaire" 
+            cols="30" 
+            class="form-control"
+            [(ngModel)]="commentaire"></textarea>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+        <input 
+            type="submit" 
+            class="btn btn-outline-warning" 
+            (click)="onSubmitContact($event)">
+        <a routerLink="/"  class="btn btn-primary">retour à l'accueil</a>
+    </div>
+</form>
+
+----- 
+
+relation directe entre le ts et la vue  
+
+=> ajouter des tester => afficher visuellement des informations à l'internaute pour qu'il comprenne comment utiliser le formulaire  
+
+au niveau des champs => required attribut html 5 
+forcer l'utilisateur à remplir les champs 
+
+qu'est ce qui est attendu 
+=> html5 => input 
+minlength : https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/minlength
+maxlength : https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength
+pattern : https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern
+
+email 
+
+
+<input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-control"
+            ngModel
+            #email="ngModel"
+            (change)="onChangeEmail(email)"
+            required 
+            minlength="5"
+            maxlength="60"
+            pattern="[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\-_]+\.[a-z]{2,4}$">
+            <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+                <ul class="mb-0">
+                    <li *ngIf="email.errors.required">Email requis</li>
+                    <li *ngIf="email.errors.minlength">Email doit avoir au moins 5 caractères</li>
+                    <li *ngIf="email.errors.maxlength">Email doit avoir au maximum 60 caractères</li>
+                    <li *ngIf="email.errors.pattern">Email doit avoir une forme d'email</li>
+                </ul>
+            </div>
+
+// pouvez vous ajouter du template driven form 
+// au niveau du champ commentaire 
+
+// obligatoire => required 
+// minimum => 10 caractères 
+// maximum => 100 caractères 
+
+// => si l'internaute ne respecte pas ces règles
+// veuillez afficher sous le champ commentaire un message explicite pour lui expliquer ce qui ne va pas 
+
+
+<textarea 
+name="commentaire" 
+id="commentaire" 
+cols="30" 
+class="form-control"
+ngModel
+#commentaire="ngModel"
+required
+minlength="10"
+maxlength="100"></textarea>
+<div class="alert alert-danger" *ngIf="commentaire.touched && !commentaire.valid">
+    <ul class="mb-0">
+        <li *ngIf="commentaire.errors.required">Veuillez compléter ce champ</li>
+        <li *ngIf="commentaire.errors.minlength">le champ doit avoir au minimum 10 caractères</li>
+        <li *ngIf="commentaire.errors.maxlength">le champ doit avoir au maximum 100 caractères</li>
+    </ul>
+</div>
+
+
+-------------------- 
+
+ngForm => 
+remplacer le fait d'écouter le click sur le bouton submit 
+
+enlever la méthode (click) sur le bouton submit
+
+(click)="onSubmitContact($event)"
+
+dans la balise 
+
+<form #f="ngForm" (submit)="onSubmit(f)">
+
+
+
+onSubmitFormulaire(f){
+    /*  console.log(f); */
+        console.log(f.value); // contient l'ensemble des informations saisis dans le formulaire
+        // appeler un service => stocker les informations en base de données
+        // appeler un service qui va se charger d'envoyer un email 
+        f.reset(); // vider tous les champs
+}
+
+<form (ngSubmit)="onSubmit()"> 
+
+</form>
+
+onSubmit(){
+    // récupérer chaque champ de votre formulaire via une variable de template 
+    /// tester 
+    // si ok 
+    // traitement et reset 
+
+    // si un n'est pas bon => envoyer une message d'alert 
+}

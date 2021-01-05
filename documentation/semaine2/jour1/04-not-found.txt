@@ -1,0 +1,29 @@
+créer un nouveau composant 
+
+ng g c not-found => gérer le cas où les utilisants saisissent une adresse qui n'existe pas 
+
+app.module.ts 
+attention à l'ordre => mettre en dernier 
+
+2 utilisations pour ce module :
+
+route => permet de rédiger l'utilisateur vers une 404
+si jamais il saisit une adresse qui n'existe pas
+
+      {path : "**" , component: NotFoundComponent }
+
+-------------- 
+
+dans le composant album 
+
+si on recherche un album => si on cherche un album dont le numéro n'existe pas
+=> rediriger vers la page not-found 
+
+redirection 
+
+album.component.ts 
+
+
+
+
+

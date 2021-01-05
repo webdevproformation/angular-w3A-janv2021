@@ -1,0 +1,105 @@
+// dans les composants vous pouvez ajouter le symbole suivant
+
+// template variable 
+<h1 #titre></h1>
+// #titre => document.getElementById("titre")
+
+// récupérer des valeurs ou récupérer et modifier 
+
+créer un nouveau composant 
+ng g c form 
+
+dans la vue du composant 
+
+<form>
+    <input type="text" #nom placeholder="saisir votre nom" (keyup)="onKeyUpInput( nom )">
+</form>
+<p>{{ nomInput }}</p>
+
+dans le typescript du composant 
+
+export class FormComponent implements OnInit {
+    nomInput : string = "";
+    constructor() { }
+    ngOnInit(): void {
+    }
+    onKeyUpInput( nom ){
+      this.nomInput = nom.value;
+    } 
+  }
+// ressemble two way binding => [()] banane dans une boite 
+// rdv dans 15 min => 11h18
+
+---------------- 
+créer un nouveau composant 
+
+newsletter 
+
+contenir le html suivant :
+<form>
+    <input type="email" #email placeholder="votre@email.fr">
+    <input type="submit">
+</form>
+<p class="alert alert-danger" #message></p>
+
+// lorsque l'on soumet le formulaire 
+// vérifier que le contenu de l'input de type email est conforme 
+// regex 
+// si c'est conforme => alert "le mail est enregistré en BDD"
+// si c'est non conforme =>  remplir la balise ayant la template variable #message
+
+
+html :
+
+<h2>Vous inscrire à notre newsletter !</h2>
+<!-- <form (submit)="onSubmitForm($event)"> -->
+<form>
+    <input type="email" #email placeholder="votre@email.fr">
+    <input type="submit" (click)="onClickForm($event , email , message)">
+</form>
+<div #message>
+    <p class="alert alert-danger" *ngIf="show"></p>
+</div>
+
+typescript :
+
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-newsletter',
+  templateUrl: './newsletter.component.html',
+  styleUrls: ['./newsletter.component.scss']
+})
+export class NewsletterComponent implements OnInit {
+  show : boolean = false;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  onClickForm($event:any , email:HTMLInputElement , message:HTMLElement) :void{
+    $event.preventDefault(); // bloquer le rechargement de page
+
+    /*
+      [a-zA-Z0-9\-\.]{1,} alain-dufour
+      @                    @
+      [a-zA-Z0-9\-]{1,}       monsuper-site
+      \.                    .
+      [a-z]{2,10}             fr
+      regex101.com
+      :: liste de regex disponible : 
+      // https://www.w3schools.com/TAGS/att_input_pattern.asp
+    */
+    let patternEmail = /^[a-zA-Z0-9\-\._]{1,}@[a-zA-Z0-9\-]{1,}\.[a-z]{2,10}$/ ;
+    if(patternEmail.test(email.value)){
+      alert("votre email est enregistré en bdd" );
+      message.innerHTML = "";
+      email.value = ""; // vider le champ input
+    }else {
+      message.innerHTML = "ce n'est pas non conforme";
+      this.show = true;
+    }
+  }
+}
+
+

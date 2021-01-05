@@ -1,0 +1,100 @@
+// vider le fichier app.component.html 
+
+// créer le dossier jour3 dans le dossier src/app
+
+créer deux fichiers dans le dossier jour3
+app.module.ts.back  => copie du fichier => app.module.ts
+app.component.html.back => copie du fichier => app.component.html
+
+réinitialiser la vue 
+
+app.component.html
+
+<div class="container">
+    <h1>app musique</h1>
+</div>
+
+
+app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule 
+  ],
+  providers: 
+  [
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+// tous les composants / services / pipe 
+// ranger dans le dossier jour3 
+
+contenu du fichier .zip 
+app.html  => copier dans le fichier app.component.html
+style.scss => copier et le coller dans le fichier app.component.scss
+svg/des icônes en format svg => prendre le dossier svg => glisser dans le dossier assets de votre projet 
+
+
+// composant 
+ng g c menu 
+
+=> prendre toute la partie html du menu => dans la vue du composant 
+
+
+// créer le composant Pagination 
+// récupérer le html de la page app.component.html => coller dans la vue du composant pagination.component.html 
+// utiliser la balise <app-pagination></app-pagination> dans app.component.html
+
+
+
+// créer un dernier composant sidebar 
+
+ng g c sidebar
+
+ng g class services/album 
+
+export class Album {
+    id: string ;
+    ref: string;
+    name: string;
+    title : string;
+    description: string;
+    duration: number;
+    status : string;
+    url? : string;
+    tags? : Array<string>;
+    like? : string;
+}
+
+// pause déjeuner rdv 14h02 
+
+// => afficher ng g c Album 
+
+// Bonne appétit 
+
+
+// créer le composant albums
+
+ng g c albums
+
+// dans le fichier albums ts =
+// importer la class albums.ts 
+// importer la le jeu de données mock-albums.ts 
+
+
+// variable de class  => albums 
+
+// initialiser la valeur avec ALBUMS
+
+
+

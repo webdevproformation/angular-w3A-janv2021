@@ -1,0 +1,13 @@
+<div class="container">
+   <h1>Jour3</h1>
+   <app-menu></app-menu>
+   <router-outlet></router-outlet>
+
+   <!-- <app-exo></app-exo>
+   <hr>
+   <directive></directive>
+   <hr>
+   <app-parent></app-parent>
+   <hr>
+   <app-article></app-article> -->
+</div>

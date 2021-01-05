@@ -1,0 +1,47 @@
+// notamment avec les services 
+
+// suite à  la création du service 
+
+// importer dans le composant 
+// dans le constructor du composant new NomService()
+
+// utilisez l'injection de dépendance 
+
+// aller dans le fichier app.module.ts 
+// importer le service 
+
+// import { FilmsService } from "./services/films.service";
+
+// 
+providers: 
+  [
+    FilmsService
+  ],
+
+// ---------------------- 
+
+// dans le composant troisieme 
+src/app/troisieme/troisieme.component.ts
+// utiliser l'injection de dépendance 
+
+import { Component, OnInit } from '@angular/core';
+import { FilmsService , FilmInterface } from './../services/films.service';
+
+@Component({
+  selector: 'troisieme',
+  templateUrl: './troisieme.component.html',
+  styleUrls: ['./troisieme.component.scss']
+})
+export class TroisiemeComponent implements OnInit {
+  films : Array<FilmInterface>
+  constructor( serviceFilm : FilmsService ) { 
+    this.films = serviceFilm.getFilms();
+  }
+
+  ngOnInit(): void {
+  }
+}
+// rdv dans 15min => 16h00 
+// rentrer plus en détail dans les composants 
+
+créer le fichier 08-composant-en-detail.html

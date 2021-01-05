@@ -1,0 +1,54 @@
+
+dans le composant commentaire .html 
+
+importer deux class  :
+
+ActivatedRoute => récupérer l'url => id de l'article 
+
+Router => créer des liens directement dans les pages 
+
+// cas pratique => dans le composant article 
+// ajouter un bouton => 
+
+// cas pratique 
+ajouter un lien hypertexte => 
+
+<div class="form-group d-flex justify-content-between">
+    <input type="submit" class="btn btn-outline-primary" (click)="onSubmitCommentaire( $event , nom , commentaire )">
+    <a routerLink="/articles" class="btn btn-primary">retour à la page des articles</a>
+</div>
+
+------------------- 
+
+il arrive sur la page => 
+
+http://localhost:4200/articles/5fd22bcfaa36abe31aa66
+
+j'ai un internaute qui modifie l'id 
+c'est ce chiffre que l'on utilise pour rechercher .find()
+retourner l'article concerné 
+
+si la personne modifie l'id => dans notre page 
+juste le formulaire 
+et toutes les données n'existe pas dans le tableau => affiche 
+
+
+=> si je n'ai pas d'article avec l'id concerné =>
+diriger l'utilisateur vers le module not-found  404 
+
+dans le fichier .ts de article 
+ajouter des comportements supplémentaires dans onInit du Composant 
+
+if(this.article != undefined){
+    this.data = {
+      titre : this.article.company,
+      contenu : this.article.about,
+      auteur : this.article.email,
+      dtPublication : new Date(),
+      commentaire : [ ]
+    }
+  } else {
+    // si l'article n'existe pas => redirection vers le composant not-found 
+    this.router.navigate(["/not-found"]);
+}
+

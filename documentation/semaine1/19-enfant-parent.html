@@ -1,0 +1,93 @@
+// envoie toujours des données du parent vers l'enfant @Input()
+
+// dans l'enfant exécuter une méthode qui est stockée dans le parent 
+// décorateur @Output()
+// class EventEmitter 
+
+// dans le composant enfant 
+
+// données sont stockées dans le composant parent 
+// modifier la valeur des données => créer une méthode dans le parent
+// stockée dans la même class  
+
+// parent.ts 
+meta : { auteur:string , date: Date , like:number } = {
+    auteur : "Alain Dufour",
+    date : new Date(),
+    like : 5
+  };
+changeNbLike(){
+    this.meta.like++ ;
+}
+// changeNbLike => exécutée par une méthode dans l'enfant  
+// parent.html 
+// dans la balise qui appelle l'enfant 
+<app-enfant [dataFromParent]="meta" (change)="changeNbLike() ; "></app-enfant>
+
+// dans le enfant.ts 
+import { Component, Input, OnInit , Output , EventEmitter} from '@angular/core';
+@Output() change = new EventEmitter(); // pattern Observater
+onClickBouton(){
+    this.change.emit()
+}
+// dans enfant .html 
+<button (click)="onClickBouton()"></button>
+
+// ajouter dans le composant enfant
+// dans la vue ajouter un nouveau bouton => <button class="btn btn-warning">-</button>
+
+// lorsque vous cliquez sur ce bouton, ça doit faire diminuer le nombre de like du parent 
+
+// méthode dans le composant enfant 
+// méthode dans le composant parent 
+
+// dans la balise <app-enfant></app-enfant> dans l'attribut change ajouter une nouvelle valeur 
+
+
+dans le parent .ts 
+
+changeNbLike(){
+    this.meta.like++ ;
+  }
+
+  changeNbLikeDiminue(){
+    if(this.meta.like > 0){
+      this.meta.like-- ;
+    }
+  }
+
+parent.html 
+
+<app-enfant 
+[dataFromParent]="meta" 
+(change)="changeNbLike()" 
+(diminue)="changeNbLikeDiminue()">
+</app-enfant>
+
+dans l'enfant .ts 
+
+@Input() dataFromParent : any ;
+  @Output() change = new EventEmitter() ;
+  @Output() diminue = new EventEmitter() ;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onClickAugmentLike():void{
+    // dans cette méthode il va falloir ajouter une fonction qui va être
+    // excutée dans le parent 
+    // parent.component.html  <app-enfant [dataFromParent]="meta" (change)="changeNbLike()"></app-enfant>
+    this.change.emit();
+  }
+  onClickDiminueLike():void {
+    this.diminue.emit();
+  }
+
+  // dans l'enfant .html 
+
+<li>
+    like <span class="badge badge-danger">{{dataFromParent.like}}</span> 
+    <button class="btn btn-primary btn-sm ml-4" (click)="onClickAugmentLike()">+</button>
+    <button class="btn btn-warning btn-sm ml-4" (click)="onClickDiminueLike()">-</button>
+</li>

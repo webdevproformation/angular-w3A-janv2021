@@ -1,0 +1,59 @@
+Cas pratique
+créer un nouveau composant 
+ng g c admin/album/add 
+
+formulaire contenant plusieurs champs 
+    ref: string; => input de type text
+    name: string; => input de type text
+    title : string; => input de type text
+    description: string; => textarea
+    duration: number; => input de type number
+    status : string; select avec deux valeurs : off / on
+    url : string;  => input de type text
+    tags : string; input de type text 
+		chaîne de caractère séparé par des virgules
+    like : string;   => input de type text 
+
+=> ne pas hésiter à créer la méthode "add" dans le service music 
+
+
+// ajouter la nouvelle route dans le fichier app.module.ts 
+// admin/album/add => afficher mon composant 
+
+
+// dans le service music => créer une nouvelle méthode 
+
+// crud => create 
+
+add 
+
+// ------------------------
+
+// créer dans le service MusicService
+
+la méthode delete( id )
+
+rechercher dans le tableau this.data ?? quel élément à le id recherché 
+
+si il le trouve => supprimer méthode pour les tableau en js pour supprimer un élément 
+
+... 
+
+// ------------------------
+
+dernière fonctionnalité du crud update 
+
+// 1ère action => créer un nouveau composant => ng g c admin/album/update 
+// 2 dans la vue du composant formulaire (add => )
+// 3 ajouter une nouvelle route dans app.module.ts admin/album/update/:id
+// 4 créer la méthode update dans le service Music Service
+// 5 update.component.ts =>  récupérer dans labarre d'adresse  :id
+				activated route
+			=> appeler la méthode find()
+			=> remplir leformulaire avec des données
+			=> on submit => récupérer toutes les valeurs saisies du formulaire
+
+// ------------------------
+
+fin du back office ! 
+

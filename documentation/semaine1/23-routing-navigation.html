@@ -1,0 +1,425 @@
+// jusqu'à maintenant 
+// application web mono page 
+
+// à partir de maintenant 
+// refaire une barre de menu 
+// => changer de page 
+// page d'accueil 
+// page de contact => formulaire
+// liste d'article 
+    // cliquer sur un des liens dans la page article => l'article concerné 
+
+// créer une barre de menu 
+ng g c menu 
+
+// placer la balise dans le app.component.html
+
+// vue du composant => menu.component.html
+
+//une fois que le menu est créé => utilise Module Router 
+// installé dans Angular => https://angular.io/guide/router
+
+// app.module.ts 
+// activer le module Router 
+
+import { RouterModule }  from '@angular/router' ;
+
+
+imports: [
+   BrowserModule ,
+   RouterModule
+],
+
+// créer un nouveau composant => encharge d'afficher la page de contact 
+// lorsque l'on cliquera sur le lien contact dans la barre de menu 
+
+ng g c contact 
+
+
+// app.module.ts 
+RouterModule.forRoot([
+     un url => un composant à afficher 
+     { path : 'contact' , component: ContactComponent }
+])
+
+
+// app.component.html (à la suite du menu)
+<router-outlet></router-outlet>
+
+
+// mis à jour du composant menu => mettre le lien à la place du # dans la balise a 
+
+// menu.component.html
+
+
+<li class="nav-item">
+    <a href="#" class="nav-link">Contact</a>
+</li>
+
+<li class="nav-item">
+    <a routerLink="/contact" class="nav-link">Contact</a>
+</li>
+
+<!--  l'attribut routerLink => éviter lorsque l'on clique sur une lien 
+de reccharger intégralement tous les sources 
+=> SPA : Single Page Application 
+Une fois que vous avez charger votre site => il n'y a plus de rechargement 
+des fichiers sources de votre application 
+-->
+// cas pratique : créer une nouveau composant 
+// liste-articles
+ng g c liste-articles
+
+// associer l'adresses articles => ListeArticles (app.module.ts) 
+
+RouterModule.forRoot([
+{ path : 'contact' , component: ContactComponent } ,
+{ path : "articles" , component: ListeArticlesComponent }
+])
+
+// mettre à jour le composant menu => cliquer sur le liens Articles > le composant
+liste-articles
+
+------ 
+dans le composant menu => si vous ajoutez la class active dans le lien 
+
+routerLinkActive="active"
+
+------ 
+
+créer un nouveau composant 
+ng g c accueil 
+{ path : '' , component: AccueilComponent  }
+
+// à mettre au début !
+
+dans la barre de menu  
+routerLink="/" 
+class="nav-link" 
+routerLinkActive="active"
+[routerLinkActiveOptions]="{ exact: true }"
+
+------ 
+
+rappel pour créer un service :
+ng g s data 
+
+=> class 
+=> méthode getAll(){
+    return [ 
+
+    ]
+}
+
+// google => json generator => https://www.json-generator.com/
+// collez la valeur dans la méthode getAll()
+
+
+// cas pratique => utiliser le service data dans le composant ListeArticleComponent 
+
+// dans le composant ListeArticleComponent 
+créer une variable articles => initialiser avec le contenu des données dans le service data 
+
+// dans la vue du composant 
+
+// boucle *ngFor 
+
+<div class="row">
+    <article class="col-3" *ngFor>
+        <h2>company</h2>
+        <p>about</p>
+        liste de méta => tags
+        <a href="">lire la suite </a>
+    </article>
+</div>
+
+
+// liste-article.ts 
+
+import { Component, OnInit } from '@angular/core';
+
+import { DataService } from './../data.service';
+
+@Component({
+  selector: 'app-liste-articles',
+  templateUrl: './liste-articles.component.html',
+  styleUrls: ['./liste-articles.component.scss']
+})
+export class ListeArticlesComponent implements OnInit {
+  articles : Array<any>
+  constructor( private data : DataService) { }
+
+  ngOnInit(): void {
+    this.articles = this.data.getAll();
+  }
+
+}
+
+// liste-article.html 
+
+<div class="row">
+    <article class="col-3 mt-3" *ngFor="let article of articles">
+        <header class="d-flex justify-content-between align-items-center">
+            <h2>{{article.company}}</h2>
+            <img [src]="article.picture" alt="" class="img-thumbnail">
+        </header>
+        <div>{{article.about}}</div>
+        <ul class="d-flex">
+            <li *ngFor="let tag of article.tags" class="badge badge-success mr-2 my-2">
+                {{tag}}
+            </li>
+        </ul>
+        <a routerLink="/articles/{{article._id}}" class="btn btn-sm btn-info">Lire la suite</a>
+    </article>
+</div>
+
+// retourner dans le fichier app.module.ts 
+
+et nous allons ajouter une nouvelle route 
+
+imports: [
+BrowserModule ,
+RouterModule.forRoot([
+ { path : '' , component: AccueilComponent  },
+ { path : 'contact' , component: ContactComponent } ,
+ { path : "articles/:id" , component: ArticleComponent },
+ { path : "articles" , component: ListeArticlesComponent }
+])
+],
+
+
+// allez dans le composant => Article => ts 
+
+import {  ActivatedRoute , Router } from "@angular/router";
+
+// deux services que l'on va utiliser pour récupérer l'adresse de la page en cours 
+
+// dans le constructeur de class => DI 
+
+constructor( 
+        private router :Router , 
+        private activeRoute : ActivatedRoute
+  ) { }
+
+  url:string ;
+
+  ngOnInit(): void {
+    this.activeRoute.paramMap
+    .subscribe( ( params ) => {
+      this.url = params.get("id") 
+      // pause => 
+      // ajouter dans le service data un méthode find(id)
+      rechercher dans le tableau getAll(), élément qui a un id qui match 
+      // récupérer l'élement => afficher à l'écran 
+      // rdv 16h16 à toute suite !
+    } )
+  }
+
+ // aller dans le service data service 
+
+
+ ajouter la méthode find()
+
+
+find (id:string): any {
+    
+    let resultat = this.getAll().find( (item) => { 
+        item._id === id
+    } );
+    return resultat;
+}
+
+// dans le composant article 
+
+import { Component, OnInit } from '@angular/core';
+import {  ActivatedRoute , Router } from "@angular/router";
+import { DataService } from './../data.service';
+
+export interface ArticleInterface{
+  titre : string, 
+  contenu : string ,
+  auteur : string , 
+  dtPublication : Date , 
+  commentaire :Array<string|null>
+}
+
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.scss']
+})
+export class ArticleComponent implements OnInit {
+
+  data : ArticleInterface ;
+  url :string ;
+  article : any ;
+
+  constructor( 
+        private router :Router , 
+        private activeRoute : ActivatedRoute,
+        private articleData : DataService
+  ) { }
+
+  ngOnInit(): void {
+    this.activeRoute.paramMap
+    .subscribe( ( params ) => {
+      this.url = params.get("id") ;
+      this.article = this.articleData.find(this.url)
+      this.data = {
+        titre : this.article.company,
+        contenu : this.article.about,
+        auteur : this.article.email,
+        dtPublication : new Date(),
+        commentaire : [ ]
+      }
+    } )
+  }
+
+  addCommentaire($event ){
+    // console.log("je suis dans le composant article")
+    //console.log($event)
+    this.data.commentaire.push($event);
+    //console.log(this.data);
+  }
+
+}
+
+// dans la page d'accueil 
+// créer afficher uniquement les 3 derniers articles 
+
+// ajouter une nouvelle méthode 
+
+get slice(0, 3)
+=> retourner les valeurs et les affichers 
+
+enfant de liste article 
+=> créer un composant ArticleDetail
+
+=> 16h53 - correction
+
+
+// accueil .ts 
+
+import { Component, OnInit } from '@angular/core';
+
+import { DataService } from './../data.service';
+
+@Component({
+  selector: 'app-accueil',
+  templateUrl: './accueil.component.html',
+  styleUrls: ['./accueil.component.scss']
+})
+export class AccueilComponent implements OnInit {
+  articles: any ;
+  constructor( private dataService : DataService) { }
+
+  ngOnInit(): void {
+    this.articles = this.dataService.getLast(3)
+  }
+
+}
+
+
+// accueil .html 
+
+<div class="row">
+    <app-article-detail [article]="article" *ngFor="let article of articles"></app-article-detail>
+</div>
+
+
+// article-detail.ts 
+
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-article-detail',
+  templateUrl: './article-detail.component.html',
+  styleUrls: ['./article-detail.component.scss']
+})
+export class ArticleDetailComponent implements OnInit {
+  @Input() article ;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+ // article-detail. html 
+
+ <article class="col-3 mt-3">
+    <header class="d-flex justify-content-between align-items-center">
+        <h2>{{article.company}}</h2>
+        <img [src]="article.picture" alt="" class="img-thumbnail">
+    </header>
+    <div>{{article.about}}</div>
+    <ul class="d-flex">
+        <li *ngFor="let tag of article.tags" class="badge badge-success mr-2 my-2">
+            {{tag}}
+        </li>
+    </ul>
+    <a routerLink="/articles/{{article._id}}" class="btn btn-sm btn-info">Lire la suite</a>
+</article>
+
+// article-detail.scss 
+
+ul{
+    list-style: none;
+    padding: 0;
+    flex-wrap: wrap;
+}
+
+article {
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+// liste-article .ts 
+
+import { Component, OnInit } from '@angular/core';
+
+import { DataService } from './../data.service';
+
+@Component({
+  selector: 'app-liste-articles',
+  templateUrl: './liste-articles.component.html',
+  styleUrls: ['./liste-articles.component.scss']
+})
+export class ListeArticlesComponent implements OnInit {
+  articles : Array<any>
+  constructor( private data : DataService) { }
+
+  ngOnInit(): void {
+    this.articles = this.data.getAll();
+  }
+
+}
+
+// liste des article .html 
+
+
+<div class="row">
+    <app-article-detail [article]="article" *ngFor="let article of articles"></app-article-detail>
+</div>
+
+
+// liste des article .scss 
+
+.row > * {
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+// service data .ts 
+
+  getLast<T>( nb:number ){
+    return this.getAll().slice(0,nb);
+  }
+
+  find (id:string): any {
+    
+   let resultat = this.getAll().find( (item) =>{ 
+      return item._id === id
+    } );
+    return resultat;
+  }

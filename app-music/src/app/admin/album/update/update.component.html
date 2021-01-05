@@ -1,0 +1,65 @@
+<div class="row mt-5">
+    <aside class="col-3">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a routerLink="/admin">Accueil</a>
+            </li>
+            <li class="list-group-item">
+                <a routerLink="/admin/albums">Gestion des albums</a>
+            </li>
+        </ul>
+    </aside>
+    <main class="col-9">
+        <header class="d-flex justify-content-between align-items-center">
+            <h2>Modifier un album</h2>
+        </header>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <input type="hidden" id="id" name="id" [(ngModel)]="album.id">
+            <div class="form-group">
+                <label for="ref">ref</label>
+                <input type="text" id="ref" name="ref" class="form-control" [(ngModel)]="album.ref" >
+            </div>
+            <div class="form-group">
+                <label for="name">name</label>
+                <input type="text" id="name" name="name"  class="form-control" [(ngModel)]="album.name">
+            </div>
+            <div class="form-group">
+                <label for="title">title</label>
+                <input type="text" id="title" name="title"  class="form-control" [(ngModel)]="album.title">
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <textarea name="description" id="description" rows="4"  class="form-control" [(ngModel)]="album.description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="duration">duration</label>
+                <input type="number" id="duration" name="duration"  class="form-control" [(ngModel)]="album.duration">
+            </div>
+            <div class="form-group">
+                <label for="status">status</label>
+                <select name="status" id="status" class="form-control" 
+                [(ngModel)]="album.status" >
+                    <option value="on">on</option>
+                    <option value="off">off</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="url">url</label>
+                <input type="text" class="form-control" name="url" id="url" [(ngModel)]="album.url">
+            </div>
+            <div class="form-group">
+                <label for="tags">tags </label>
+                <input type="text" class="form-control" name="tags" id="tags" [(ngModel)]="album.tags">
+            </div>
+            <div class="form-group">
+                <label for="like">like</label>
+                <input type="text" class="form-control" name="like" id="like" [(ngModel)]="album.like">
+            </div>
+            <div class="form-group text-right">
+                <input type="submit" class="btn btn-outline-dark">
+            </div>
+        </form>
+    </main>
+</div>
+
+

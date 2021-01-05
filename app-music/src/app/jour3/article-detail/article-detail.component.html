@@ -1,0 +1,13 @@
+<article class="col-3 mt-3">
+    <header class="d-flex justify-content-between align-items-center">
+        <h2>{{article.company}}</h2>
+        <img [src]="article.picture" alt="" class="img-thumbnail">
+    </header>
+    <div>{{article.about}}</div>
+    <ul class="d-flex">
+        <li *ngFor="let tag of article.tags" class="badge badge-success mr-2 my-2">
+            {{tag}}
+        </li>
+    </ul>
+    <a routerLink="/articles/{{article._id}}" class="btn btn-sm btn-info">Lire la suite</a>
+</article>

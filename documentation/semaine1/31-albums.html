@@ -1,0 +1,100 @@
+dans le fichier albums.ts 
+
+import { Component, OnInit } from '@angular/core';
+import { Album } from "../services/album";
+import { ALBUMS } from "../services/mock-albums";
+
+@Component({
+  selector: 'app-albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.scss']
+})
+export class AlbumsComponent implements OnInit {
+
+  albums :Array<Album>|null ; 
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.albums = ALBUMS ;
+  }
+
+}
+
+// app.component.html 
+
+récupéré 1 seule card 
+supprimé la deuxième 
+mis à la place <app-albums></app-albums>
+
+
+// dans // albums.html 
+dans la vue mettre la card
+
+
+<div class="card my-3" *ngFor="let album of albums">
+    <div class="card-header">
+        {{ album.ref }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ album.title}}</h5>
+        <p class="card-text">{{ album.description }}</p>
+        <a class="btn btn-outline-primary mr-2" href="#" role="button"
+        *ngFor="let tag of album.tags">{{ tag }}</a>
+        <a class="btn btn-outline-dark mr-3" href="#" role="button">guitar</a>
+        <img class="glyph-icon" src="./assets/svg/si-glyph-heart.svg" />
+        <small>7</small>
+        <img class="glyph-icon" src="./assets/svg/si-glyph-timer-2.svg" />
+        <small>{{ album.duration }} min</small>
+    </div>
+</div><!-- .card -->
+
+// albums.scss 
+
+=> 
+
+.glyph-icon {
+    height: .75rem;
+    display: inline-block; margin:0.25rem;
+ }
+
+ m-0 ... 5 => 4 côtés
+ mx  à gauche et droite 
+ my  en haut et bas 
+ mb 
+ mt 
+ mr 
+ ml
+// https://getbootstrap.com/docs/4.0/utilities/spacing/
+
+
+// créer un pipe heureminute 
+duree 600 min  => convertir en heures / min  => 10h00
+10 h 00 
+
+dans 1 heure => 60 min 
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'heureminute'
+})
+export class HeureminutePipe implements PipeTransform {
+
+  transform(duree: number): string {
+    // 210 min => 60 = 3.5
+    // 3h 
+    // 210 - 3 * 60 = 210 - 180 = 30min 
+    let nbHeure = Math.floor(duree / 60);
+    let nbMin :any = duree % 60;  
+    
+    if(nbMin <=9){
+      nbMin = "0" + nbMin ;
+    }
+    return `${nbHeure}h${nbMin}min`;
+  }
+
+}
+
+// ------
+

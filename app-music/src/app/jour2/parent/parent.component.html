@@ -1,0 +1,18 @@
+<article>
+    <h2>{{ titre | uppercase }}</h2>
+    <div [innerHTML]="description | nl2br"></div>
+
+    <!-- 
+        pour envoyer des datas de parent vers l'enfant
+        j'ajoute un attribut dans la balise enfant 
+        [ attribut dans la class enfant ] = "donnée que l'on veut envoyer à l'enfant "
+    -->
+    <app-enfant 
+        [dataFromParent]="meta" 
+        (change)="changeNbLike()" 
+        (diminue)="changeNbLikeDiminue()">
+    </app-enfant>
+    
+</article>
+
+

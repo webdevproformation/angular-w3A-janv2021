@@ -1,0 +1,20 @@
+<article class="row">
+    <div class="col-4">
+        <img [src]="affiche | img " alt="" class="img-thumbnail img-fluid">
+    </div>
+    <div class="col-4">
+        <iframe height="315" [src]="safeURL" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="embed-responsive-item" ></iframe>
+    </div>
+    <div class="col-4">
+        <h2>{{titre | uppercase }}</h2>
+        <div [innerHTML]="resume | nl2br">
+        </div>
+        <ul>
+            <li *ngFor="let categorie of categories">{{ categorie | titlecase }}</li>
+        </ul>
+        <div>
+            prix : {{ prix | currency:"Eur":"symbol":"2.2-2":"fr" }}
+        </div>
+        <app-enfant [dataFromParent]="meta"></app-enfant>
+    </div>
+</article>

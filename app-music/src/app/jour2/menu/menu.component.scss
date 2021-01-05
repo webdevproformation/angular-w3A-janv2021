@@ -1,0 +1,21 @@
+nav {
+    display: flex;
+    align-items: center;
+    ul{
+        display: flex;
+        list-style:none;
+        align-items: center;
+        margin: 0;
+        li{
+            margin-right:10px
+        }
+    }
+}
+
+.hide{
+    display:none !important;
+}
+// css règle de priorité en css 
+// nav ul est plus précis que .hide
+// les règles écrites dans le sélecteur nav ul
+// sont prioritaires par rapport à celle mises dans .hide

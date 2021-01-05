@@ -1,0 +1,109 @@
+Bonne année et bonne santé !! 
+
+--------------------------
+
+Angular 
+
+--------------------------
+
+dans votre ordinateur => dossier app-music
+
+ouvrir ce dossier avec Visual Studio 
+
+--------------------------
+
+lancer un terminal intégré dans visual studio 
+
+saisir la commande ng serve -o 
+
+démarrer le serveur de développement // recompiler tous les 
+tous les fichiers ts => js 
+
+http://localhost:4200/
+
+--------------------------
+
+
+Angular => framework créé par Google 
+
+permet de créer des application front end (géré ce que voit 
+l'utilisateur)
+
+Composant  ==  partie de ce que vous voyez à l'écran 
+
+pour créer un composant ng g c nom-du-composant 
+
+=> dossier nom-du-composant
+	- nom-du-composant.component.ts => logique du bloc visuel
+	- nom-du-composant.component.html => vue
+	- nom-du-composant.component.scss => mise en forme
+
+
+----------------------
+
+ nom-du-composant.component.ts
+
+import { Component } from "@angular/core";
+// décorateur 
+
+@Component({
+   selector : "balise",
+   templateUrl : "appeler le fichier html " // template : "",
+   styleUrl : "nom-du-composant.component.scss"
+})
+export class NomDuComposantComponent{
+  // attribut
+  // méthodes
+}
+
+
+// déclarer dans le fichier app.module.ts 
+
+// utiliser dans n'importe quelle vue 
+
+// app.component.html => <balise></balise>
+
+// ------------------------
+
+// attention => afficher des données dans un composant 
+// le mieux créer un Service 
+
+// le service => stocker des données (possible)
+// le mieux créer des méthodes dans le service 
+// réaliser des manipulations avec ces données 
+// crud => 
+Create
+Read
+Update 
+Delete
+
+=> utiliser pas mal de fonction lié à l'objet Array de javascript 
+
+.find()
+.map()
+.splice()
+.reduce()
+.sort()
+
+ng g s nom-service
+
+import { Injectable } from "@angular/core";
+
+@Injectable()
+export class NomServiceService{
+ // propriété 
+ // méthodes 
+}
+
+
+
+
+
+
+
+
+
+
+ 
+
+

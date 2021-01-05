@@ -1,0 +1,32 @@
+Cas pratique (page d'accueil du back office)
+
+
+créer le composant dashboard 
+
+	en haut le menu 
+
+	à gauche => sidebarre 
+		Accueil
+		Gestion des albums 
+	
+	à droite 
+		tableau avec la liste des albums disponibles 
+
+mettre le composant dashboard dans un dossier admin 
+
+ng g c admin/dashboard 
+(angular crée un dossier => contenant le composant)
+
+
+connexion.component.ts 
+
+redirection vers le composant dashboard 
+
+remplir le tableau du dashboard avec la liste des albums
+
+=> utiliser le service music.service 
+=> getAll()
+=> appeler au niveau du composant dans la méthode onInit()
+
+
+

@@ -1,0 +1,160 @@
+
+// lorsque l'on va cliquer sur le bouton guitar 
+
+// mettre à jour le composant sidebar 
+
+vue du composant albums 
+
+click => affiche moi l'album numéro 1 
+
+
+app.component.html 
+    app-sidebar 
+    app-albums
+
+// Redux JS 
+
+// 1 faire une action dans le composant app-albums
+// 2 capté par le parent app.component.html => mis à jour d'une valeur 
+// 3 dès que la mis à jour est faite => app-sidebar 
+
+app.component.ts  => 
+albumEncours : number = 1;
+
+updateAlbumEncours ($event){
+    this.albumEncours = $event
+}
+
+// albums .ts 
+
+
+import { Component, OnInit, Output , EventEmitter } from '@angular/core';
+import { Album } from "../services/album";
+import { ALBUMS } from "../services/mock-albums";
+@Component({
+  selector: 'app-albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.scss']
+})
+export class AlbumsComponent implements OnInit {
+  @Output() change = new EventEmitter();
+  albums :Array<Album>|null ; 
+  constructor() { }
+  ngOnInit(): void {
+    this.albums = ALBUMS ;
+  }
+  onClickShowAlbum( $event, id ){
+    $event.preventDefault();
+    //alert(id);
+    this.change.emit(id)
+  }
+}
+
+// albums .html 
+
+<div class="card my-3" *ngFor="let album of albums">
+    <div class="card-header">
+        {{ album.ref }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ album.title}}</h5>
+        <p class="card-text">{{ album.description }}</p>
+        <a class="btn btn-outline-primary mr-2 btn-sm" href="#" role="button"
+        *ngFor="let tag of album.tags">{{ tag }}</a>
+
+        <a 
+            class="btn btn-outline-dark btn-sm mr-3" 
+            href="#" role="button"
+            (click)="onClickShowAlbum( $event, album.id )">
+            guitar
+        </a>
+
+        <img class="glyph-icon" src="./assets/svg/si-glyph-heart.svg" />
+        <small>7</small>
+        <img class="glyph-icon" src="./assets/svg/si-glyph-timer-2.svg" />
+        <small>{{ album.duration | heureminute }} </small>
+    </div>
+</div><!-- .card -->
+
+
+// app. ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title :string = 'app-music';
+  
+  albumEncours : number = 1;
+
+  updateAlbumEncours ($event){
+      this.albumEncours = $event;
+  }
+
+}
+
+// app.html 
+
+<div class="container-fuild principal">
+    <app-menu [title]="title"></app-menu>
+    <div class="row content">
+        <div class="col-sm-4 video">
+           <app-sidebar [albumAAfficher]="albumEncours"></app-sidebar>
+        </div><!-- .video -->
+        <div class="col-sm-8 music">
+             <app-pagination></app-pagination>
+ 
+             <button type="button" class="btn btn-lg btn-danger">You are in an anonymous mode.</button>
+ 
+             <app-albums (change)="updateAlbumEncours($event)" ></app-albums>
+            
+            <app-pagination></app-pagination>
+        </div><!-- .music -->
+    </div>
+ </div>
+ 
+
+ // sidebar. ts 
+
+ import { Component, Input, OnInit , OnChanges } from '@angular/core';
+
+@Component({
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
+})
+export class SidebarComponent implements OnInit {
+  @Input() albumAAfficher : any;
+  constructor() { }
+
+  ngOnChanges(){}
+
+  ngOnInit(): void {
+  }
+
+}
+
+// sidebar.html 
+
+<div class="card">
+    <img class="card-img-top" src="./assets/images/default_image-2.png" alt="Group Music">
+    <div class="card-body">
+        <h5 class="card-title">Dark {{ albumAAfficher }}</h5>
+        <p class="card-text">Punk electro</p>
+        <a href="#" class="btn btn-primary"> Play >> </a>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item active">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+        <li class="list-group-item">Morbi leo risus</li>
+        <li class="list-group-item">Porta ac consectetur ac</li>
+        <li class="list-group-item">Vestibulum at eros</li>
+    </ul>
+</div>
+
+
+

@@ -1,0 +1,39 @@
+property bing   attribut class => attribut dans les balises 
+
+event binding   attribut dans les balises => méthode dans la class 
+
+ng g c action
+
+ajouter le composant dans la vue app.component.html 
+<div class="col-4">
+    <app-action></app-action>
+</div>
+
+dans la vue de composant action 
+
+<button class="btn btn-primary mt-4" (click)="onSave()">Action</button>
+<p [innerHTML]="texte"></p>
+
+
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-action',
+  templateUrl: './action.component.html',
+  styleUrls: ['./action.component.scss']
+})
+export class ActionComponent implements OnInit {
+  texte : string;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onSave(){
+    this.texte = "je suis cliqué"
+    // alert("je suis cliqué");
+  }
+
+}
+

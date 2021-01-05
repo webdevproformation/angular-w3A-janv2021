@@ -1,0 +1,40 @@
+<article class="row">
+    <div class="col-6">
+        <h2>{{ titre | uppercase }}</h2>
+        <img [src]="img" alt="" class="img-thumbnail">
+    </div>
+    <div class="col-6">
+        <p class="mt-5">
+            par {{ auteur | titlecase }}
+        </p>
+        <p>{{ description }}</p>
+
+        <ul>
+            <li>date de publication : {{ dtPublication | date:"dd/MM/yyyy" }}</li>
+            <li>prix de la recette (format dollars) : 
+                {{ prix |currency:"€" }} </li>
+            <!--  prend le format dollar -->
+            <!-- 10,30 € 
+                https://angular.io/api/common/CurrencyPipe
+            -->
+            <li>prix de la recette (format fr sans devise) : 
+                {{ prix | number:'4.2-2':'fr' }}
+            </li>
+
+            <li>prix de la recette (format fr avec devise) : 
+                {{ prix | currency:"EUR":'symbol':'4.2-2':'fr' }}
+            </li>
+            <!-- 
+                4 le nombre du dessus la virgule
+                .
+                2 minimum de chiffres en dessous de la virgule
+                -
+                2 maximum de chiffres en dessous de la virgule
+
+                'fr' => , séparateur de milliers
+                replacer la . par le symbole , 
+            -->
+        </ul>
+        <app-enfant [dataFromParent]="meta"></app-enfant>
+    </div>
+</article>

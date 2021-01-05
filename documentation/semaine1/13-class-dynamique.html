@@ -1,0 +1,144 @@
+1 créer un nouveau composant menu 
+
+ng g c menu
+
+2 une fois créé => il faut mettre la balise <app-menu></app-menu>
+
+dans le fichier src/app/app.component.html
+
+3 modifier la vue du composant 
+
+src/app/menu/menu.component.html
+
+<nav>
+    <button>Masquer le menu</button>
+    <!-- ul>li*5>a[href="#"]>lorem1 -->
+    <ul>
+        <li><a href="#">Lorem.</a></li>
+        <li><a href="#">Aliquam.</a></li>
+        <li><a href="#">Animi!</a></li>
+        <li><a href="#">Possimus!</a></li>
+        <li><a href="#">Saepe!</a></li>
+    </ul>
+</nav>
+
+4 un peu de style src/app/menu/menu.component.scss 
+
+nav {
+    display: flex;
+    align-items: center;
+    ul{
+        display: flex;
+        list-style:none;
+        align-items: center;
+        margin: 0;
+        li{
+            margin-right:10px
+        }
+    }
+}
+
+.hide{
+    display:none;
+}
+
+// nesting => imbrication 
+
+// si je clique sur le bouton dans le menu 
+// masquer le menu + changer le texte dans le bouton "Afficher le menu"
+
+// si je reclique sur le bouton dans le menu => fait l'inverse 
+
+
+<nav>
+    <button (click)="onClickMenu($event)">Masquer le menu</button>
+    <!-- ul>li*5>a[href="#"]>lorem1 -->
+    <ul [class.hide]="show">
+        <li><a href="#">Lorem.</a></li>
+        <li><a href="#">Aliquam.</a></li>
+        <li><a href="#">Animi!</a></li>
+        <li><a href="#">Possimus!</a></li>
+        <li><a href="#">Saepe!</a></li>
+    </ul>
+</nav>
+/: EventBinding => $event (récupérer l'événement) => target
+show: boolean = false;
+onClickMenu($event :any) :void{
+    // 1ère partie et // 2eme partie 
+    if($event.target.innerHTML == "Afficher le menu"){
+      $event.target.innerHTML = "Masquer le menu";
+      this.show =  false ;
+    }else{
+      $event.target.innerHTML = "Afficher le menu";
+      this.show = true ;
+    }
+  }
+
+// créer un nouveau composant onglet 
+
+contenir le html suivant
+
+div.onglet>(button*3>{action $})+div*3>lorem20
+<div class="onglet">
+    <button data-index="0">action 1</button>
+    <button data-index="1">action 2</button>
+    <button data-index="2">action 3</button>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores velit quibusdam quae quisquam in ea, iusto sed non expedita laborum.</div>
+    <div>Natus amet maiores modi cum ea, deserunt quas molestias explicabo perspiciatis dolorum voluptatum doloribus impedit labore nisi quaerat iure quae.</div>
+    <div>Doloremque sit soluta autem suscipit quis ratione impedit magnam aperiam, neque est a quas fuga quasi consequatur iure, incidunt magni?</div>
+</div>
+
+lorsque vous cliquez sur le bouton 1, masquer toutes les div 
+afficher la première
+
+lorsque vous cliquez sur le bouton 2, masquer toutes les div 
+afficher la deuxième
+
+lorsque vous cliquez sur le bouton 3, masquer toutes les div 
+afficher la dernière div
+
+
+// html 
+
+<div class="onglet">
+    <button data-index="0" (click)="onClickOnglet($event)">action 1</button>
+    <button data-index="1" (click)="onClickOnglet($event)">action 2</button>
+    <button data-index="2" (click)="onClickOnglet($event)">action 3</button>
+    <div [class.hide]="listeOnglet[0]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores velit quibusdam quae quisquam in ea, iusto sed non expedita laborum.</div>
+    <div [class.hide]="listeOnglet[1]">Natus amet maiores modi cum ea, deserunt quas molestias explicabo perspiciatis dolorum voluptatum doloribus impedit labore nisi quaerat iure quae.</div>
+    <div [class.hide]="listeOnglet[2]">Doloremque sit soluta autem suscipit quis ratione impedit magnam aperiam, neque est a quas fuga quasi consequatur iure, incidunt magni?</div>
+</div>
+
+/// scss 
+
+.hide{
+    display:none;
+}
+
+// ts 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-onglet',
+  templateUrl: './onglet.component.html',
+  styleUrls: ['./onglet.component.scss']
+})
+export class OngletComponent implements OnInit {
+  listeOnglet: Array<boolean> = [
+    false,
+    true,
+    true
+  ];
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onClickOnglet($event){
+    let index = $event.target.dataset.index;
+    this.listeOnglet.fill(true); // masquer toutes les div
+    this.listeOnglet[index] = false ;
+  }
+}

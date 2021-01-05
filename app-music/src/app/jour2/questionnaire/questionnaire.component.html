@@ -1,0 +1,23 @@
+<h2>Répondre à notre questionnaire</h2>
+<form>
+    <div class="form-group">
+        <label for="email">votre email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="detail">Plus de détails </label>
+        <textarea type="email" id="detail" name="details" [(ngModel)]="details" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="pays">Votre pays</label>
+        <select name="pays" id="pays" [(ngModel)]="pays" class="form-control">
+            <option value=""></option>
+            <option value="France">France</option>
+            <option value="Belgique">Belgique</option>
+            <option value="Allemagne">Allemagne</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-outline-dark" (click)="onClickQuestionnaire($event)">
+    </div>
+</form>

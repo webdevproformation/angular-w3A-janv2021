@@ -1,0 +1,23 @@
+<div class="card my-3" *ngFor="let album of albums">
+    <div class="card-header">
+        {{ album.ref }}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ album.title}}</h5>
+        <p class="card-text">{{ album.description }}</p>
+        <a class="btn btn-outline-primary mr-2 btn-sm" href="#" role="button"
+        *ngFor="let tag of album.tags">{{ tag }}</a>
+
+        <a 
+            class="btn btn-outline-dark btn-sm mr-3" 
+            href="#" role="button"
+            (click)="onClickShowAlbum( $event, album.id )">
+            guitar
+        </a>
+
+        <img class="glyph-icon" src="./assets/svg/si-glyph-heart.svg" />
+        <small>7</small>
+        <img class="glyph-icon" src="./assets/svg/si-glyph-timer-2.svg" />
+        <small>{{ album.duration | heureminute }} </small>
+    </div>
+</div><!-- .card -->

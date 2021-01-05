@@ -1,0 +1,211 @@
+navigation 
+
+=> le fait de changer de page 
+
+
+=> actuellement => 1 seule page 
+=> je veux ajouter la capacité à changer de page 
+
+=> si je clique sur le bouton se Connecter 
+
+=> afficher une page avec un formulaire
+=> dans lequel il y a deux champs
+	login // password // bouton de connexion 
+
+
+--------------------- 
+
+avant se de quitter => commencer à préparer le terrain 
+
+app.module.ts 
+
+1 import { RouterModule } from "@angular/router";
+permettre de passer une page à l'autre 
++ donner des directives (attribut dans les balises html)
+ngSubmit // ngClass // *ngIf // *ngFor ...
+
+2 nous avons créer 3 composants 
+
+import { HomeComponent } from './home/home.component';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { SearchComponent } from './search/search.component';
+
+ng g c home
+
+ces 3 composants vont correspondre aux 3 pages de notre application 
+
+3 
+  RouterModule.forRoot([
+    {path : "" , component: HomeComponent },
+    {path : "connexion" , component: ConnexionComponent},
+    {path : "search/:key" , component:SearchComponent}
+  ])
+
+créer 3 routes "" => HomeComponent
+ 	       "http://localhost:4200/connexion" =>  ConnexionComponent
+	       "http://localhost:4200/search/rock" => SearchComponent
+
+------------  
+
+app.component.html 
+prendre tous 
+
+<div class="container-fuild principal">
+   <app-menu [title]="title"></app-menu>
+   <router-outlet></router-outlet>
+   <!-- cette balise va être en charge de 
+      vient du Module RouterModule de angular 
+      en fonction de l'adresse <=> le composant concerné 
+      http://localhost:4200   => home.component.ts 
+      http://localhost:4200/connexion   => connexion.component.ts 
+   -->
+</div>
+
+----------------------------
+
+passer d'une page à l'autre => il faut modifier la barre d'adresse 
+
+
+le mieux pour un utilisateur => 
+
+modifier le composant menu.component.html 
+
+dans ce composant remplacer dans les balises a => 
+l'attribut href par routerLink="/"
+	            routerLink="/connexion"
+
+SPA = single page application : 
+une fois que votre application est chargée dans le navigateur du client
+(à part les images) => il n'y a plus d'autres rechargement 
+=> tout va se passer dans la RAM du navigateur du client 
+
+=> une fois que c'est chargé, il n'y a plus d'appel côté serveur 
+=> tout est géré dans la RAM du client 
+
+
+-------- 
+
+dans le composant connexion => 
+remplir ce composant avec un formulaire qui contient 2 champs 
+login et mot de passe + bouton de soumission 
+
+styliser ce formulaire avec Bootstrap 
+
+-------- 
+
+puis rappel sur la gestion des formulaires 
+
+utiliser le Template Driven Form pour récupérer les valeurs saisies dans
+le formulaire ??? 
+
+deux méthodes possibles 
+
+Template Driven Form // Reactive Form 
+
+on va utiliser la première technique 
+
+// installer le module => app.module.ts 
+
+import { FormsModule , ReactiveFormsModule } from "@angular/forms";
+
+importer le module dans le décorateur @NgModule dans import 
+ FormsModule
+
+// maintenant nous allons pouvoir utiliser de nouvelle directive 
+
+ngModel permettre de récupérer les valeurs qui sont saisies dans le formulaire 
+
+ngSubmit permettre d'écouter lorsque l'on a cliqué et récupérer toutes 
+les valeurs 
+
+
+<div class="row">
+    <div class="col-6 offset-3 mt-5">
+        <!-- 
+            dans le dossier src/app/assets
+            // aller sur google => télécharger une image 
+            // le site (photoshop online ) photopea.com
+        -->
+        <div class="text-center">
+            <img src="assets/logo.jpg" alt="">
+        </div>
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input 
+                    type="text" 
+                    name="login" 
+                    id="login" 
+                    class="form-control"
+                    ngModel 
+                    #login="ngModel">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input 
+                    type="text" 
+                    name="password" 
+                    id="password" 
+                    class="form-control"
+                    ngModel 
+                    #password="ngModel">
+            </div>
+            <div class="form-group text-center">
+                <input type="submit" class="btn btn-outline-dark">
+            </div>
+        </form>
+    </div>
+</div>
+
+----------  
+
+créer un nouveau composant search-form 
+
+ce composant contient le formulaire de recherche dans la barre de menu 
+
+utiliser le template driven form pour récupérer dans la console 
+la valeur qui a été saisie dans le champ de recherche  
+
+// routing => redirection 
+
+ng g c search-form
+
+
+<form class="form-inline my-2 my-lg-0" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" ngModel #search="ngModel">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+
+-------------------- 
+
+onSubmit(f){
+    console.log(f.value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

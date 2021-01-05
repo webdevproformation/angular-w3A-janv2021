@@ -1,0 +1,117 @@
+pour créer des composants
+
+créer un composant manuellement ( pour bien comprendre )
+
+
+dans le dossier /src/app/
+1 créer un fichier premier.component.ts 
+
+2 remplir le fichier 
+import{ Component } from "@angular/core"
+
+@Component({
+    selector : "premier",
+    template : "<h1>je suis le composant premier</h1>"
+})
+export class PremierComponent{  }
+
+=> transformer notre class en un composant Angular 
+décorer la class @Component
+
+// maintenant que l'on a crée le composant 
+// ce composant est un enfant du composant app.component.ts 
+
+// export avant la class => utiliser dans un autre fichier ts 
+
+3 déclarer dans notre application 
+déclarer notre composant => src/app/app.module.ts 
+
+importer notre composant 
+3.1import { PremierComponent } from "./premier.component" ;
+
+3.2 ajouter dans le décorateur 
+
+@NgModule({
+    declarations: [
+      AppComponent , 
+      PremierComponent // déclarer notre composant 
+    ],
+
+// on peut désormais l'utiliser n'importe où dans notre application Angular 
+
+4 utiliser notre composant pour l'afficher 
+
+// src/app/app.component.html 
+ajouter à la suite des balises 
+<premier></premier>
+
+// ------------------------------
+
+// cas pratique 
+// créer le composant src/app/deuxieme.component.ts
+// avoir le secteur deuxieme 
+// afficher le texte <h2>je suis le deuxième composant</h2>
+---------------------------------------
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector : "deuxieme" , // nom de la balise à utiliser dans les vues (dans les fichiers .html)
+    template: "<h2>je suis le deuxième composant</h2>"
+})
+export class DeuxiemeComponent{}
+
+---------------------------------------
+
+// déclarer ce composant dans app.module.ts 
+
+import { DeuxiemeComponent } from './deuxieme.component';
+ + déclarer le composant  dans le tableau declarations[ , DeuxiemeComponent ]
+
+
+// l'afficher via le fichier app.component.html  à la suite du composant premier
+
+
+---------------------------
+
+créer un composant client via le client (et ligne de commande)
+ng generate component nom-composant
+ng g c nom-composant
+ng g c nom-compose 
+
+lorsque vous créez des composants 
+
+ng g c dossier/nom-composant
+
+// vous devez lancer un deuxième terminal 
+// bien vérifier le path => C:\Users\HP\Desktop\app-music cd 
+// ng g c troisieme
+
+CREATE src/app/troisieme/troisieme.component.html (24 bytes)
+CREATE src/app/troisieme/troisieme.component.ts (288 bytes)
+CREATE src/app/troisieme/troisieme.component.scss (0 bytes)
+UPDATE src/app/app.module.ts (572 bytes)
+
+// créer 3 fichiers + mis à jour du fichier app.module.ts
+
+// réaliser 2 étapes importantes 
+// créer le composant 
+// déclarer 
+
+// pour le développeur => utiliser le composant 
+<app-troisieme></app-troisieme>
+
+-------------------------------------------
+
+// je viens de créer un composant manuelle ou via l'invite de commande 
+
+// supprimer ?? le composant premier 
+// il n'existe pas de commande => uniquement à la main 
+
+// vue => app.component.html supprimer la balise 
+// app.module.ts => déclaration et l'import 
+// supprimer le fichier premier.composant.ts
+
+-------------------------------------------
+
+rdv 14h01 bon appétit tout le monde 

@@ -1,0 +1,262 @@
+
+// directive 
+// attribut que l'on ajoute au balise html dans les vues 
+
+// *ngFor="" // boucle dans la vue 
+
+// *ngIf=""
+
+// ngSwitch=""
+
+// *ngFor avancé 
+
+// *ngFor trackBy => grande liste à afficher => mettre à jour uniquement les élements nouveaux // et pas l'intégralité de la liste (performance)
+
+// ngClass => permet d'ajouter dynamiquement plusieurs class en même temps
+[class]=""
+
+// ngStyle => ajouter plusieurs styles en même temps
+[style]=""
+
+// il possible de créer ses propres directives 
+ng g d nomDirective 
+
+-------------------- 
+
+ng g c directive 
+
+// directive .html 
+
+
+<!-- 
+    Est ce que le tableau liste contient des valeurs ?
+    si c'est vrai => afficher chaque item 
+    si c'est faux => texte par défaut : la liste est vide
+-->
+<!--  dans la partie droite de l'égalite expression qui retourne un boolean -->
+<div class="row">
+    <div class="col-6">
+        <h2>Utilisation de la directive *ngIf</h2>
+        <div *ngIf="liste.length == 0 ; else afficherListe" >
+            <p>La liste est vide</p>
+        </div>
+        <ng-template #afficherListe>
+            <ul>
+                <li *ngFor="let l of liste">{{ l }}</li>
+            </ul>
+        </ng-template>
+    </div>
+    <div class="col-6">
+        <h2>Utilisation de la directive ngSwitch</h2>
+        <div [ngSwitch]="liste.length">
+            <div *ngSwitchCase="0"> 
+                <p>Aucun élément</p>
+            </div>
+            <div *ngSwitchCase="2">
+                <p>J'ai deux items dans la liste</p>
+            </div>
+            <!-- ngSwitchCase  == pas possible d'utiliser switch case 
+            pour >= <= pour ce type de comparaison -->
+            <div *ngSwitchCase="3"> 
+                <p>j'ai une liste plus grande que 2</p>
+            </div>
+            <div *ngSwitchDefault>
+                <p>Aucune condition n'est respectée</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <h2>directive ngFor Avancée</h2>
+        <!-- 
+            récupérer l'index ; est ce que c'est pair ou est que c'est impaire
+        -->
+        <ul>
+            <li *ngFor="let l of liste; index as i; even as isEven ; odd as isOdd ">
+                {{ l }} - {{ i }} - {{ isEven }} - {{ isOdd }}
+            </li>
+        </ul>
+    </div>
+    <!-- https://angular.io/api/common/NgForOf  => autres valeurs possibles last / first => boolean-->
+
+    <div class="col-6">
+        <h2>directive ngFor Avancée suite </h2>
+        <button (click)="addData()" class="btn btn-warning">Charger des items dans le tableau </button>
+        <ul>
+            <li  *ngFor="let l of liste; trackBy : postCheck ">
+                {{ l }} 
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-6">
+        <h2>Directive ngClass </h2>
+        <!-- permet d'ajouter une ou plusieurs class à une balise -->
+        <button class="btn" [ngClass]="{
+            'btn-primary': isBase ,
+            'btn-danger' : isError ,
+            'btn-success' : isReussi ,
+            'btn-sm' : isSmall
+        }">
+         Action
+        </button>
+    </div>
+
+</div>
+
+
+// directive .ts 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'directive',
+  templateUrl: './directive.component.html',
+  styleUrls: ['./directive.component.scss']
+})
+export class DirectiveComponent implements OnInit {
+
+  liste : Array<number> = [1, 2, 3];
+  isBase : boolean = true;
+  isError : boolean = false ;
+  isReussi : boolean = false ;
+  isSmall : boolean = false ;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  addData(){
+    this.liste.push(4,5,6,7);
+  }
+
+  postCheck(index , a){
+    console.log(index, a);
+    if( a ){
+      return a;
+    }else{
+      return null;
+    }
+  } // éviter de rechercher intégralement un élément dans 
+  // d'abord vérifier si les éléments sont déjà présents dans la liste 
+  // performance 
+
+}
+
+// créer un nouveau composant exo 
+
+// ce composant contient un formulaire 
+<input type="text" > => email 
+<p></p>
+<select name="" id="">
+    <option value=""></option>
+    <option value="France">France</option>
+    <option value="Allemagne">Allemagne</option>
+    <option value="Belgique">Belgique</option>
+</select>
+<p></p>
+
+au moment ou remplir le champ input avec le email 
+si le champ contient plus de 4 caractères => 
+mettre le texte veuillez finir de compléter le champ email 
+si le champ email est conforme regex 
+// remplir du texte "email conforme" + le texte soit "écrit en vert " 
+class sur bootstrap text-success 
+
+si la personne sélectionne la france => 
+dans le p en dessous le texte france => fond de couleur du p en orange 
+bg-warning
+Allemagne => fond grid et le texte allemgne 
+bg-secondary 
+Belgique => fond bleu et le texte belgique 
+bg-primary 
+
+
+// exo.ts 
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-exo',
+  templateUrl: './exo.component.html',
+  styleUrls: ['./exo.component.scss']
+})
+export class ExoComponent implements OnInit {
+  message : string ;
+  isValidEmail: boolean = false;
+  messagePays: string ;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onModifEmail($event){
+    let valeurSaisie = $event.target.value;
+    console.log(valeurSaisie);
+    if(valeurSaisie.length <= 4 ){
+      this.message = "veuillez finir de compléter le champ email";
+    }else{
+      this.message = "";
+    }
+    let patternEmail = /^[a-zA-Z0-9_\.\-]{1,}@[a-zA-Z0-9_\-]{1,}\.[a-z]{2,10}$/;
+
+    if( patternEmail.test(valeurSaisie) ){
+      this.message = "email conforme";
+      this.isValidEmail = true;
+    }else {
+      this.isValidEmail = false;
+    }
+
+  }
+
+  onModifSelect($event){
+    //console.log();
+    let paysSelectionne = $event.target.value
+    if(paysSelectionne != ""){
+      this.messagePays = paysSelectionne
+    }else{
+      this.messagePays = "";
+    }
+    
+  }
+
+}
+
+// exo.html 
+<div class="row">
+    <form class="col-6">
+        <div class="form-group"> 
+            <label for="email">email</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="email"  
+                (keyup)="onModifEmail($event)">
+            <p [ngClass]="{'text-success':isValidEmail} ">{{message}}</p>
+        </div>
+        <div class="form-group">
+            <label for="pays">Pays</label>
+            <select name="" id="pays" class="form-control" #pays (change)="onModifSelect($event)">
+                <option value=""></option>
+                <option value="France">France</option>
+                <option value="Allemagne">Allemagne</option>
+                <option value="Belgique">Belgique</option>
+            </select>
+            <p [ngClass]="{
+                'bg-warning' : messagePays == 'France',
+                'bg-secondary' : messagePays == 'Allemagne',
+                'bg-primary' : messagePays == 'Belgique',
+                'bg-white' : messagePays == ''
+            }">{{messagePays}}</p>
+        </div>
+    </form>
+</div>
+<!-- 
+    autre solution 
+    tableau dans le ts 
+    *ngFor
+-->
+
+
+
+

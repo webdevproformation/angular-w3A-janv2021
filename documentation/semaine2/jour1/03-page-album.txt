@@ -1,0 +1,16 @@
+
+
+créer un nouveau composant => ng g c album
+
+récupérer le html dans le composant albums 
+
+----- 
+
+ajouter une nouvelle route dans app.module.ts 
+
+{ path : "album/:id" , component : AlbumComponent }
+
+----- 
+
+album.component.ts => 
+

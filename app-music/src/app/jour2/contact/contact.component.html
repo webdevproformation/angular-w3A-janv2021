@@ -1,0 +1,14 @@
+<h2>Nous contacter</h2>
+
+<form>
+    <div class="form-group">
+        <label for="email"> votre email</label>
+        <input type="text" [(ngModel)]="email" name="email" id="email"  class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="commentaire"> votre commentaire</label> <br>
+        <textarea name="commentaire" id="commentaire" [(ngModel)]="commentaire" class="form-control"></textarea>
+    </div>
+</form>
+
+<button (click)="onClickShowEmail()">voir email</button>

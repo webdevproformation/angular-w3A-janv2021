@@ -1,0 +1,33 @@
+<div class="row">
+    <form class="col-6">
+        <div class="form-group"> 
+            <label for="email">email</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="email"  
+                (keyup)="onModifEmail($event)">
+            <p [ngClass]="{'text-success':isValidEmail} ">{{message}}</p>
+        </div>
+        <div class="form-group">
+            <label for="pays">Pays</label>
+            <select name="" id="pays" class="form-control" #pays (change)="onModifSelect($event)">
+                <option value=""></option>
+                <option value="France">France</option>
+                <option value="Allemagne">Allemagne</option>
+                <option value="Belgique">Belgique</option>
+            </select>
+            <p [ngClass]="{
+                'bg-warning' : messagePays == 'France',
+                'bg-secondary' : messagePays == 'Allemagne',
+                'bg-primary' : messagePays == 'Belgique',
+                'bg-white' : messagePays == ''
+            }">{{messagePays}}</p>
+        </div>
+    </form>
+</div>
+<!-- 
+    autre solution 
+    tableau dans le ts 
+    *ngFor
+-->

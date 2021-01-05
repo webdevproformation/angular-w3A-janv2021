@@ -1,0 +1,58 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { RouterModule }  from '@angular/router' ;
+import { FormsModule } from "@angular/forms" ;
+
+import { AppComponent } from './app.component';
+import { ArticleComponent } from './article/article.component';
+import { MetaComponent } from './meta/meta.component';
+import { CommentaireComponent } from './commentaire/commentaire.component';
+import { Nl2brPipe } from './nl2br.pipe';
+import { ParentComponent } from './parent/parent.component';
+import { EnfantComponent } from './enfant/enfant.component';
+import { DirectiveComponent } from './directive/directive.component';
+import { ExoComponent } from './exo/exo.component';
+import { MenuComponent } from './menu/menu.component';
+import { ContactComponent } from './contact/contact.component';
+import { ListeArticlesComponent } from './liste-articles/liste-articles.component';
+import { AccueilComponent } from './accueil/accueil.component';
+
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    ArticleComponent,
+    MetaComponent,
+    CommentaireComponent,
+    Nl2brPipe,
+    ParentComponent,
+    EnfantComponent,
+    DirectiveComponent,
+    ExoComponent,
+    MenuComponent,
+    ContactComponent,
+    ListeArticlesComponent,
+    AccueilComponent,
+    ArticleDetailComponent,
+    NotFoundComponent
+  ],
+  imports: [
+    BrowserModule ,
+    RouterModule.forRoot([
+     { path : '' , component: AccueilComponent  },
+     { path : 'contact' , component: ContactComponent } ,
+     { path : "articles/:id" , component: ArticleComponent },
+     { path : "articles" , component: ListeArticlesComponent },
+     { path : "**" , component: NotFoundComponent }
+   ]) ,
+   FormsModule
+  ],
+  providers: 
+  [
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

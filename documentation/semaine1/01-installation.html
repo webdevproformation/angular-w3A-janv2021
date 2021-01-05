@@ -1,0 +1,90 @@
+// ng new app-music --style=scss --skip-tests=true
+// Y N => Fichier de routage N Enter
+
+// une fois que le projet est installé 
+// cd app-music 
+// ng serve -o --port 4200
+
+// le client => créer un projet complet 
+
+// dossier e2e end2end => tester 
+// dossier  node_modules => contient l'ensemble des dépendances qui permettent de faire fonctionner angular
+// dossier src => c'est ici que l'on va passer plus 95% 
+// dans ce dossier que l'on va travailler : créer des fichiers / dossier 
+// dans ce dossier que l'on va créer notre application
+
+// plein de fichiers de configuration 
+// angular.json => donne toutes les instructions au binaire ng pour se lancer 
+
+// angular utiliser typescript => tsconfig.json 
+
+// dans le dossier src 
+    index.html 
+     qui contient la balise <app-root></app-root>
+     l'intégralité de votre code va être exécuté dans cette balise 
+
+    main.ts 
+        ce fichier qui fait le lien entre la page inde.html et tous les fichiers typescript que l'on va créer 
+
+        import { AppModule } from './app/app.module';
+
+    style.scss => mettre les styles css globaux pour notre projet
+
+    dossier assets => stocker les éléments statique de notre projet 
+        image / svg de notre projet 
+
+    dossier app 
+        app.module.ts => module principal de notre application 
+        central => cle chef d'orchestre de toute notre application 
+
+        régulièrement améner à le modifier 
+
+        importer le composant principale / le composant parent de tous les autres composants que l'on va créer 
+
+        app.component.ts 
+
+            import { Component } from '@angular/core';
+
+            @Component({
+                selector: 'app-root', // celui qui est utilisé dans le fichier index.html 
+                templateUrl: './app.component.html',
+                styleUrls: ['./app.component.scss']
+            })
+            export class AppComponent { // class AppComponent qui est chargé dans le fichier app.module.ts
+                title = 'app-music';
+            }
+
+// vous avez télécharger plein de fichier via la commande =>  ng new 
+
+// nous allons travailler dans le dossier src/app => 95% 
+
+// pour arrivez juste dans ce dossier voici l'enchainement 
+
+// /angular.json 
+// /src/index.html
+// /src/main.ts => appeler
+
+// /src/app/app.module.ts // central dans la création de projet Angular 
+                         // appeler 
+
+// /src/app/app.component.ts 
+
+// déclare la balise <app-root></app-root> (utilisée dans le fichier index.html)
+// /src/app/app.component.html 
+// /src/app/app.component.scss 
+
+// --lancer le projet
+
+// ng serve -o // lancer le projet angular sur le port 4200
+// ng serve -o --port 4201 // démarrage du serveur 
+
+// 02-modifier-app-component.html
+
+
+
+
+
+
+
+
+

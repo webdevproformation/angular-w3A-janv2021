@@ -1,0 +1,15 @@
+<div class="row">
+    <div *ngIf="albums.length === 0 ; else listeResultat" class="col-6 offset-3 mt-5">
+        <p>Aucun résultat , veuillez lancer une nouvelle recherche</p>
+        <app-search-form></app-search-form>
+    </div>
+    <ng-template #listeResultat>
+        <p class="col-12 mx-2">il y a {{ albums.length }} résultats pour le mot recherché</p>
+        <ul class="col-12 list-group mx-2" >
+            <li *ngFor="let album of albums" class="list-group-item">
+                {{ album.name }} - 
+                <a [routerLink]="['/album', album.id]" class="btn btn-outline-primary">voir l'album</a>
+            </li>
+        </ul>
+    </ng-template>
+</div>

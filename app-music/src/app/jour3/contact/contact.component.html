@@ -1,0 +1,66 @@
+<h1>Nous contacter</h1>
+<p>Vous avez un problème merci de remplir le formulaire ci dessous et nous revenons vers vous au plus vite !</p>
+<form #f="ngForm" (submit)="onSubmitFormulaire(f)" >
+    <div class="form-group" >
+        <label for="email">votre email</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="form-control"
+            ngModel
+            #email="ngModel"
+            (change)="onChangeEmail(email)"
+            required 
+            minlength="5"
+            maxlength="60"
+            pattern="[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\-_]+\.[a-z]{2,4}$">
+            <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+                <ul class="mb-0">
+                    <li *ngIf="email.errors.required">Email requis</li>
+                    <li *ngIf="email.errors.minlength">Email doit avoir au moins 5 caractères</li>
+                    <li *ngIf="email.errors.maxlength">Email doit avoir au maximum 60 caractères</li>
+                    <li *ngIf="email.errors.pattern">Email doit avoir une forme d'email</li>
+                </ul>
+            </div>
+    </div>
+    <div class="form-group">
+        <label for="service">vous voulez contacter :</label>
+        <select 
+            name="service" 
+            id="service" 
+            class="form-control"
+            [(ngModel)]="service">
+            <option value=""></option>
+            <option value="webmaster">webmaster</option>
+            <option value="service commercial">service commercial</option>
+            <option value="sav">sav</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="commentaire">Votre commentaire</label>
+        <textarea 
+            name="commentaire" 
+            id="commentaire" 
+            cols="30" 
+            class="form-control"
+            ngModel
+            #commentaire="ngModel"
+            required
+            minlength="10"
+            maxlength="100"></textarea>
+            <div class="alert alert-danger" *ngIf="commentaire.touched && !commentaire.valid">
+                <ul class="mb-0">
+                    <li *ngIf="commentaire.errors.required">Veuillez compléter ce champ</li>
+                    <li *ngIf="commentaire.errors.minlength">le champ doit avoir au minimum 10 caractères</li>
+                    <li *ngIf="commentaire.errors.maxlength">le champ doit avoir au maximum 100 caractères</li>
+                </ul>
+            </div>
+    </div>
+    <div class="form-group d-flex justify-content-between">
+        <input 
+            type="submit" 
+            class="btn btn-outline-warning">
+        <a routerLink="/"  class="btn btn-primary">retour à l'accueil</a>
+    </div>
+</form>

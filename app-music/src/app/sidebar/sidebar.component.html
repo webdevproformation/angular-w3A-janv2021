@@ -1,0 +1,12 @@
+<div class="card">
+    <img class="card-img-top" [src]="albumEncours.album.url" [alt]="albumEncours.album.title">
+    <div class="card-body">
+        <h5 class="card-title"> {{ albumEncours.album.title }}</h5>
+        <p class="card-text">{{ albumEncours.album.ref }}</p>
+        <a href="#" class="btn btn-primary"> Play >> </a>
+    </div>
+    <ul class="list-group" *ngIf="albumEncours.titres.length > 0">
+        <li class="list-group-item" *ngFor="let titre of albumEncours.titres">{{titre}}</li>
+    </ul>
+    <!-- mock -->
+</div>

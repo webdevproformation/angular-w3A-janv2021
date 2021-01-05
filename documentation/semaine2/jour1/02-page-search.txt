@@ -1,0 +1,24 @@
+suite à une recherche 
+
+http://localhost:4200/search/album
+
+1 récupéré ce qui est écrit dans la barre d'adresse 
+
+search.component.ts 
+
+2 une fois que j'ai récupéré la valeur recherchée => 
+lancer une recherche dans mon service music.service.ts 
+ajouter une nouvelle méthode search()
+
+
+3 Afficher un tableau avec la liste des albums qui contiennent le mot 
+*ngIf="" ; else 
+- si aucun résultat => message pas résultat / veuillez relancer une recherche
+
+- si il y a des résultats => voici la liste des albums 
+   *ngFor=
+
+- cliquer sur un des albums pour le voir 
+
+// https://github.com/webdevproformation/app-music
+

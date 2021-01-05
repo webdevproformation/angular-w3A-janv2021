@@ -1,0 +1,19 @@
+<ul>
+    <li *ngFor="let jour of liste">{{ jour }}</li>
+</ul>
+
+<div *ngFor="let f of formation">
+    <h1>{{ f.matiere }}</h1>
+    <!-- premiere manière pour le bouton -->
+    <button>afficher le projet n° {{ f.id }}</button>
+    <!-- deuxème manière pour le bouton -->
+    <button> {{ "afficher le projet n° " + f.id }}</button>
+</div>
+
+<hr>
+
+<div *ngFor="let c of client">
+    <p>{{ "id " + c.id }}</p>
+    <p>{{ "nom " + c.nom }}</p>
+    <p>{{ "adresse " + c.adresse }}</p>
+</div>

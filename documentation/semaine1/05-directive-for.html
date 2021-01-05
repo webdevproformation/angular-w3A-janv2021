@@ -1,0 +1,112 @@
+créer un nouveau composant via le cli 
+
+dans votre terminal
+ng g c directive
+
+// src/app/app.component.html 
+ajouter la balise suite : 
+<app-directive></app-directive>
+
+--- un peu de mise en forme 
+
+// src/app/app.component.html 
+<div class="wrapper">
+    <h1>{{ title }}</h1>
+    <h2>{{ sousTitre }}</h2>
+    <p>{{ presentation }}</p>
+    <ul>
+        <li>{{ liste[0] }}</li>
+        <li>{{ liste[1] }}</li>
+    </ul>
+    <deuxieme></deuxieme>
+    <troisieme></troisieme>
+    <app-directive></app-directive>
+</div>
+
+// fichier src/style.scss => styliser le fichier index.html 
+
+// si on veut styliser le composant app.component.html 
+// fichier src/app/app.component.scss
+la règle suivante 
+.wrapper{
+    margin: 0 auto;
+    width: 960px;
+}
+
+
+// dans le fichier src/app/directive/directive.component.ts 
+
+ajouter dans la class un nouvelle attribut dans la class  
+
+liste: Array<string> = ["lundi", "mardi", "mercredi"] ;
+
+// dans le fichier src/app/directive/directive.component.html 
+// contient ce qui va être affiché à l'écran 
+vider le contenu 
+
+<ul>
+    <li *ngFor="let jour of liste">{{ jour }}</li>
+</ul>
+
+ressemble un attribut mais qui pour Angular consigne 
+le fait de modifier le html 
+
+// *ngIf 
+// [attribut]
+// ngSwitch
+
+// ajouter une nouvelle variable dans le fichier  src/app/directive/directive.component.ts 
+
+formation = [
+    { 
+        id : 1 ,
+        matiere : "javascript"
+    },
+    {
+        id : 2 ,
+        matiere : "Angular"
+    }
+];
+
+modifier la vue ajouter à la suite le code html suivant :
+<div>
+    <h1>"javascript"</h1>
+    <button>afficher le projet n° 1</button>
+</div>
+<div>
+    <h1>"Angular"</h1>
+    <button>afficher le projet n° 2</button>
+</div>
+
+dans le fichier src/app/directive/directive.component.ts
+
+export class DirectiveComponent implements OnInit {
+
+    liste: Array<string> = ["lundi", "mardi", "mercredi"] ;
+  
+    formation : Array<{id:number , matiere:string }> = [
+      { 
+          id : 1 ,
+          matiere : "javascript"
+      },
+      {
+          id : 2 ,
+          matiere : "Angular"
+      }
+    ];
+    constructor() { }
+  
+    ngOnInit(): void {
+    }
+  }
+
+
+dans le fichier src/app/directive/directive.component.html
+
+<div *ngFor="let f of formation">
+    <h1>{{ f.matiere }}</h1>
+    <!-- premiere manière pour le bouton -->
+    <button>afficher le projet n° {{ f.id }}</button>
+    <!-- deuxème manière pour le bouton -->
+    <button> {{ "afficher le projet n° " + f.id }}</button>
+</div>
