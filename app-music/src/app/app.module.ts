@@ -63,7 +63,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component'
       },
       {path : "**" , component: NotFoundComponent }
     ]),
-    FormsModule
+    FormsModule ,
+    ReactiveFormsModule
   ],
   providers: 
   [],

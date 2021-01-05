@@ -1,0 +1,76 @@
+
+// formulaire il existe deux manières de gérer les formulaires 
+
+// Template Driven Form 
+// créer le formulaire de connexion 
+
+gérer votre formulaire directement depuis la vue => ajouter dans le html des attributs qui vont permettre de controller le formulaire  
+
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <input type="text" name="prenom" 
+        ngModel 
+        #prenom="ngModel"
+        required 
+        minlength="2"
+        maxlength="30"
+        pattern="[a-zA-Z0-9]{2,30}"
+        >
+    <input type="submit">
+</form>
+
+// https://www.w3schools.com/TAGS/att_input_pattern.asp
+.ts 
+
+onSubmit(f){
+    if(f.valid){ 
+        // effectuer les traitements 
+    }
+}
+
+// il est possible de bloquer l'utilisation du bouton Envoyer tant que le formulaire ne vérifie pas les conditions au niveau des champs du formulaire 
+
+<input type="submit" class="btn btn-outline-dark" [disabled]="!f.valid">
+
+reprendre le formulaire de connexion 
+// connexion.component.html 
+
+// dans la barre de menu 
+// passe la souris sur le lien déconnexion => lié au fait que le <a ></a> n'a pas l'attribut href="" mais un click à la place 
+
+toutes les informations 
+
+la deuxième manière de créer et gérer des formulaires dans Angular 
+
+Reactive Form ! 
+
+// installer de manière globale => dans le fichier app.module.ts 
+
+import { FormsModule , ReactiveFormsModule } from "@angular/forms";
+
+puis l'activer dans les imports 
+
+------------------------------
+
+créer un composant reactive-form 
+ng g c reactive-form  
+
+// associer une route => composant 
+http://localhost:4200/reactif => composant  reactive-form 
+// ajouter cette route dans app.module.ts => 
+
+Ajouter un lien dans le menu entre Home et Se connecter vers cette page 
+
+formulaire de contact 
+
+nom => input 
+commentaire => textarea 
+
+utiliser bootstrap pour la mise en forme !! 
+
+
+
+
+
+
+
+

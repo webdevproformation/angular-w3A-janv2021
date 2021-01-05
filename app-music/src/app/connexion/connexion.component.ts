@@ -16,16 +16,19 @@ export class ConnexionComponent implements OnInit {
   onSubmit(f){
     // console.log(f.value);
     // this._route.navigate(["/admin"]);
-    let reponse = this._auth.login(f.value);
-    console.log(reponse);
-    // ajouter un message pour l'internaute et vider le formulaire
-    if( reponse === false ){
-      this.isValid = false;
-      f.reset() ; // permet de vider tous les champs du formulaire 
-      setTimeout( () => {
-        this.isValid = true;
-      } , 2000)
+    if(f.valid){
+      let reponse = this._auth.login(f.value);
+      //console.log(reponse);
+      // ajouter un message pour l'internaute et vider le formulaire
+      if( reponse === false ){
+        this.isValid = false;
+        f.reset() ; // permet de vider tous les champs du formulaire 
+        setTimeout( () => {
+          this.isValid = true;
+        } , 2000)
+      }
     }
+    
   }
 
 }
