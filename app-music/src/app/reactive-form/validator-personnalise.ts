@@ -11,6 +11,18 @@ export class ValidatorPersonnalise{
         }
         return null ;
     }
+    static isValidAdresse(champ : AbstractControl) : ValidationErrors{
+        let pattern = /^[0-9]{2} [a-zA-Z ]{1,}$/ ;
+        // let pattern = /^[0-9]{2} [a-zA-Z ]+$/ ;
+        // let pattern = /^\d{2} [a-zA-Z ]+$/ ;
+        if(!champ.value.match(pattern)){
+            return {
+                isValidAdresse : true,
+                message : "ce champ n'est pas une adresse valide"
+            }
+        }
+        return null ;
+    }
 }
 
 // si la personne saisit dans le champ nom => "Alain Dufourt"

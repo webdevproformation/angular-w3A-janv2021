@@ -19,6 +19,7 @@ export class ReactiveFormComponent {
             ]  
         ),
     email : new FormControl( "", [ Validators.email , Validators.required ] ) ,
+    adresse : new FormControl("", ValidatorPersonnalise.isValidAdresse ),
     commentaire : new FormControl(
                       "texte par défaut" , 
                         [ 
@@ -34,6 +35,10 @@ export class ReactiveFormComponent {
   // ajouter un getter // éviter d'avoir à répéter form.get("email") dans la partie html 
   get email(){
     return this.form.get("email");
+  }
+
+  get adresse(){
+    return this.form.get("adresse");
   }
   // créer des Validation personnalisée => ne veux pas qu'il y ait le symbole espace 
   // validation async créer un compte => pseudo => (le pseudo que tu veux utiliser est réjà pris)
