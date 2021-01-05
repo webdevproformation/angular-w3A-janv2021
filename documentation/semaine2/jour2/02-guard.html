@@ -32,3 +32,50 @@ export class AuthGuardService implements CanActivate {
 }
 // app.module.ts 
 // créer le composant forbidden
+
+// café rdv dans 15 min => 11h16 !! 
+
+// // app.module.ts  => ajouter dans les routes qui aménent au back office 
+
+import { AuthGuardService } from "./services/auth-guard.service"
+
+// au niveau des routes => ajouter un nouveau paramètre
+
+{ 
+    path : "admin/album/update/:id" , 
+    component : UpdateComponent ,
+    canActivate : [ AuthGuardService ]
+},
+{ 
+    path : "admin/album/add" , 
+    component : AddComponent ,
+    canActivate : [ AuthGuardService ]
+},
+{ 
+    path : "admin" , 
+    component : DashboardComponent ,
+    canActivate : [ AuthGuardService ]
+},
+
+// créer un nouveau composant 
+
+ng g c forbidden 
+
+// ajouter une nouvelle route dans app.module.ts 
+
+{path : "forbidden" , component : ForbiddenComponent }, 
+
+mettre en forme ce composant 
+
+forbidden.component.html 
+
+<div class="row mt-5">
+    <div class="col-12 jumbotron bg-warning">
+        <h1 class="text-center">Erreur 401 <small>vous n'êtes pas autorisé à accéder à cette page</small></h1>
+    </div>
+</div>
+
+se déconnecter du back office 
+essayer de saisir l'adresse http://localhost:4200/admin 
+
+

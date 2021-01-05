@@ -19,6 +19,9 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { AddComponent } from './admin/album/add/add.component';
 import { UpdateComponent } from './admin/album/update/update.component';
 
+import { AuthGuardService } from "./services/auth-guard.service";
+import { ForbiddenComponent } from './forbidden/forbidden.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +38,8 @@ import { UpdateComponent } from './admin/album/update/update.component';
     NotFoundComponent,
     DashboardComponent,
     AddComponent,
-    UpdateComponent
+    UpdateComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule ,
@@ -44,9 +48,19 @@ import { UpdateComponent } from './admin/album/update/update.component';
       {path : "connexion" , component: ConnexionComponent},
       {path : "search/:key" , component:SearchComponent},
       {path : "album/:id" , component : AlbumComponent },
-      {path : "admin/album/update/:id" , component : UpdateComponent },
-      {path : "admin/album/add" , component : AddComponent },
-      {path : "admin" , component : DashboardComponent },
+      {path : "forbidden" , component : ForbiddenComponent },
+      { path : "admin/album/update/:id" , 
+        component : UpdateComponent ,
+        canActivate : [ AuthGuardService ]
+      },
+      { path : "admin/album/add" , 
+        component : AddComponent ,
+        canActivate : [ AuthGuardService ]
+      },
+      { path : "admin" , 
+        component : DashboardComponent ,
+        canActivate : [ AuthGuardService ]
+      },
       {path : "**" , component: NotFoundComponent }
     ]),
     FormsModule
