@@ -11,10 +11,22 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/reactif">Reactive Form
+            <li class="nav-item active sous-menu">
+                <a class="nav-link" class="deconnexion btn btn-link ">Reactive Form
                     <span class="sr-only">(current)</span>
                 </a>
+                <ul>
+                    <li>
+                        <a class="nav-link" routerLink="/reactif">Reactive Form
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" routerLink="/reactive-form-suite">Reactive Form suite
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item" *ngIf="!auth.isLogged()">
                 <a class="nav-link" routerLink="/connexion">Se connecter

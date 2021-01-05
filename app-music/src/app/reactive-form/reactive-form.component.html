@@ -41,12 +41,15 @@
                 <label for="commentaire">commentaire</label>
                 <textarea name="commentaire" id="commentaire" rows="5" class="form-control" formControlName="commentaire"></textarea>
             </div>
-          <!--   <div class="form-group">
+            <!--   <div class="form-group">
                 <label for="test">test</label>
                 <input type="text" id="test" name="test" class="form-control" [(ngModel)]="test">
             </div> -->
             <div class="form-group">
                 <input type="submit" class="btn btn-outline-success">
+            </div>
+            <div class="alert alert-danger" *ngIf="form.errors">
+                {{ form.errors.message }}
             </div>
         </form>
     </div>

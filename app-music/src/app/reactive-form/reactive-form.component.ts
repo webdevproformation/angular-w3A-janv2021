@@ -48,6 +48,11 @@ export class ReactiveFormComponent {
   // ... 
 
   onSubmit(){
+    
+    this.form.setErrors({
+      message : "les valeurs saisies sont incorrectes" 
+    });
+
     if(this.form.valid){
       console.log( this.form.value );
     }
