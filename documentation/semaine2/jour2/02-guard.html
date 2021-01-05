@@ -1,0 +1,34 @@
+// attention avec que l'on vient de faire 
+
+// connecter et se déconnecter parfaitement
+
+// MAIS !!! 
+// si l'internaute garde en mémoire une adresse du back office => http://localhost:4200/admin
+et qu'il la remet dans la barre d'adresse => il va pouvoir réaccéder au back office SANS avoir avoir à s'identifier 
+
+// pour protéger notre back office => mettre en place un nouveau type de service 
+
+Guard 
+
+ng g s services/auth-guard 
+
+import { Injectable } from '@angular/core';
+import { CanActivate , Router } from "@angular/router";
+import { AuthService } from "./auth.service";
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuardService implements CanActivate {
+  constructor( private _auth : AuthService , private _route : Router) { }
+  canActivate(route){
+    if(this._auth.isLogged()){
+      return true;
+    } else {
+      this._route.navigate(["/forbidden"]);
+      // redirection vers une page qui va lui dire vous n'avez pas les droits 
+      return false ;
+    }
+  }
+}
+// app.module.ts 
+// créer le composant forbidden
