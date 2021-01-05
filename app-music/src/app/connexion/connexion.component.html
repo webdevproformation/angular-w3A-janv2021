@@ -32,6 +32,9 @@
             <div class="form-group text-center">
                 <input type="submit" class="btn btn-outline-dark">
             </div>
+            <div class="alert alert-danger" *ngIf="!isValid">
+                <p class="mb-0 text-center">les identifiants ne sont pas conformes !! </p>
+            </div>
         </form>
     </div>
 </div>

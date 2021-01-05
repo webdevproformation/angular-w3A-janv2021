@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from './../services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +8,14 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
   @Input() title : string ;
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor( public auth : AuthService) {}
+
+  ngOnInit(): void {}
+
+  onClickDeconnexion(){
+    // dans cette méthode que l'on va appeler la méthode logout !! 
+    this.auth.logout();
   }
 
 }

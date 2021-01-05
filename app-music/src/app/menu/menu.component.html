@@ -11,8 +11,18 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!auth.isLogged()">
                 <a class="nav-link" routerLink="/connexion">Se connecter
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item"  *ngIf="auth.isLogged()">
+                <a class="nav-link" routerLink="/admin">DashBoard
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="auth.isLogged()">
+                <a class="nav-link" (click)="onClickDeconnexion()">Déconnexion
                     <span class="sr-only">(current)</span>
                 </a>
             </li>

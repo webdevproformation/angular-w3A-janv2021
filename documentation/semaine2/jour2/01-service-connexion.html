@@ -8,5 +8,134 @@ ng g s services/auth
 
 attribut user => compte utilisateur
 
+// dans auth.service.ts 
+
+login( credentials : { login : string , password : string } ) : boolean{
+    if( credentials.login === this.user.login && credentials.password === this.user.password ){
+      // ajouter une information dans le localStorage du navigateur 
+      localStorage.setItem("token" , JSON.stringify(this.user));
+      // rediriger l'internaute vers la page d'accueil du back office 
+      this._route.navigate(["/admin"]);
+      return true ; 
+    }else{
+      // si les identifiants ne sont pas correctes
+      return false ;
+    }
+  }
+
+// utiliser cette méthode dans le composant connexion.component.ts
+
+    login : "login",
+    password : "azerty",
+
+    onSubmit(f){
+        // console.log(f.value);
+        // this._route.navigate(["/admin"]);
+        let reponse = this._auth.login(f.value);
+        console.log(reponse);
+        // ajouter un message pour l'internaute et vider le formulaire
+        if( reponse === false ){
+          this.isValid = false;
+          f.reset() ; // permet de vider tous les champs du formulaire 
+          setTimeout( () => {
+            this.isValid = true;
+          } , 2000)
+        }
+      }
+
+connexion.component.html
+      
+    <div class="alert alert-danger" *ngIf="!isValid">
+        <p class="mb-0">les identifiants ne sont pas conformes !! </p>
+    </div>
+
+// localStorage => 
+
+// => mettre en place la déconnexion 
+
+// dans auth.service.ts 
+
+logout(){
+    // vider le localstorage
+    localStorage.removeItem("token");
+    // redirection la page de connexion du site 
+    this._route.navigate(["/connexion"]);
+}
+
+// utiliser cette fonction dans l'application 
+// modifier le menu de notre application
+// ajouter deux nouveaux liens => DashBoard et Déconnexion 
+
+menu.component.html 
+
+ajouter les liens suivants : 
+
+<li class="nav-item">
+    <a class="nav-link" routerLink="/admin">DashBoard
+        <span class="sr-only">(current)</span>
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" (click)="onClickDeconnexion()">Déconnexion
+        <span class="sr-only">(current)</span>
+    </a>
+</li>
+
+menu.component.ts 
+
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from './../services/auth.service';
+@Component({
+  selector: 'app-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss']
+})
+export class MenuComponent implements OnInit {
+  @Input() title : string ;
+  constructor( private _auth : AuthService) { }
+  ngOnInit(): void {}
+  onClickDeconnexion(){
+    // dans cette méthode que l'on va appeler la méthode logout !! 
+    this._auth.logout();
+  }
+}
+
+// dans auth.service.ts 
+// dernière méthode  isLogged(){}
+
+isLogged() : boolean{
+    let token = localStorage.getItem("token");
+    if(token === null ){
+      return false ;
+    } else {
+      if(JSON.parse(token).role === "admin"){
+        return true ; // connecté ET Admin pour accéder au back office du site 
+      }
+      return false ;
+    }
+  }
+
+// modifier le menu => 
+// si la personne est connecté et est admin alors il va voir dans le menu 
+// Dashboard et Connexion 
+
+// si la personne n'est pas connecté => il va juste voir le lien "Se connecter" 
+
+menu.component.ts 
 
 
+<li class="nav-item" *ngIf="!auth.isLogged()">
+  <a class="nav-link" routerLink="/connexion">Se connecter
+      <span class="sr-only">(current)</span>
+  </a>
+</li>
+<li class="nav-item"  *ngIf="auth.isLogged()">
+  <a class="nav-link" routerLink="/admin">DashBoard
+      <span class="sr-only">(current)</span>
+  </a>
+</li>
+<li class="nav-item" *ngIf="auth.isLogged()">
+  <a class="nav-link" (click)="onClickDeconnexion()">Déconnexion
+      <span class="sr-only">(current)</span>
+  </a>
+</li>
