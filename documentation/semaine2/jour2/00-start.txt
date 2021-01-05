@@ -1,1 +1,48 @@
-https://github.com/webdevproformation/angular-w3A-janv2021
+https://github.com/webdevproformation/angular-w3A-janv2021 
+
+=> hier Navigation 
+
+
+app.module.ts 
+
+import {RouterModule} from "@angular/router" 
+
+=> SPA = single page application (le site ne se charge 1 seule fois)
+
+=> le fichier app.component.html => <router-outlet></router-outlet>
+
+modifier de manière dynamique url ==> composant
+
+=> ajouter des routes app.module.ts 
+
+RouterModule.forRoot([
+      {path : "" , component: HomeComponent }, // home page
+      {path : "connexion" , component: ConnexionComponent},
+      {path : "search/:key" , component:SearchComponent},
+      {path : "album/:id" , component : AlbumComponent },
+      {path : "admin/album/update/:id" , component : UpdateComponent }, // précis
+      {path : "admin/album/add" , component : AddComponent }, // moins long
+      {path : "admin" , component : DashboardComponent }, // court 
+      {path : "**" , component: NotFoundComponent } // 404
+]),
+
+Dans tous les composants dans la partie html => dans les balises liens hypertexte 
+<a href=""></a> => cliquer sur un lien (recharger de toute l'application )
+<a routerLink="/contact"></a> => pas de rechargements 
+<a [routerLink]="['/contact', 1 ]"></a> => pas de rechargements 
+
+Dans la partie Typescript .ts 
+
+import { ActivatedRoute , Router } from "@angular/router";
+suite au clique sur un formulaire 
+Router => permet de réaliser des redirections this._route.navigate(["/url", id , titre])
+
+ActivatedRoute => permet d'analyser l'url de la page encours 
+
+this._activeRoute.paramMap // observable 
+
+pour récupérer l'information sur la barre d'adresse => s'abonner à l'observable 
+
+this._activeRoute.paramMap.subscribe( reponse => {  reponse.get("id") }  ) 
+
+------------------------ 
