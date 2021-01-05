@@ -46,3 +46,4 @@ pour récupérer l'information sur la barre d'adresse => s'abonner à l'observab
 this._activeRoute.paramMap.subscribe( reponse => {  reponse.get("id") }  ) 
 
 ------------------------ 
+
