@@ -1,0 +1,35 @@
+
+
+form = new FormGroup( { 
+    champ1 : new FormControl("" , Validators.required),
+    champ2 : new FormControl("" , [ Validators.required , Validators.email ]),
+    champ3 : new FormControl("" , [ Validators.minLength(2) , Validators.minLength(30) ]),
+    champ4 : new FormControl(),
+});
+
+get champ1(){
+    return this.form.get("champ1")
+}
+
+get champ3(){
+    return this.form.get("champ3")
+}
+
+.html 
+
+<form [formGroup]="form">
+    <input type="text" name="test" id="test" formControlName="champ1">
+    {{ champ1.value }} // valeur
+    // toutes les autres méthodes du champ => boolean 
+    {{ champ1.valid }} // est ce que toutes les conditions sont respectées
+    {{ champ1.invalid }} // est ce que une condition n'est pas respectée
+    {{ champ1.touched }} // est ce que la personne a interagit avec le champ
+    {{ champ1.untouched }} // est ce que la personne n'a pas interagit avec le champ
+    {{ champ1.dirty }} // est ce que la valeur a été modifiée oui
+    {{ champ1.pristine }} // est ce que la valeur a été modifiée non 
+
+    {{ champ3.errors.minlength }} // attention c'est en minuscule !
+    {{ champ3.errors.maxlength }}  // attention c'est en minuscule !
+</form>
+
+// 
