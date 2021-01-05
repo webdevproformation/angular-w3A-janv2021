@@ -18,7 +18,9 @@ export class ReactiveFormComponent {
               ValidatorPersonnalise.pasDEspace
             ]  
         ),
-    email : new FormControl( "", [ Validators.email , Validators.required ] ) ,
+    email : new FormControl( "", 
+                          [ Validators.email , Validators.required ] ,
+                          ValidatorPersonnalise.uniqueEmail ) ,
     adresse : new FormControl("", ValidatorPersonnalise.isValidAdresse ),
     commentaire : new FormControl(
                       "texte par défaut" , 

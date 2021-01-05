@@ -23,6 +23,24 @@ export class ValidatorPersonnalise{
         }
         return null ;
     }
+    static uniqueEmail(champ : AbstractControl) : Promise<ValidationErrors>{
+        // requête en base de données => prendre un peu de temps => 500ms 
+        // setTimemout()
+        // validation asynchrone 
+        return new Promise( ( resolve , reject ) => { 
+            setTimeout( () => {
+                if(champ.value === "a@yahoo.fr"){
+                    // il y a déjà quelqu'1 qui a ce mail dans la bdd
+                    resolve({
+                        uniqueEmail : true,
+                        message : "email déjà utilisé"
+                    })
+                }else {
+                    resolve(null)
+                }
+            }, 2000 )
+        } )
+    }
 }
 
 // si la personne saisit dans le champ nom => "Alain Dufourt"

@@ -19,10 +19,12 @@
             <div class="form-group">
                 <label for="email">email</label>
                 <input type="text" id="email" name="email" class="form-control" formControlName="email">
+                <p *ngIf="email.pending">nous vérifions que votre email est unique ...</p>
                 <div class="alert alert-warning" *ngIf="email.touched && email.invalid">
                     <ul class="mb-0">
                         <li *ngIf="email.errors.required">le champ email est obligatoire</li>
                         <li *ngIf="email.errors.email">le texte saisi n'est pas une email valide</li>
+                        <li *ngIf="email.errors.uniqueEmail">{{ email.errors.message }}</li>
                     </ul>
                 </div>
             </div>
