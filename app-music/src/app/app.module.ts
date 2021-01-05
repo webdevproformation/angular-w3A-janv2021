@@ -20,7 +20,8 @@ import { AddComponent } from './admin/album/add/add.component';
 import { UpdateComponent } from './admin/album/update/update.component';
 
 import { AuthGuardService } from "./services/auth-guard.service";
-import { ForbiddenComponent } from './forbidden/forbidden.component'
+import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ReactiveFormComponent } from './reactive-form/reactive-form.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component'
     DashboardComponent,
     AddComponent,
     UpdateComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    ReactiveFormComponent
   ],
   imports: [
     BrowserModule ,
@@ -49,6 +51,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component'
       {path : "search/:key" , component:SearchComponent},
       {path : "album/:id" , component : AlbumComponent },
       {path : "forbidden" , component : ForbiddenComponent },
+      {path : "reactif" , component : ReactiveFormComponent },
       { path : "admin/album/update/:id" , 
         component : UpdateComponent ,
         canActivate : [ AuthGuardService ]

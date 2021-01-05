@@ -56,6 +56,7 @@ ng g c reactive-form
 
 // associer une route => composant 
 http://localhost:4200/reactif => composant  reactive-form 
+
 // ajouter cette route dans app.module.ts => 
 
 Ajouter un lien dans le menu entre Home et Se connecter vers cette page 
@@ -67,6 +68,44 @@ commentaire => textarea
 
 utiliser bootstrap pour la mise en forme !! 
 
+
+<div class="row mt-5">
+    <h1 class="col-12">Reactive Form</h1>
+    <div class="col-12">
+        <form>
+            <div class="form-group">
+                <label for="nom">nom</label>
+                <input type="text" id="nom" name="nom" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="commentaire">commentaire</label>
+                <textarea name="commentaire" id="commentaire" rows="5" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-outline-success">
+            </div>
+        </form>
+    </div>
+</div>
+
+// le fichier reactive-form.component.ts 
+
+import { Component } from '@angular/core';
+import { FormGroup , FormControl } from "@angular/forms";
+
+@Component({
+  selector: 'app-reactive-form',
+  templateUrl: './reactive-form.component.html',
+  styleUrls: ['./reactive-form.component.scss']
+})
+export class ReactiveFormComponent {
+  // FormGroup => form / groupe dans un formulaire
+  // FormControl => item input / textarea dans notre formulaire 
+  form = new FormGroup( { 
+    nom : new FormControl(),
+    commentaire : new FormControl()
+  });
+}
 
 
 
