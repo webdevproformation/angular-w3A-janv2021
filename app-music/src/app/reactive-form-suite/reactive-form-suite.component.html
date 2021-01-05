@@ -1,1 +1,37 @@
-<p>reactive-form-suite works!</p>
+<div class="row">
+    <h1 class="col-12">FormBuilder </h1>
+    <form [formGroup]="form2" class="col-12" (ngSubmit)="onSubmit2()">
+        <div class="form-group">
+            <label for="nom">nom</label>
+            <input type="text" name="nom" id="nom" class="form-control" formControlName="nom">
+        </div>
+        <div class="form-group" *ngFor="let image of form2.get('images')['controls']">
+            <input type="text" class="form-control" [value]="image.value">
+        </div>
+        <div>
+            <input type="submit" class="btn btn-dark">
+        </div>
+    </form>
+    <div>
+        <hr>
+    </div>
+    <h1 class="col-12">Reactive Form suite et fin - FormArray </h1>
+    <form [formGroup]="form" class="col-12" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <input type="text" name="categorie" id="categorie" (keydown.enter)="onKeyDownAdd(categorie)" #categorie class="form-control">
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let categorie of form.get('categories')['controls']">
+                {{ categorie.value }}
+            </li>
+        </ul>
+        <button class="btn btn-success mb-3" (click)="onClickAdd()">Ajouter une nouvelle matière</button>
+        <div class="form-group" *ngFor="let matiere of form.get('matieres')['controls']">
+            <input type="text" class="form-control" >
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-info">
+        </div>
+    </form>
+</div>
+

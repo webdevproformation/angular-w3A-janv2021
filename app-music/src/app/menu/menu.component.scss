@@ -8,6 +8,7 @@
 
 .sous-menu{
      position: relative;
+     z-index: 2;
      &>ul{
           display: none;
      }
