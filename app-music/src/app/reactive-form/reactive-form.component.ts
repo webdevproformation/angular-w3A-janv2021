@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup , FormControl , Validators } from "@angular/forms";
+import { ValidatorPersonnalise } from "./validator-personnalise";
 
 @Component({
   selector: 'app-reactive-form',
@@ -10,7 +11,13 @@ export class ReactiveFormComponent {
   // FormGroup => form / groupe dans un formulaire
   // FormControl => item input / textarea dans notre formulaire 
   form = new FormGroup( { 
-    nom : new FormControl("" , Validators.required ),
+    nom : new FormControl(
+            "" , 
+            [ 
+              Validators.required , 
+              ValidatorPersonnalise.pasDEspace
+            ]  
+        ),
     email : new FormControl( "", [ Validators.email , Validators.required ] ) ,
     commentaire : new FormControl(
                       "texte par défaut" , 

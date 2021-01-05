@@ -6,7 +6,14 @@
                 <label for="nom">nom</label>
                 <input type="text" id="nom" name="nom" class="form-control" formControlName="nom">
                 <div class="alert alert-warning" *ngIf="form.get('nom').touched && form.get('nom').invalid">
-                    <p *ngIf="form.get('nom').errors.required" class="mb-0">veuillez compléter ce champ !</p>
+                    <ul class="mb-0">
+                        <li *ngIf="form.get('nom').errors.required" >
+                            veuillez compléter ce champ !
+                        </li>
+                        <li *ngIf="form.get('nom').errors.pasDEspace">
+                                {{ form.get('nom').errors.message }}
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="form-group">
