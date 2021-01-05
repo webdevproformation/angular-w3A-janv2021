@@ -1,13 +1,43 @@
 <div class="row">
+    <h1 class="col-12">Cas pratique</h1>
+    <form [formGroup]="form3" (ngSubmit)="onSubmit3()" class="col-12">
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email" class="form-control" formControlName="email">
+        </div>
+        <div class="form-group">
+            <label for="origin">origin</label>
+            <select name="origin" id="origin" formControlName="origin" class="form-control">
+                <option value="france">france</option>
+                <option value="allemagne">allemagne</option>
+                <option value="belgique">belgique</option>
+            </select>
+        </div>
+        <div formArrayName="images">
+            <div class="form-group" *ngFor="let image of form3.get('images')['controls'] ; index as idx">
+                <label >image {{  idx }}</label>
+                <input type="file" class="form-control" [formControlName]="idx">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-warning">
+        </div>
+    </form>
+    <div class="col-12">
+        <hr>
+    </div>
     <h1 class="col-12">FormBuilder </h1>
     <form [formGroup]="form2" class="col-12" (ngSubmit)="onSubmit2()">
         <div class="form-group">
             <label for="nom">nom</label>
             <input type="text" name="nom" id="nom" class="form-control" formControlName="nom">
         </div>
-        <div class="form-group" *ngFor="let image of form2.get('images')['controls']">
-            <input type="text" class="form-control" [value]="image.value">
+        <div formArrayName="images">
+            <div class="form-group" *ngFor="let image of form2.get('images')['controls'] ; index as idx">
+                <input type="text" class="form-control" [formControlName]="idx">
+            </div>
         </div>
+        
         <div>
             <input type="submit" class="btn btn-dark">
         </div>
@@ -26,8 +56,10 @@
             </li>
         </ul>
         <button class="btn btn-success mb-3" (click)="onClickAdd()">Ajouter une nouvelle matière</button>
-        <div class="form-group" *ngFor="let matiere of form.get('matieres')['controls']">
-            <input type="text" class="form-control" >
+        <div formArrayName="matieres">
+            <div class="form-group" *ngFor="let matiere of form.get('matieres')['controls'] ; index as idx">
+                <input type="text" class="form-control"  [formControlName]="idx">
+            </div>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-info">

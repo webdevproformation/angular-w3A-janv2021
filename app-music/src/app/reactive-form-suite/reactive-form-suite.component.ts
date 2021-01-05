@@ -9,6 +9,7 @@ import { FormGroup , FormControl , Validators , FormArray , FormBuilder } from '
 export class ReactiveFormSuiteComponent implements OnInit {
 
   form2 ;
+  form3 ;
 
   constructor( frmBuild : FormBuilder) {
     this.form2 = frmBuild.group({ // new FormGroup({})
@@ -19,6 +20,16 @@ export class ReactiveFormSuiteComponent implements OnInit {
         frmBuild.control("image 3"),
       ]) //  new FormArray([])
     });
+
+    this.form3 = frmBuild.group({
+      email : [],
+      origin : [],
+      images : frmBuild.array([ [],[],[],[],[] ])
+    })
+  }
+
+  onSubmit3(){
+    console.log(this.form3.value);
   }
   onSubmit2(){
     console.log(this.form2.value);
