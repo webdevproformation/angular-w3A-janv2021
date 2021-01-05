@@ -5,6 +5,19 @@
             <div class="form-group">
                 <label for="nom">nom</label>
                 <input type="text" id="nom" name="nom" class="form-control" formControlName="nom">
+                <div class="alert alert-warning" *ngIf="form.get('nom').touched && form.get('nom').invalid">
+                    <p *ngIf="form.get('nom').errors.required" class="mb-0">veuillez compléter ce champ !</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">email</label>
+                <input type="text" id="email" name="email" class="form-control" formControlName="email">
+                <div class="alert alert-warning" *ngIf="email.touched && email.invalid">
+                    <ul class="mb-0">
+                        <li *ngIf="email.errors.required">le champ email est obligatoire</li>
+                        <li *ngIf="email.errors.email">le texte saisi n'est pas une email valide</li>
+                    </ul>
+                </div>
             </div>
             <div class="form-group">
                 <label for="commentaire">commentaire</label>
