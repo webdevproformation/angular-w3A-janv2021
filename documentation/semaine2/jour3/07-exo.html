@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        const phrase = "je découvre .... ";
+
+        rxjs.Observable.create( ( observer ) => {
+            let i = 0;
+            let t = "";
+            let interval = setInterval( () => {
+                i++;
+                t += phrase[i]
+                observer.next( phrase[i]  );
+                observer.next( t  );
+                //console.log("setInterval exécuté" + i)
+                if( i === phrase.length - 1){
+                    observer.complete( "fin" );
+                    clearInterval(interval);
+                }
+            } , 500) 
+        }).subscribe( (reponse) => {
+            console.log(reponse)
+        } , () => {}, () => { console.log("fin")})
+    </script>
+</body>
+</html>
