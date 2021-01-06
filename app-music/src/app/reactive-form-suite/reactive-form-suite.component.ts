@@ -23,7 +23,7 @@ export class ReactiveFormSuiteComponent implements OnInit {
 
     this.form3 = frmBuild.group({
       email : [],
-      origin : [],
+      origin : ["belgique"],
       images : frmBuild.array([ [],[],[],[],[] ])
     })
   }

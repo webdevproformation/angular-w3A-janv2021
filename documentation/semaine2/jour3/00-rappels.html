@@ -1,0 +1,81 @@
+https://github.com/webdevproformation/angular-w3A-janv2021 
+
+
+
+
+dans le fichier contact.component.ts 
+
+formulaire : présente 4 champs 
+
+   email 
+   
+   téléphone fixe / téléphone portable
+   
+   adresse 
+
+
+il existe 2 manières de créer définir un formulaire (reactive form)
+
+import { FormGroup, FormControl , FormArray } from "@angular/forms";
+
+form = new FormGroup({
+    email : new FormControl(),
+    telFixe : new FormControl(),
+    telPortable : new FormControl(),
+    adresse : new FormControl(),
+})
+
+form = new FormGroup({
+    email : new FormControl(),
+    tel : new FormArray([ new FormControl() , new FormControl() ]),
+    adresse : new FormControl(),
+})
+
+// FormBuilder => service (qui permet de remplacer les trois FormGroup, FormControl , FormArray en même temps)
+// injection de dépendance dans le constructeur de la class 
+
+import { FormBuilder } from "@angular/forms";
+
+form 
+
+constructor(private _frmBuild : FormBuilder ){ }
+
+ngOnInit(){
+    this.form = this._frmBuild.group({
+        email : [],
+        telFixe : this._frmBuild.control(),
+        telPortable : [],
+        adresse : []
+    })
+
+    this.form = this._frmBuild.group({
+        email : [], 
+        tel : this._formBuild.array([ [], this._frmBuild.control() ]),
+        adresse : []
+    })
+}
+
+// cas pratique 
+
+créer un nouveau composant form-profil
+
+ce composant est accessible via l'adresse suivante : /form-contact 
+
+ajouter ce lien dans le sous menu react Form 
+
+ce formulaire contient les champs suivants 
+
+nom : 
+    obligatoire / contenir au moins 3 caractère au maximum 20 caractères 
+
+age :
+ obligatoire / min 0 / maximum 120 
+
+passions => cliquer sur un bouton ajouter un nouvel input lequel il va pouvoir saisir une passion 
+ obligatoire / contenir au moins 3 caractère au maximum 20 caractères 
+ pour chaque champ 
+
+créer ce formulaire et utiliser les forms builder pour gérer et récupérer les valeurs saisies !!! 
+
+utiliser bootstrap pour mettre en form ce formulaire !! 
+
