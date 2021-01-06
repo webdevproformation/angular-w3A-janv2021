@@ -1,0 +1,89 @@
+<!-- Stream / Observable / Observer / abonnement .subscribe() -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>action 1</button>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        let tableau$ = rxjs.Observable.create( (observer) => {
+            observer.next([1,2,3, 4])
+        })
+
+        let tableauPair$ = tableau$.pipe(
+            rxjs.operators.filter( ( item ) => item % 2 === 0 )
+        ) 
+
+        tableauPair$.subscribe( (response) => {
+
+            console.log(response);
+        } )
+
+
+        rxjs.from( [ 1, 2 ,3, 4]).pipe(
+            rxjs.operators.map( ( item ) => {
+                if(item % 2 === 0){
+                    return item
+                }
+            } )
+        ).subscribe( (response) => {
+            console.log(response);
+        } )
+
+        // transformer le stream => sous une autre forme 
+        //[1,2, 3]  => map => [ { id : 1}, {id : 2}, {id : 3}]
+
+
+        // les opérateurs que l'on utilise dans les tableaux .map() .filter() .reduce()
+        // 
+
+        const btn = document.querySelector("button")
+
+        let btn$ = rxjs.fromEvent( btn , "click"  );
+
+        btn$.subscribe( ( response ) => { console.log("1");console.log(   response) });
+
+        /// 
+
+        let btnMapped$ = btn$.pipe( 
+            rxjs.operators.map( ( event ) => { return { item : event , dte : new Date() } } )
+        );
+
+        btnMapped$.subscribe( ( response ) => { console.log("2"); console.log( response) })
+
+        // enchainer les uns après les autres 
+
+        // observable$.pipe( traitement() , traitement2(), traitement3() )
+
+        // https://rxjs.dev/guide/operators
+
+        // il y a plus de 100 opérateurs utilisables ! 
+
+        // il est possible de mettre entre l'observable et  le .subscribe()
+        // operateur 
+        // observable => comme un tableau , traiter comme un tableau 
+
+        let nouveauTableau = [ 1, 2, 3 ].filter( ( item ) => { return item >= 2 });
+        console.log(nouveauTableau );
+
+        // créer un fichier 09-exo.html 
+
+        // ce fichier utiliser rxjs 
+
+        // stream de donnée qui augmente de + 1 toutes les 1 secondes interval()
+
+        // via l'opérateur map multiplier la valeur x 3 de la valeur streamée
+        // via l'opérateur filter les valeurs qui sont des multiples de 2
+        // remultipler le résultat par 4 
+
+        //stopper le stream au bout de 15 secondes 
+
+    </script>
+</body>
+</html>
+
+
