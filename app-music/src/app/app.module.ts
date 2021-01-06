@@ -22,7 +22,8 @@ import { UpdateComponent } from './admin/album/update/update.component';
 import { AuthGuardService } from "./services/auth-guard.service";
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
-import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-suite.component'
+import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-suite.component';
+import { FormProfilComponent } from './form-profil/form-profil.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-
     UpdateComponent,
     ForbiddenComponent,
     ReactiveFormComponent,
-    ReactiveFormSuiteComponent
+    ReactiveFormSuiteComponent,
+    FormProfilComponent
   ],
   imports: [
     BrowserModule ,
@@ -54,6 +56,7 @@ import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-
       {path : "album/:id" , component : AlbumComponent },
       {path : "forbidden" , component : ForbiddenComponent },
       {path : "reactif" , component : ReactiveFormComponent },
+      {path : "form-contact" , component : FormProfilComponent },
       {path : "reactive-form-suite" , component : ReactiveFormSuiteComponent },
       { path : "admin/album/update/:id" , 
         component : UpdateComponent ,
