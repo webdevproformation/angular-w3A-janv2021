@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        // il existe plein de manière de créer des observables 
+        // 1ère manière créer notre premier Observable
+        // l'Observable prend un callback comme paramètre => observer 
+        // un paramètre observer 
+        // le paramètre observer est un objet qui dispose de 3 méthodes principales 
+        // 3 méthodes .next() .error() .complete()
+
+        // next() envoyer une information qui est nouvelle dans le stream
+
+        // la variable donneesObservable$ contient un stream de données observables
+        let donneesObservable$ = rxjs.Observable.create( ( observer ) => { 
+            observer.next("premier information du stream");
+            observer.next("deuxième information du stream");
+            observer.next("troisième information du stream");
+        } )
+
+        // 2ème étape maintenant que l'on a créé le stream de données 
+        // pour récupérer les données on va devoir s'abonner à ce stream 
+
+        // il existe plusieurs manières de s'abonner à un stream 
+
+        // 1ère manière de s'abonner à un stream de donnée 
+
+        donneesObservable$.subscribe( ( reponse ) => { 
+            console.log(reponse);
+        })
+
+        // 2ème exemple stream de données 
+        // 2ème manière de s'abonner à un observable 
+
+        rxjs.Observable.create( ( observer ) => { 
+            observer.next(["un","deux"]);
+            observer.next({id : 1, titre : "article 1"});
+        } ).subscribe( ( reponse) => {
+            console.log(reponse);
+        } )
+
+        // observer dispose de 3 méthodes 
+        // .next() .error() .complete()
+        // .complete() => automatique il arrête le flux de données 
+
+        rxjs.Observable.create( ( observer ) => {
+            observer.next(1);
+            observer.next(2);
+            observer.complete(); // au niveau de l'observer dès qu'il utilie la méthode complete()
+            // stop de stream 
+            // toutes les informations suivantes qui sont envoyées via la méthode next()
+            // ne sont plus reçues 
+            observer.next(3);
+            observer.next(4);
+        }).subscribe( (reponse ) => {
+            console.log(reponse);
+        })
+
+        rxjs.Observable.create( ( observer ) => {
+            observer.next("un");
+            observer.next("deux");
+            observer.next("trois");
+            observer.error("une erreur s'est produite "); // si il y a une erreur qui est émise depuis l'observer => ça va couper le stream 
+            observer.next("quatre");
+            observer.complete();
+        } ).subscribe( (reponse ) => {
+            console.log(reponse);
+        } , ( message ) => { console.log(message) }  )
+
+        // si il y a une erreur qui se produit dans l'appel du stream 
+        // il est possible de traiter cette erreur dans un deuxième paramètre du callback de la souscription
+
+        // .subcribe( () => { } , () => { } )
+        //   1ère callback permet de récupérer les informations qui sont émises depuis le stream 
+
+        // 2ème callback permet de traiter à part les erreurs éventuelles qui se seraient produites lors de l'émission du stream 
+        // dès qu'il y a une erreur => stopper les autres émissions du stream 
+
+        // cas pratique :
+        // dans le dossier jour3 dans la documentation 
+
+        /*
+            créer un nouveau fichier 05-exo.html
+            ce fichier appelle la librairie rxjs dans sa version 6.3.3 
+
+            créer un observable qui va émettre les informations suivantes 
+
+            bonjour
+            les 
+            => erreur se produit  ( erreur connexion)
+            amis 
+            [ 1, 2 , 3 , 4]
+
+            souscrire à cet observable 
+            afficher dans la console toutes les informations reçues 
+            et traiter l'erreur en afficher le message suivante : une erreur s'est produite !
+        */
+
+    </script>
+</body>
+</html>
