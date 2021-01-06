@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        let stream$ = rxjs.Observable.create( (observer) => {
+            observer.next("Bonjour");
+            observer.next("les");
+            observer.error("erreur connexion");
+            observer.next("amis");
+            observer.next([ 1, 2 , 3 , 4]);
+        } );
+
+        stream$.subscribe( (reponse) => {
+            console.log(reponse)
+        } , () => { console.log("une erreur s'est produite")} );
+
+        // créer un observable sur base de données / événemet réalisé par l'internaute
+        // 06-creer-observable.html
+    </script>
+</body>
+</html>

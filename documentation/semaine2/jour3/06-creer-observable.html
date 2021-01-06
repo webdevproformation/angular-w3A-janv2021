@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>action</button>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+
+        // créer un observable sur base de données / événemet réalisé par l'internaute
+
+        // à partir d'un tableau 
+        // manière classique 
+        rxjs.Observable.create( (observer ) => {
+            let tableau = ["pomme","poire","abricot"];
+
+            tableau.forEach( (item) => {
+                observer.next( item )
+            } )
+        }).subscribe( (reponse) => {
+            console.log(reponse)
+        } )
+
+        // manière équivalente (plus rapide à écrire)
+        // from( [ ]) => transformer un tableau en observable 
+        rxjs.from( [ "ananas", "banane","kiwi" ] )
+            .subscribe( (reponse) => {
+                console.log(reponse)
+            })
+
+        // of() => équivalent de from mais vous pouvez mettre entre les parenthèses de of()
+
+        const tab = [{id:1}, {id:2}]
+
+        rxjs.of( { id: 1}, "hello", true , [1,2] , tab )
+        .subscribe( (reponse) => { console.log(reponse)} , ()=> {} , ()=> { console.log("fin")} );
+
+        // il est possible de transformer actions réaliser par un internaute sur le DOM en observable 
+
+        const btn = document.querySelector("button");
+
+        rxjs.Observable.create( (observer)=> {
+            btn.addEventListener("click", (e) => {
+                observer.next( e )
+            })
+        } ).subscribe(  (reponse) => { console.log(reponse)} );
+        
+        rxjs.fromEvent( btn , "click" ).subscribe( (reponse) => { console.log(reponse)} )
+
+        // timer 
+
+        rxjs.Observable.create( (observer)=> {
+            let i = 0
+            setInterval( () => {
+                observer.next( i );
+                i++;
+            } , 2000)
+
+            setTimeout( ( ) => {
+                observer.complete();
+            }, 5000)
+        } ).subscribe(  (reponse) => { console.log( "Observable.create "+ reponse)} );
+
+        // 
+        let interval$ = rxjs.interval( 1000 );
+        
+        let souscriptionInterval = interval$.subscribe(  (reponse) => { console.log("interval "+ reponse)} );
+
+        setTimeout( ( ) => {
+            souscriptionInterval.unsubscribe();
+        }, 10000)
+
+        // cas pratique 
+        // créer le fichier 07-exo.html 
+
+        // ce fichier utilise rxjs 
+        // afficher dans la console , lettre par lettre le texte suivant 
+
+        // je découvre rxjs en utilisant les observables 
+        // entre chaque lettre il y a un délai de 500ms 
+
+    </script>
+</body>
+</html>
