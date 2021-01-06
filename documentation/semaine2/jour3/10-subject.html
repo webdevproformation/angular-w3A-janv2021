@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        // observable 
+        // autre objet => Subject = observer et des observables 
+
+        let subject$ = new rxjs.Subject() // à la fois un observer et observable
+        let pageEncours = 1 ;
+        subject$.subscribe( (reponse ) => {
+            pageEncours = reponse
+            console.log(reponse)
+        } , () => {} , () => { console.log('fin')})
+
+        document.querySelectorAll("button").forEach(function(item){
+            item.addEventListener("click", function(e){
+                subject$.next(e.target.innerHTML);
+            })
+        })
+
+        // dans firebase 
+
+        /* subject$.next("utilisation du sujet 1");
+        subject$.next("utilisation du sujet 2");
+        subject$.next("utilisation du sujet 3");
+        subject$.complete();
+        subject$.next("utilisation du sujet 4");
+        subject$.next("utilisation du sujet 5"); */
+
+        // récupérer dans la barre d'adresse 
+        // localhost:4200/album/2
+
+        //ActivatedRoute
+
+        // this._activeRoute.paramMap.pipe().subscribe( (reponse) => {
+
+        // } )
+
+        // http 
+        // Firebase 
+        // rdv dans 15 min => back office 15h45  
+        // bon café et à toute suite !! 
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-4">
+        <h2>données stockées dans Firebase</h2>
+        <ul>
+            <li *ngFor="let album of albums">{{ album.name }}</li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <h2>information sur l'album avec la position 1 (key)</h2>
+        <pre>
+            {{ album1 | json }}
+        </pre>
+    </div>
+    <div class="col-4">
+        <h2>pipe async </h2>
+        <ul>
+            <li *ngFor="let album of albums$ | async ">{{ album.name }}</li>
+            <!-- subscribe() + unsubscribe() si on sort du composant !!  -->
+        </ul>
+    </div>
+    <div class="col-4">
+        <h2>ajouter un nouvel album</h2>
+        <input type="text" name="name" id="name" (keydown.enter)="onKeyDownAdd(name)" #name class="form-control mt-3">
+    </div>
+    <div class="col-4">
+        <h2>supprimer un album</h2>
+        <ul>
+            <li *ngFor="let album of albums$ | async " class="py-2">
+                    {{ album.name }} - <button class="btn btn-dark btn-sm" 
+                    (click)="onClickDelete(album)">supprimer</button>
+            </li>
+        </ul>
+    </div>
+</div>

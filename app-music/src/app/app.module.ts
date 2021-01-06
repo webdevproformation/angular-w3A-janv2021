@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { FormsModule , ReactiveFormsModule } from "@angular/forms";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { environment } from './../environments/environment';
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -23,7 +26,8 @@ import { AuthGuardService } from "./services/auth-guard.service";
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-suite.component';
-import { FormProfilComponent } from './form-profil/form-profil.component'
+import { FormProfilComponent } from './form-profil/form-profil.component';
+import { FirebaseComponent } from './firebase/firebase.component'
 
 @NgModule({
   declarations: [
@@ -45,7 +49,8 @@ import { FormProfilComponent } from './form-profil/form-profil.component'
     ForbiddenComponent,
     ReactiveFormComponent,
     ReactiveFormSuiteComponent,
-    FormProfilComponent
+    FormProfilComponent,
+    FirebaseComponent
   ],
   imports: [
     BrowserModule ,
@@ -56,6 +61,7 @@ import { FormProfilComponent } from './form-profil/form-profil.component'
       {path : "album/:id" , component : AlbumComponent },
       {path : "forbidden" , component : ForbiddenComponent },
       {path : "reactif" , component : ReactiveFormComponent },
+      {path : "firebase" , component : FirebaseComponent },
       {path : "form-contact" , component : FormProfilComponent },
       {path : "reactive-form-suite" , component : ReactiveFormSuiteComponent },
       { path : "admin/album/update/:id" , 
@@ -73,7 +79,9 @@ import { FormProfilComponent } from './form-profil/form-profil.component'
       {path : "**" , component: NotFoundComponent }
     ]),
     FormsModule ,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule
   ],
   providers: 
   [],
