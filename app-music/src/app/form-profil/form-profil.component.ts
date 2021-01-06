@@ -37,6 +37,11 @@ export class FormProfilComponent implements OnInit {
                        );
   }
 
+  onClickDelete(i){
+    // removeAt() => index de l'élément à supprimer => supprimer pour vos dans le DOM 
+    this.passions.removeAt(i);
+  }
+
   onSubmit(){
     console.log(this.form.valid)
     if(this.form.valid){

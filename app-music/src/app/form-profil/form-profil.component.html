@@ -12,8 +12,9 @@
         <div class="form-group">
             <button class="btn btn-success" (click)="onClickAdd()">Ajouter une nouvelle passion</button>
             <div formArrayName="passions">
-                <div *ngFor="let passion of passions['controls'] ; index as i" class="mt-3">
+                <div *ngFor="let passion of passions['controls'] ; index as i" class="mt-3 d-flex justify-content-between">
                     <input type="text" name="passion" class="form-control" [formControlName]="i">
+                    <button class="btn btn-danger ml-3" (click)="onClickDelete(i)">supprimer</button>
                 </div>
             </div>
         </div>
