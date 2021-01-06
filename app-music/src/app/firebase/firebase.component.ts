@@ -1,7 +1,7 @@
 import { Component, OnInit , OnDestroy } from '@angular/core';
 // récupérer tous les enregistrements qui sont stockées dans la balise de données online
 import { AngularFireDatabase } from "@angular/fire/database";
-import { Subscription } from "rxjs"
+import { Subscription , Observable } from "rxjs"
 
 @Component({
   selector: 'app-firebase',
@@ -14,7 +14,8 @@ export class FirebaseComponent implements OnInit ,OnDestroy  {
   album1 ;
   albumsSouscription :Subscription ;
   album1Souscription :Subscription;
-  albums$ ;
+  albums$ : Observable<Array<any>> ;
+  albums2$ : Observable<Array<any>> ;
 
   constructor( private _db : AngularFireDatabase) { }
 
@@ -30,6 +31,11 @@ export class FirebaseComponent implements OnInit ,OnDestroy  {
     })
     // stocker la partie Observable 
     this.albums$ = this._db.list("/albums").valueChanges()
+
+    /* this.albums2$ =  */this._db.list("/albums").snapshotChanges().subscribe( reponse => {
+      console.log(reponse);
+    })
+
   }
 
   ngOnDestroy():void{
