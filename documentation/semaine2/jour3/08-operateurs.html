@@ -15,16 +15,15 @@
         })
 
         let tableauPair$ = tableau$.pipe(
-            rxjs.operators.filter( ( item ) => item % 2 === 0 )
+            // rxjs.operators.map( ( item ) =>   ( rxjs.operators.filter( (item)  =>   item % 2 === 0 )  )  )
         ) 
 
         tableauPair$.subscribe( (response) => {
-
             console.log(response);
         } )
 
 
-        rxjs.from( [ 1, 2 ,3, 4]).pipe(
+        rxjs.from( [ 1, 2 ,3, 4] ).pipe(
             rxjs.operators.map( ( item ) => {
                 if(item % 2 === 0){
                     return item

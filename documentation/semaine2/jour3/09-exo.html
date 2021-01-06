@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        let timer$ = rxjs.interval(1000);
+
+        let newTimer$ = timer$.pipe(
+            rxjs.operators.map( ( reponse ) => { return reponse * 3}  ) , // 2* 3 = 6
+            rxjs.operators.filter( ( reponse ) => { return reponse % 2 === 0}) , // 6
+            rxjs.operators.map( ( reponse ) => { return reponse * 4}  ),  // 24
+        )
+        let subscription = newTimer$.subscribe( (reponse) => {
+            console.log( reponse )
+        })
+
+        setTimeout( () => {
+            subscription.unsubscribe()
+        }, 15000)
+        
+
+    </script>
+</body>
+</html>
