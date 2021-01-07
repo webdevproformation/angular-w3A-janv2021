@@ -27,17 +27,23 @@ export class FirebaseService {
   }
   getOne<T>(key){
     if(key){
-      return this._db.list("/albums/" + key)
+      return this._db.list("/albums/" + key).valueChanges();
     }
   }
   delete<T>( key ){
     if(key){
-      return this.data.remove( key )
+      return this.data.remove( key );
     }
   }
   update<T>( key , objet ){
     if(key){
-      return this.data.update( key , objet )
+      return this.data.update( key , objet );
+    }
+  }
+
+  set( key , objet){
+    if(key){
+      return this.data.set( key , objet );
     }
   }
   create<T>(objet){ 

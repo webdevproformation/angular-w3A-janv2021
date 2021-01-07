@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+
+        let source$ = rxjs.Observable.create( (observer) => {
+            observer.next([ {id : 2}, {id : 3}]);
+        })
+
+        let sourceModifiee$ = source$.pipe(
+            rxjs.operators.map( function( reponse ){
+                if(reponse[0]){
+                    return reponse[0].id
+                }
+                return null;
+            } )
+         )
+        // ???? quelle opération je dois réaliser pour récupérer 1
+        
+        sourceModifiee$.subscribe( (reponse) => {
+            console.log("sourceModifiee$" , reponse);
+        })
+    </script>
+</body>
+</html>
