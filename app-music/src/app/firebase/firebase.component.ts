@@ -1,9 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 // récupérer tous les enregistrements qui sont stockées dans la balise de données online
-import { AngularFireDatabase } from "@angular/fire/database";
-import { Subscription , Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import { FirebaseService }  from "../services/firebase.service" ;
+import { Subscription , Observable } from "rxjs";
 
 @Component({
   selector: 'app-firebase',
@@ -26,7 +24,7 @@ export class FirebaseComponent implements OnInit   {
     this._firebase.getAll().subscribe( reponse => {
       this.albums = reponse;
     })
-    this._firebase.getOne(1).subscribe( reponse => {
+    this._firebase.getFirst().subscribe( reponse => {
       this.album1 = reponse ;
     })
     this.albums2$ = this._firebase.getAll()

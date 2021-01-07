@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from "@angular/fire/database";
-import { Subscription , Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 @Injectable({
@@ -25,6 +24,19 @@ export class FirebaseService {
       })
     )
   }
+
+  getFirst(){
+    return this.getAll().pipe(
+      map( function( reponse ){
+          if(reponse[0]){
+            return reponse[0];
+          }else {
+            return null
+          }
+      } )
+    )
+  }
+
   getOne<T>(key){
     if(key){
       return this._db.list("/albums/" + key).valueChanges();
