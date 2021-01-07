@@ -33,16 +33,18 @@ export class FirebaseComponent implements OnInit ,OnDestroy  {
     // stocker la partie Observable 
     this.albums$ = this._db.list("/albums").valueChanges()
 
-    /* this.albums2$ =  */ this._db.list("/albums").snapshotChanges()
+    this.albums2$ = this._db.list("/albums").snapshotChanges()
       .pipe( 
-        map( (reponse : any) => reponse.map( function(item :any){ 
-          return { key : item.key , ...item.payload.val() } 
-        }) 
-        )
+        map(  function( reponse ){ 
+          return reponse.map( function( item : any ){ 
+            return { 
+              key : item.key ,
+              ...item.payload.val()
+            }
+           } )
+        })
       )
-      .subscribe( reponse => {
-      console.log(reponse);
-    })
+      
     /**
      * [{ id: 1, key : "a" } , { id: 2, key : "b" }]
      * [{ key : "a" } , { key : "b" }]
@@ -65,5 +67,22 @@ export class FirebaseComponent implements OnInit ,OnDestroy  {
 
   onClickDelete(album){
     console.log(album);
+    if(album.key){
+      this._db.list("/albums").remove(album.key)
+    }
+  }
+
+  onClickUpdate(album){
+    if(album.key){
+      this._db.list("/albums").update(album.key, { name : album.name + " mis à jour avec update"}  )
+      // met à jour le champ que l'on veut modifier 
+    }
+  }
+
+  onClickSet(album){
+    if(album.key){
+      this._db.list("/albums").set(album.key, { name : album.name + " mis à jour avec set"}  )
+      // remplacer l'intégralité de l'enregistrement concerné par la valeur que vous envoyez 
+    }
   }
 }

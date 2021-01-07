@@ -25,9 +25,19 @@
     <div class="col-4">
         <h2>supprimer un album</h2>
         <ul>
-            <li *ngFor="let album of albums$ | async " class="py-2">
+            <li *ngFor="let album of albums2$ | async " class="py-2">
                     {{ album.name }} - <button class="btn btn-dark btn-sm" 
                     (click)="onClickDelete(album)">supprimer</button>
+            </li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <h2>update album</h2>
+        <ul>
+            <li *ngFor="let album of albums2$ | async " class="py-2">
+                    {{ album.name }} - 
+                    <button class="btn btn-warning btn-sm"  (click)="onClickUpdate(album)">update</button>
+                    <button class="btn btn-danger btn-sm ml-3"  (click)="onClickSet(album)">set</button>
             </li>
         </ul>
     </div>
