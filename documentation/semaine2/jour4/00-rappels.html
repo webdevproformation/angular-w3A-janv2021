@@ -1,0 +1,115 @@
+https://github.com/webdevproformation/angular-w3A-janv2021
+
+
+des questions ?? 
+
+programmation en javascript (Typescript)
+=> Callback // Promise => syntaxe que l'on utilise pour réaliser programmation Asynchrone 
+
+=> définit une action qui va se produire plus tard 
+=> dans 2 secondes 
+setTimeout( () => {} , 2000 )
+
+=> suite à une action de la part d'un internaute 
+document.getElementById('el').addEventListener( "click", () => {}  )
+
+=> appel AJAX 
+const requete = new XMLHttpRequest
+
+requete.open("get", "adresse.html")
+requete.send()
+requete.onload = function(){ }
+
+// le développeur quand il saisit ce code => il s'attend à avoir une réponse DEMANDE à la source des données 
+
+----------------------------------- 
+
+RxJS on fait l'inverse => la source de données qui va émettre des informations 
+
+demande - attendre que les données arrivent => 
+la partie du code qui va consommer les informations => abonne à la source de donnée 
+
+------------------------- 
+
+Dans Angular, on utilise la librairie RxJS qui est installée par défaut 
+
+=> on peut l'utiliser telquel 
+=> Router => il l'utilise déjà par défaut 
+
+let stream$ = Observable.create( (observer) => {  
+    observer.next("info");
+    observer.next("info");
+    observer.next("info");
+    observer.error(); // arrêter l'abonnement 
+    observer.next("info");
+    observer.complete(); // la source de données a fini d'envoyer des informations 
+} )
+
+// le stream peut être modifié avant réception de l'abonné 
+// opérateurs 
+
+let streamModifie$ = stream$.pipe( 
+    // opérateurs qui vont modifier la valeur émises
+    // map( ) => charger le contenu ,
+    // filter ( ) => retirer ce qui n'est pas conforme ,
+    // pluck ( ),
+    // chaque transformation fait son travail et passe la main à l'opérateur suivant 
+)
+
+let souscription = streamModifie$.subscribe((reponse) => {
+    // afficher dans la console
+    // affecter une variable => afficher dans le DOM 
+    // faire une action avec une base de données 
+    // .... 
+} , () => { 
+    //erreur
+} , () => { 
+    // quand c'est complete
+})
+
+souscription.unsubscribe(); // arrêter le stream 
+
+// plusieurs manières de créer des observables 
+
+// à partir de donnée 
+let source1$ = of( [1,2], {id : 1}, "bonjour" )
+
+// tableau
+let source2$ = from( [ 1 , 2 ] );
+
+// évènements 
+let source3$ = fromEvent( document.getElementById("el") , "click" )
+
+// à partir d'un timer 
+let source4$ = iterval( 1000 );
+
+// transformer une Promise en un Observable  
+
+let hello = new Promise( function( resolve , reject ){ 
+    /// action 
+    resolve("je dis bonjour !")
+} );
+
+let source5$ = fromPromise( hello );
+
+// https://rxjs.dev/
+
+
+// créer dans le dossier jour4 un fichier html => 01-exo.html 
+
+dans ce fichier appeler rxjs (en version cdn)
+
+deux inputs (deux champs textuels)
+#text1
+#text2
+
+span avec l'id resultat
+
+lorsque vous avez remplis le text1 et champ text2 => remplir la somme deux 
+
+text1 => Bonjour 
+text2 => les amis 
+
+resultat => Bonjour les amis 
+
+utiliser rxjs pour que réaliser ce travail !
