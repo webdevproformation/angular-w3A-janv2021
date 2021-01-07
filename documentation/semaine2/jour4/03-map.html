@@ -81,6 +81,44 @@
         source4Modifiee$.subscribe( ( reponse ) => {
             console.log( "source4Modifiee$" , reponse )
         } );
+        // créer un nouveau fichier 04-exo.html 
+
+        // observable qui emet la valeur suivante 
+
+        /*[ 
+            { 
+                id : 1,
+                livraison : { 
+                    rue : "123 rue du Paradis",
+                    cp : 75000,
+                    ville : "Paris"
+                },
+                nom : "Dufourt"
+            },
+            { 
+                id : 2,
+                livraison : { 
+                    rue : "200 rue du Midi",
+                    cp : 13000,
+                    ville : "Marseille"
+                },
+                nom : "Charles"
+            },
+         ]*/
+
+         // 1 filtrer uniquement les livraisons sur Marseille  filter()
+         // 2 transformer les données => forme suivante  map( )
+        /*  
+            [ 
+                { 
+                    id : 2,
+                    livraison : "200 rue du Midi  13000 Marseille" ,
+                    nom : "Charles"
+                },
+         ]
+        */
+       
+
 
     </script>
 </body>
