@@ -1,0 +1,17 @@
+back office as a service => base de données + communiquer avec rapidement et facilement
+
+=> installer deux packages pour pouvoir faire communiquer 
+Firebase avec notre projet @angular/fire et firebase 
+
+une fois installé et ajouter les config dans les fichiers d'environnement 
+
+
+import { AngularFireDatabase } from "@angular/fire/database";
+
+
+service this._db.list("/albums")
+service this._db.list("/albums").valueChanges() => observable récupérer toutes les données dans la table 
+service this._db.list("/albums").snapshotChanges() => observable récupérer toutes les données dans la table + des informations importantes comme key 
+suppression et modification 
+
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="text1" name="text1" placeholder="text1">
+    <input type="text" id="text2" name="text2" placeholder="text2">
+    <span id="resultat"></span>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+        const text1 = document.querySelector("#text1");
+        const text2 = document.querySelector("#text2");
+        const span = document.querySelector("#resultat");
+
+        let input1$ = rxjs.fromEvent( text1 , "keyup" ).pipe( 
+            rxjs.operators.map( (reponse) => { return reponse.target.value }  )
+        );
+
+        let input2$ = rxjs.fromEvent( text2 , "keyup" ).pipe( 
+            rxjs.operators.map( (reponse) => { return reponse.target.value }  )
+        );
+
+        input1$.subscribe( reponse1 => {
+            input2$.subscribe( reponse2 => {
+                span.innerHTML = reponse1 + " " + reponse2;
+            } )
+        } ) ;
+
+        // écrire dans 1 seule balise html => dépendance entre les sources de données 
+
+        /* input1$.pipe(
+            rxjs.operators.mergeMap( reponse => input2$ )
+        ).subscribe( reponse => {
+            span.innerHTML = reponse
+        }); */
+
+    </script>
+</body>
+</html>
