@@ -39,7 +39,7 @@ export class FirebaseService {
 
   getOne<T>(key){
     if(key){
-      return this._db.list("/albums/" + key).valueChanges();
+      return this._db.object("/albums/" + key).valueChanges();
     }
   }
   delete<T>( key ){

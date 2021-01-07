@@ -31,10 +31,10 @@
                     <td>{{ album.name }}</td>
                     <td>{{ album.ref }}</td>
                     <td>
-                        <a [routerLink]="['/admin/album/update' , album.id ]" class="btn btn-outline-warning">update</a>
+                        <a [routerLink]="['/admin/album/update' , album.key ]" class="btn btn-outline-warning">update</a>
                     </td>
                     <td>
-                        <button (click)="onClickDelete(album.id)"
+                        <button (click)="onClickDelete(album.key)"
                         class="btn btn-outline-danger">
                             delete
                         </button>

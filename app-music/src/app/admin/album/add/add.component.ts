@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MusicService } from "../../../services/music.service";
+import { FirebaseService } from "../../../services/firebase.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -10,14 +10,14 @@ import { Router } from "@angular/router";
 export class AddComponent implements OnInit {
 
   constructor( 
-      private _music : MusicService , 
-      private _route : Router ) { }
+      private _route : Router ,
+      private _firebasemusic : FirebaseService ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(f){
-    console.log(f.value);
+   /*  console.log(f.value); */
     // attribuer des valeurs par défaut aux différents champs du formulaire 
 
     let album = { 
@@ -32,7 +32,7 @@ export class AddComponent implements OnInit {
       tags: f.value.tags || [ "tag1", "tag2" ], 
       like: f.value.like || "Mush" 
     }
-    this._music.add( album );
+    this._firebasemusic.create( album );
     this._route.navigate(["/admin"]);
   }
 }

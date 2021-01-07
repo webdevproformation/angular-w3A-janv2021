@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router } from "@angular/router";
 import { MusicService } from "../../../services/music.service"
+import { FirebaseService } from "../../../services/firebase.service"
 
 @Component({
   selector: 'app-update',
@@ -12,10 +13,15 @@ export class UpdateComponent implements OnInit {
   constructor( 
       private _activeRoute : ActivatedRoute , 
       private _music : MusicService ,
-      private _route : Router ) { }
+      private _route : Router ,
+      private _firebasemusic : FirebaseService ) { }
+      private key ;
   ngOnInit(): void {
     this._activeRoute.paramMap.subscribe( ( reponse ) => {
-      this.album = this._music.find( reponse.get("id") )
+      this.key = reponse.get("id") ;
+      this._firebasemusic.getOne( this.key ).subscribe( response => {
+        this.album = response ;
+      } )
     })
   }
   onSubmit(f){
@@ -27,7 +33,9 @@ export class UpdateComponent implements OnInit {
       f.value.tags = f.value.tags.split(",")
     }
     console.log(f.value.tags);
-    this._music.update( f.value );
+    // this._music.update( f.value );
+    this._firebasemusic.update( this.key , f.value  );
+    
     this._route.navigate(["/admin"]);
   }
 }
