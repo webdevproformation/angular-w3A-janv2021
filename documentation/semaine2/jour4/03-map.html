@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+
+        let source1$ = rxjs.Observable.create( (observer) => {
+            observer.next( [ {id : 1 , nom : "Alain"} , {id:2 , nom : "Béatrice"}] )
+        } )
+
+
+        source1$.subscribe( ( reponse ) => {
+            console.log( "source1$" , reponse )
+        } )
+
+        // je veux que dans ma réponse je n'ai que l'utilisation qui a id = 1
+
+        // opérateur pour filtrer les résultats => map(   )
+
+        let source1Filtre$ = source1$.pipe( 
+            rxjs.operators.map( function( reponse ) {  
+                let resultatFiltre = reponse.filter(  function( item ){  
+                    return item.id === 1
+                } )
+                return  resultatFiltre ;
+            }  )
+        );
+        source1Filtre$.subscribe( ( reponse ) => {
+            console.log( "source1Filtre$" , reponse )
+        } );
+
+        let source1Filtre2$ = source1$.pipe( 
+            rxjs.operators.map(  reponse  =>  reponse.filter(  item  =>  item.id === 1 ) )
+        )
+
+        source1Filtre2$.subscribe( ( reponse ) => {
+            console.log( "source2Filtre$" , reponse )
+        } )
+
+
+        let source3$ = rxjs.Observable.create( (observer) => { 
+            observer.next( [ { id : 1 , prenom : "Alain" , nom : "Dupont"} ,
+                             { id : 2 , prenom : "Béatrice" , nom : "Dufourt"}   ] )
+         } )
+
+         /*
+            [ {key : 1 , nomComplet : "Alain Dupont"}, 
+              {key : 2 , nomComplet : "Béatrice Dufourt"} ]
+
+              opérateur map pour transformer ma source de données 
+              map() = transformer mais donner une valeur => une valeur transformée
+              Attention il ne va pas parcourir chaque item 
+
+              c'est le map()  dans le reponse.map() => parcourir et effecter les modifications
+         */
+
+         let source3Modifiee$ = source3$.pipe( 
+             rxjs.operators.map( function(reponse){ 
+                 let nouveauTableau = reponse.map( function( item ){  
+                     let itemNouveauTableau = { 
+                        key : item.id ,
+                        nomComplet : item.prenom + " " + item.nom
+                     }
+                     return itemNouveauTableau ;
+                 } )
+                 return nouveauTableau ;
+             } )
+         )
+         source3Modifiee$.subscribe( ( reponse ) => {
+            console.log( "source3Modifiee$" , reponse )
+        } );
+
+        let source4Modifiee$ = source3$.pipe( 
+             rxjs.operators.map( reponse =>  reponse.map(  item  => ({ key : item.id , nomComplet : item.prenom + " " + item.nom }))));
+        
+        source4Modifiee$.subscribe( ( reponse ) => {
+            console.log( "source4Modifiee$" , reponse )
+        } );
+
+    </script>
+</body>
+</html>
