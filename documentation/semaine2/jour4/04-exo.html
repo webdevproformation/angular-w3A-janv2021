@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://unpkg.com/rxjs@6.3.3/bundles/rxjs.umd.min.js"></script>
+    <script>
+
+        let source$ = rxjs.Observable.create( ( observer ) => {
+            let data = [ 
+            { 
+                id : 1,
+                livraison : { 
+                    rue : "123 rue du Paradis",
+                    cp : 75000,
+                    ville : "Paris"
+                },
+                nom : "Dufourt"
+            },
+            { 
+                id : 2,
+                livraison : { 
+                    rue : "200 rue du Midi",
+                    cp : 13000,
+                    ville : "Marseille"
+                },
+                nom : "Charles"
+            },
+         ];
+
+            observer.next(data);
+        } );
+        let sourceModifiee$ =  source$.pipe( 
+            rxjs.operators.map( function(reponse) {  
+                let resultat = reponse.filter( function(item) { 
+                    return item.livraison.ville === "Marseille"
+                 } )
+                 return resultat ;
+            } ) ,
+            rxjs.operators.map( function(reponse){ 
+                return reponse.map( function(item) {
+                    return { 
+                        id : item.id ,
+                        livraison : item.livraison.rue + " " + item.livraison.cp + " " + item.livraison.ville,
+                        nom : item.nom
+                    }
+                } )
+             })
+        )
+        sourceModifiee$.subscribe( (reponse) => {
+            console.log(reponse);
+        })
+
+
+    </script>
+</body>
+</html>

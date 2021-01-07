@@ -23,19 +23,19 @@
             rxjs.operators.map( (reponse) => { return reponse.target.value }  )
         );
 
-        input1$.subscribe( reponse1 => {
+       /*  input1$.subscribe( reponse1 => {
             input2$.subscribe( reponse2 => {
                 span.innerHTML = reponse1 + " " + reponse2;
             } )
-        } ) ;
+        } ) ; */
 
         // écrire dans 1 seule balise html => dépendance entre les sources de données 
 
-        /* input1$.pipe(
-            rxjs.operators.mergeMap( reponse => input2$ )
-        ).subscribe( reponse => {
-            span.innerHTML = reponse
-        }); */
+        input1$.pipe(
+            rxjs.operators.mergeMap( reponse1  => input2$.pipe( rxjs.operators.map (reponse2 => reponse1 + " " + reponse2) ) )
+        ).subscribe( reponseCombinee => {
+            span.innerHTML = reponseCombinee
+        }); 
 
     </script>
 </body>
