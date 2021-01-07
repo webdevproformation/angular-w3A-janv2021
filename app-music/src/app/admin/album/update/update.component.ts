@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute , Router } from "@angular/router";
 import { MusicService } from "../../../services/music.service"
-import { FirebaseService } from "../../../services/firebase.service"
+import { FirebaseService } from "../../../services/firebase.service";
+import { Observable} from "rxjs"
 
 @Component({
   selector: 'app-update',
@@ -9,7 +10,7 @@ import { FirebaseService } from "../../../services/firebase.service"
   styleUrls: ['./update.component.scss']
 })
 export class UpdateComponent implements OnInit {
-  album ;
+  album : any = {};
   constructor( 
       private _activeRoute : ActivatedRoute , 
       private _music : MusicService ,
@@ -35,7 +36,7 @@ export class UpdateComponent implements OnInit {
     console.log(f.value.tags);
     // this._music.update( f.value );
     this._firebasemusic.update( this.key , f.value  );
-    
+    // rdv dans 15 => 16h20 !! @ toute suite 
     this._route.navigate(["/admin"]);
   }
 }
