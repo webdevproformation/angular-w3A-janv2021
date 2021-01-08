@@ -1,4 +1,4 @@
-import { trigger , transition , style , animate , animation , keyframes  } from "@angular/animations";
+import { trigger , transition , style , animate , animation , keyframes ,state } from "@angular/animations";
 
 export let apparitionDisparition = trigger ( "apparitionDisparition" , [ 
     transition( "void => *" , [ 
@@ -12,6 +12,7 @@ export let apparitionDisparition = trigger ( "apparitionDisparition" , [
   ] ); 
 
 export let animation1 = trigger ("animation1", [ 
+    state("*", style( { color : "red" , fontSize : "50px"  })),
     transition( "void => *" , [ 
       style( { color : "blue" , fontSize : "10px" } ),
       animate( 5000 , style( { color : "red" , fontSize : "50px"  } ) )

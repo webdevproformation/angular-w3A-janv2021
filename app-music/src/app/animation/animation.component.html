@@ -17,12 +17,16 @@
         </div>
     </section>
     <section  class="col-6">
+        <h1 @titre>Cas pratique final</h1>
+        <p @p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum molestiae cumque voluptatibus perspiciatis ducimus ipsum minus ut temporibus earum animi.</p>
+    </section>
+    <section  class="col-6">
         <h1>keyframe</h1>
         <img src="https://via.placeholder.com/200x150" alt="" @BounceIn>
     </section>
     <section class="col-6">
         <h1>Raccourcis pour les animations</h1>
-        <p @animationP (click)="onClickPRemove()" [innerHTML]="texte"></p>
+        <p @animationP (click)="onClickPRemove()" [innerHTML]="texte" *ngIf="show"></p>
     </section>
     <section  class="col-6">
         <h1>directive ngFor avec trackby</h1>

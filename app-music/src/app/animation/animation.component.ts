@@ -7,10 +7,25 @@ import { trigger , style , animate , transition , keyframes  } from "@angular/an
   templateUrl: './animation.component.html',
   styleUrls: ['./animation.component.scss'],
   animations : [ 
+    trigger("titre",[ 
+      transition(":enter", [
+        style({opacity : 0 , transform:"translateX(200px)"}),
+        animate(1000)
+      ])
+    ]),
+    trigger("p",[
+      transition(":enter", [
+        style({opacity : 0 , transform:"translateY(200px)"}),
+        animate("1000ms 1000ms")
+      ])
+    ]),
     trigger("animationP", [
-      transition(":enter , :leave" , [
+      transition(":enter" , [
         style({opacity : 0 , transform : "translateX(-200px)"}),
         animate( 2000 )
+      ]),
+      transition(":leave", [
+        animate( 2000 , style({opacity : 0 , transform : "translateX(-200px)"}))
       ])
     ]),
     animationComplexe
@@ -29,11 +44,11 @@ export class AnimationComponent implements OnInit {
   jours : Array<string | number> = [] ;
   i : number = 0;
   constructor() { }
-
+  show: boolean = true;
   texte : string = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam maiores eos commodi sunt at quos ex repudiandae inventore, atque expedita.";
 
   onClickPRemove(){
-    this.texte = "" ;
+    this.show = false ;
   }
   ngOnInit(): void {
   }
