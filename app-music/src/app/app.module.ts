@@ -27,7 +27,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-suite.component';
 import { FormProfilComponent } from './form-profil/form-profil.component';
-import { FirebaseComponent } from './firebase/firebase.component'
+import { FirebaseComponent } from './firebase/firebase.component';
+import { AnimationComponent } from './animation/animation.component'
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FirebaseComponent } from './firebase/firebase.component'
     ReactiveFormComponent,
     ReactiveFormSuiteComponent,
     FormProfilComponent,
-    FirebaseComponent
+    FirebaseComponent,
+    AnimationComponent
   ],
   imports: [
     BrowserModule ,
@@ -60,6 +62,7 @@ import { FirebaseComponent } from './firebase/firebase.component'
       {path : "search/:key" , component:SearchComponent},
       {path : "album/:id" , component : AlbumComponent },
       {path : "forbidden" , component : ForbiddenComponent },
+      {path : "animation" , component : AnimationComponent },
       {path : "reactif" , component : ReactiveFormComponent },
       {path : "firebase" , component : FirebaseComponent },
       {path : "form-contact" , component : FormProfilComponent },

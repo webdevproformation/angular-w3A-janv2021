@@ -1,0 +1,13 @@
+<div class="row">
+    <h1 class="col-12">Animation dans Angular</h1>
+    <div class="col-12">
+        <form>
+            <input type="text" name="info" id="info" (keyup.enter)="onKeyupEnter(info)" #info class="form-control">
+        </form>
+        <ul class="list-group mt-3">
+            <li *ngFor="let l of liste" class="list-group-item">
+                {{ l }}
+            </li>
+        </ul>
+    </div>
+</div>
