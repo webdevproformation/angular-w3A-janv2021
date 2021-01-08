@@ -1,0 +1,73 @@
+https://w3techs.com/technologies/overview/javascript_library
+
+Alexia => site qui fait le classement des sites les plus visités dans le monde
+
+10 millions 
+
+https://w3techs.com/technologies/overview/javascript_library
+
+------------------------ 
+
+jquery n'est pas mort 
+
+https://insights.stackoverflow.com/survey/2020
+
+https://www.developpez.com/
+
+----------------------------- 
+
+appel une base de données => plusieurs tables 
+=> chaque table supprimer des éléments 
+=> CRUD 
+=> service => intéressant d'utilisé l'héritage 
+
+=> class ParentService 
+crud 
+
+=> class EnfantSpecialisée 
+nom de la table 
+ajouter des méthodes en plus spécialement dédiées pour le travail sur cette table 
+
+
+class Data{
+    // propriété => appeler n'importe quelle table
+
+    constructeur( private _url , service_pour_appeler_la_bdd  : FirebaseService){
+
+    }
+
+    // méthodes du crud 
+}
+
+FirebaseService 
+
+class Enfant extends{
+    constructeur( private service_pour_appeler_la_bdd : FirebaseService   ){
+        super(  "/albums" )
+    }
+}
+
+// en js ES 6 => OK ça marche !! 
+// Angular => ça marche MAIS injection de dépendance 
+
+new Enfant(  )
+
+class MenuComponent{
+
+    constructeur ( private enfant : Enfant ){
+    }
+}
+
+
+Dans la class parent 
+
+import { Injectable , Inject } from '@angular/core';
+
+constructor( 
+            @Inject(String) private _url : string , 
+            private _db : AngularFireDatabase  ) { }
+
+
+
+
+
