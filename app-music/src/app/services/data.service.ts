@@ -26,7 +26,6 @@ export class DataService {
       })
     )
   }
-
   getFirst(){
     return this.getAll().pipe(
       map( function( reponse ){
@@ -38,7 +37,6 @@ export class DataService {
       } )
     )
   }
-
   getOne<T>(key){
     if(key){
       return this._db.object("/"+ this._url + "/" + key).valueChanges();
@@ -54,7 +52,6 @@ export class DataService {
       return this.data.update( key , objet );
     }
   }
-
   set( key , objet){
     if(key){
       return this.data.set( key , objet );
