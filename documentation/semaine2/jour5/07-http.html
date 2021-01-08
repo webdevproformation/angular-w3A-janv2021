@@ -1,0 +1,50 @@
+Via firebase => notre propre application avec notre propre base de données 
+communiquer avec !! 
+
+API : Application Program Interface 
+Web Service 
+REST API 
+
+appeler une adresse internet 
+
+adresse internet va nous retourner une réponse :
+
+protocole HTTP pour faire communiquer notre Angular (client)  avec un back office
+
+Angular (client)   <=============>   back office ( Firebase / nodeJS / 
+                                                    PHP)  
+
+                    protocole http                             
+
+=> adresse web 
+=> entete des requetes + 
+=> Méthodes HTTP : GET / POST / DELETE / PUT + 
+=> status du protocole 
+
+nous allons utiliser une factice (idéal pour expérimenter les requêtes HTTP)
+fake API / fake webservice => https://jsonplaceholder.typicode.com/
+
+
+section Resources
+
+https://jsonplaceholder.typicode.com/posts fournit un json 
+
+json qui contient 100 enregistrements 
+
+ng g c http
+
+http =>   {path : "http" , component : HttpComponent }
+dans app.module.ts 
+
+-----------------------
+modifier le menu 
+
+// dans app.module.ts => 
+
+import { HttpClientModule } from "@angular/common/http";
+
+et l'import 
+
+-----------------------
+
+http.component.ts 

@@ -1,0 +1,15 @@
+<div class="row mt-5">
+    <div class="col-6">
+        <h1>Liste des articles</h1>
+        <div class="row">
+            <article *ngFor="let article of articles$ | async" class="col-6 card py-3">
+                <h2 class="h4">{{ article.title }}</h2>
+                <p>{{ article.body }}</p>
+                <div>
+                    <button class="btn btn-warning mr-3 btn-sm">update</button>
+                    <button class="btn btn-dark btn-sm">supprimer</button>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFireDatabaseModule } from "@angular/fire/database";
 import { environment } from './../environments/environment';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
@@ -29,7 +30,8 @@ import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
 import { ReactiveFormSuiteComponent } from './reactive-form-suite/reactive-form-suite.component';
 import { FormProfilComponent } from './form-profil/form-profil.component';
 import { FirebaseComponent } from './firebase/firebase.component';
-import { AnimationComponent } from './animation/animation.component'
+import { AnimationComponent } from './animation/animation.component';
+import { HttpComponent } from './http/http.component'
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { AnimationComponent } from './animation/animation.component'
     ReactiveFormSuiteComponent,
     FormProfilComponent,
     FirebaseComponent,
-    AnimationComponent
+    AnimationComponent,
+    HttpComponent
   ],
   imports: [
     BrowserModule ,
@@ -65,6 +68,7 @@ import { AnimationComponent } from './animation/animation.component'
       {path : "forbidden" , component : ForbiddenComponent },
       {path : "animation" , component : AnimationComponent },
       {path : "reactif" , component : ReactiveFormComponent },
+      {path : "http" , component : HttpComponent },
       {path : "firebase" , component : FirebaseComponent },
       {path : "form-contact" , component : FormProfilComponent },
       {path : "reactive-form-suite" , component : ReactiveFormSuiteComponent },
@@ -86,7 +90,8 @@ import { AnimationComponent } from './animation/animation.component'
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: 
   [],
