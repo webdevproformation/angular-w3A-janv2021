@@ -18,3 +18,50 @@ dans la vue liste <ul>
 utiliser bootstrap pour mettre en forme ce composant !!  
 
 ng g c animation
+
+si on veut mettre en place des animations dans Angular 
+système intégré qui permet de gérer les animations 
+
+il suffit d'ajouter la propriété animations dans le décorateur Component du composant
+
+.ts 
+
+animations : [ 
+        trigger( "nom-animation" , [ ] ), // dans les cochets => l'on va décrire l'animation 
+        trigger( "nom-animation2" , [ ] ),
+        trigger( "nom-animation3" , [ 
+            state(),
+            transition("" , [ ]),
+            transition(),
+            transition(),
+        ] ),
+        trigger( "nom-animation4" , [ ] ),
+]
+
+.html 
+
+<h1 @nom-animation> </h1> <!-- le h1 de la page qui va être animé-->
+<ul>
+    <li *ngFor="let i of elements" @nom-animation2></li>
+    <!-- tous les li qui sont générés depuis le ngFor qui vont être animés -->
+</ul>
+
+transition("void => *" , [  ]) => animation d'entrée dans le composant
+transition("* => void" , [ ]) => animation de sortie du composant 
+
+void => *
+* => void 
+
+* == lorsqu'elle est affiché dans le composant 
+void == situation lorsque l'élément html est hors du composant 
+Enter dans le composant ou lorqu'il sort 
+
+
+transition("void => *" , [ 
+    style(/* du css en format js */),
+    animate( duree de la transofmration, style(/* final */) )
+])
+
+// installer un composant au niveau de app.module.ts 
+
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
