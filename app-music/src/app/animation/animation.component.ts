@@ -1,33 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { apparitionDisparition , animation1 } from "../animations" ;
-import { trigger , style , animate , transition , keyframes } from "@angular/animations";
+import { apparitionDisparition , animation1 , bounceInAnimation , animationComplexe  } from "../animations" ;
+import { trigger , style , animate , transition , keyframes  } from "@angular/animations";
 
 @Component({
   selector: 'app-animation',
   templateUrl: './animation.component.html',
   styleUrls: ['./animation.component.scss'],
   animations : [ 
-    trigger( "animationComplexe", [
-      transition("void => *", [
-        animate( 5000 , keyframes([
-          style({ offset : 0.2 , width : "300px" }),
-          style({ offset : 0.5 , width : "10px" }),
-          style({ offset : 1 , width : "200px" }),
-          // https://animate.style/
-          // https://github.com/animate-css/animate.css
-        ]))
+    trigger("animationP", [
+      transition(":enter , :leave" , [
+        style({opacity : 0 , transform : "translateX(-200px)"}),
+        animate( 2000 )
       ])
-    ] ),
+    ]),
+    animationComplexe
+    ,
     trigger("BounceIn", [ 
       transition("void => *" , [ 
-        animate( "2000ms 0s cubic-bezier(0.215, 0.61, 0.355, 1)" , keyframes([ 
-            style({ offset : 0  , opacity: 0 , transform: "scale3d(0.3, 0.3, 0.3)" }),
-            style({ offset : 0.2  , transform: "scale3d(1.1, 1.1, 1.1)" }),
-            style({ offset : 0.4  , transform: "scale3d(0.9, 0.9, 0.9)" }),
-            style({ offset : 0.6  , opacity: 1 , transform: "scale3d(1.03, 1.03, 1.03)" }),
-            style({ offset : 0.8  , transform: "scale3d(0.97, 0.97, 0.97)" }),
-            style({ offset : 1  , transform: "scale3d(1, 1, 1)"  , opacity: 1}),
-        ]))
+        bounceInAnimation
       ])
     ]),
     animation1 ,
@@ -39,6 +29,12 @@ export class AnimationComponent implements OnInit {
   jours : Array<string | number> = [] ;
   i : number = 0;
   constructor() { }
+
+  texte : string = "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam maiores eos commodi sunt at quos ex repudiandae inventore, atque expedita.";
+
+  onClickPRemove(){
+    this.texte = "" ;
+  }
   ngOnInit(): void {
   }
   onKeyupEnter(info : HTMLInputElement){

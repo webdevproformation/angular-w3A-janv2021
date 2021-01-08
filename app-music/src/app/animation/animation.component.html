@@ -20,6 +20,10 @@
         <h1>keyframe</h1>
         <img src="https://via.placeholder.com/200x150" alt="" @BounceIn>
     </section>
+    <section class="col-6">
+        <h1>Raccourcis pour les animations</h1>
+        <p @animationP (click)="onClickPRemove()" [innerHTML]="texte"></p>
+    </section>
     <section  class="col-6">
         <h1>directive ngFor avec trackby</h1>
         <button 
