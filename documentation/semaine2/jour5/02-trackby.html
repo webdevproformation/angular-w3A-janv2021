@@ -1,0 +1,22 @@
+
+
+onClickLoadData(){
+    // si je clique 1 fois => afficher les jours de la semaine 
+    // si je reclique => regénérer telquel 
+    // quand on appelle une liste depuis internet 
+    // les données n'ont pas changés MAIS Angular va regénérer les li dans le DOM 
+    // demander à Angular de garder en mémoire la liste des li 
+    // il va faire une comparaison
+    this.jours = ["lundi" , "mardi" , "mercredi" , this.i];
+    this.i++;
+  }
+
+  jourVerif(index , item){ // bien respecter le nom du deuxième paramètre
+    return item ? item : undefined;
+  }
+
+// ----------------- 
+
+<ul>
+    <li *ngFor="let item of jours ; trackBy jourVerif">{{ item }}</li>
+</ul>

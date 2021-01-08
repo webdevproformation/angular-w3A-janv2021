@@ -1,17 +1,28 @@
 <div class="row">
-    <h1 class="col-12" @animation1>Animation dans Angular</h1>
-    <div class="col-12">
-        <form>
-            <input type="text" name="info" id="info" (keyup.enter)="onKeyupEnter(info)" #info class="form-control">
-        </form>
-        <ul class="list-group mt-3">
-            <li 
-                *ngFor="let l of liste" 
-                class="list-group-item" 
-                @apparitionDisparition 
-                (click)="onClick(l)">
-                {{ l }}
-            </li>
+    <section class="col-6">
+        <h1 class="col-12" @animation1>Animation dans Angular</h1>
+        <div class="col-12">
+            <form>
+                <input type="text" name="info" id="info" (keyup.enter)="onKeyupEnter(info)" #info class="form-control">
+            </form>
+            <ul class="list-group mt-3">
+                <li 
+                    *ngFor="let l of liste" 
+                    class="list-group-item" 
+                    @apparitionDisparition 
+                    (click)="onClick(l)">
+                    {{ l }}
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section  class="col-6">
+        <h1>directive ngFor avec trackby</h1>
+        <button 
+            class="btn btn-success" 
+            (click)="onClickLoadData()">Mis à jour d'une liste</button>
+        <ul>
+            <li *ngFor="let item of jours ; trackBy jourVerif">{{ item }}</li>
         </ul>
-    </div>
+    </section>
 </div>
