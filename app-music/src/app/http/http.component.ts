@@ -21,7 +21,6 @@ export class HttpComponent implements OnInit {
       title : ["titre par défaut"],
       body : ["contenu par défaut"]
     })
-
     this._http.get( this.url ).pipe(
       map( function( reponse : any ){ 
         return reponse.map( function(item){ 
