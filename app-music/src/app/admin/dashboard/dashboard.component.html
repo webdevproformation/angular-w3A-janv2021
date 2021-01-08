@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let album of albums | async ">
+                <tr *ngFor="let album of albums | async; trackBy: albumCheck" @disparition>
                     <td>{{ album.id }}</td>
                     <td>{{ album.name }}</td>
                     <td>{{ album.ref }}</td>
